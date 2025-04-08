@@ -297,3 +297,4 @@ dist
 .pnp.*
 frontend/package-lock.json
 backend/plataform/settings.py
+frontend/package-lock.json
