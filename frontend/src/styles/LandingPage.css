@@ -185,6 +185,159 @@
   color: #666;
 }
 
+/* Seção Pricing */
+.pricing {
+  background: #fff;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.pricing h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.pricing > p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  justify-items: center;
+}
+
+.pricing-card {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 350px;
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-card h3 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #007bff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pricing-card .price {
+  font-size: 26px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.pricing-card .description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+.pricing-card ul li {
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pricing-card ul li::before {
+  content: '✓';
+  color: #007bff;
+  font-weight: bold;
+}
+
+.pricing-card button {
+  padding: 12px 25px;
+  background: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.3s ease;
+}
+
+.pricing-card button:hover {
+  background: #0056b3;
+}
+
+/* Destaque no plano Empresarial */
+.pricing-card.highlighted {
+  background: linear-gradient(135deg, #007bff, #003d99);
+  color: white;
+  transform: scale(1.05);
+}
+
+.pricing-card.highlighted h3,
+.pricing-card.highlighted .price,
+.pricing-card.highlighted .description,
+.pricing-card.highlighted ul li {
+  color: white;
+}
+
+.pricing-card.highlighted ul li::before {
+  color: #fff;
+}
+
+.pricing-card.highlighted button {
+  background: white;
+  color: #007bff;
+}
+
+.pricing-card.highlighted button:hover {
+  background: #f0f0f0;
+}
+
+.highlight-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #ffd700;
+  color: #333;
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 0 0 0 12px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .pricing-cards {
+    grid-template-columns: 1fr;
+  }
+  .pricing-card {
+    max-width: 100%;
+  }
+  .pricing-card.highlighted {
+    transform: scale(1);
+  }
+}
+
 /* Depoimentos */
 .testimonials {
   background: #e9ecef;

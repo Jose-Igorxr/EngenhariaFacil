@@ -9,7 +9,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // Remove o token
-    navigate('/'); // Redireciona pro login
+    navigate('/');
   };
 
   return (

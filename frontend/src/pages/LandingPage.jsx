@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME } from '../constants/company';
-import { FaClock, FaMoneyBillWave, FaUsers, FaLock } from 'react-icons/fa';
+import { FaClock, FaMoneyBillWave, FaUsers, FaLock, FaCheck, FaRocket, FaBuilding } from 'react-icons/fa';
 import '../styles/LandingPage.css';
-
 
 import image01 from '../assets/images/image - 01.jpeg';
 import image02 from '../assets/images/image - 02.jpeg';
 import image03 from '../assets/images/image - 03.jpeg';
 
 const LandingPage = () => {
-  // Array de imagens com captions para o carrossel
   const originalItems = [
     { src: image01, alt: 'Imagem 1', caption: 'Simplifique seus projetos com IA' },
     { src: image02, alt: 'Imagem 2', caption: 'Estimativas precisas em minutos' },
     { src: image03, alt: 'Imagem 3', caption: 'Construa com confiança' },
   ];
 
-  // Array estendido para loop infinito
   const carouselItems = [
     originalItems[originalItems.length - 1],
     ...originalItems,
@@ -49,7 +46,6 @@ const LandingPage = () => {
 
   return (
     <div className="landing-container">
-      {/* Cabeçalho */}
       <header className="landing-header">
         <div className="logo">{COMPANY_NAME}</div>
         <nav className="nav-menu">
@@ -60,7 +56,6 @@ const LandingPage = () => {
         </nav>
       </header>
 
-      {/* Seção Hero com Carrossel */}
       <section className="hero">
         <div className="carousel-container">
           <button className="carousel-btn prev" onClick={prevSlide}>❮</button>
@@ -92,7 +87,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Sessão Sobre / Recursos */}
       <section id="recursos" className="features">
         <h2>Recursos que fazem a diferença</h2>
         <div className="features-list">
@@ -119,7 +113,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Depoimentos */}
       <section className="testimonials">
         <h2>O que dizem nossos clientes</h2>
         <div className="testimonial-items">
@@ -131,10 +124,63 @@ const LandingPage = () => {
             <p>"Economizei tempo e dinheiro utilizando a plataforma. Recomendo a todos!"</p>
             <span>- Marina, Arquiteta</span>
           </div>
+          <div className="testimonial-item">
+            <p>"A interface moderna e os recursos de planejamento me surpreenderam. Nunca foi tão fácil gerenciar um projeto!"</p>
+            <span>- João, Gerente de Obras</span>
+          </div>
+          <div className="testimonial-item">
+            <p>"Os planos se adaptam perfeitamente às necessidades de qualquer obra. Excelente custo-benefício!"</p>
+            <span>- Fernanda, Designer de Interiores</span>
+          </div>
         </div>
       </section>
 
-      {/* Chamada para Ação Final */}
+      {/* Seção de Planos */}
+      <section className="pricing">
+        <h2>Escolha o Plano Perfeito para Sua Obra</h2>
+        <p>Construa com confiança e eficiência com a Obra Fácil</p>
+        <div className="pricing-cards">
+          <div className="pricing-card basic">
+            <h3><FaCheck /> Básico</h3>
+            <p className="price">Grátis</p>
+            <p className="description">Ideal para quem está começando ou testando a plataforma.</p>
+            <ul>
+              <li>Estimativas simples de materiais</li>
+              <li>Limite de 3 projetos por mês</li>
+              <li>Suporte básico via e-mail</li>
+            </ul>
+            <button>Assinar</button>
+          </div>
+          <div className="pricing-card professional">
+            <h3><FaRocket /> Profissional</h3>
+            <p className="price">R$ 19,90/mês</p>
+            <p className="description">Para profissionais que buscam mais recursos e flexibilidade.</p>
+            <ul>
+              <li>Estimativas ilimitadas</li>
+              <li>Exportação de relatórios em PDF</li>
+              <li>Suporte prioritário via chat</li>
+              <li>Acesso ao histórico de projetos</li>
+            </ul>
+            <button>Assinar</button>
+          </div>
+          <div className="pricing-card enterprise highlighted">
+            <div className="highlight-badge">Mais Popular</div>
+            <h3><FaBuilding /> Empresarial</h3>
+            <p className="price">R$ 59,90/mês</p>
+            <p className="description">Solução completa para empresas e grandes projetos.</p>
+            <ul>
+              <li>Acesso multiusuário (até 15 contas)</li>
+              <li>Integração completa via API</li>
+              <li>Suporte dedicado 24/7 com gerente de conta</li>
+              <li>Relatórios avançados com analytics</li>
+              <li>Validação de estimativas com IA personalizada</li>
+              <li>Espaço exclusivo para compartilhamento de projetos</li>
+            </ul>
+            <button>Assinar</button>
+          </div>
+        </div>
+      </section>
+
       <section className="final-cta">
         <h2>Pronto para transformar seu projeto?</h2>
         <Link to="/cadastro">
@@ -142,9 +188,9 @@ const LandingPage = () => {
         </Link>
       </section>
 
-      {/* Rodapé */}
       <footer className="landing-footer" id="contato">
-        <p>&copy; {new Date().getFullYear()} {COMPANY_NAME}. Todos os direitos reservados.</p>      </footer>
+        <p>&copy; {new Date().getFullYear()} {COMPANY_NAME}. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
 };
