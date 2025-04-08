@@ -33,6 +33,18 @@ class RegisterView(generics.CreateAPIView):
 
 # Refresh Token (do SimpleJWT)
 
+from rest_framework import generics
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import UserSerializer, EmailTokenObtainPairSerializer
+
+# View para registro
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+# View para login
+class EmailTokenObtainPairView(TokenObtainPairView):
+    serializer_class = EmailTokenObtainPairSerializer
 
 class RefreshTokenView(TokenRefreshView):
     pass

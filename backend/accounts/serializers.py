@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import authenticate
 
-
+# Serializer para registro
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -12,35 +13,36 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        # Criar o usuário sem hash na senha
-        user = User(
+        user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
-            password=validated_data['password']  # Salva a senha em texto puro
+            password=validated_data['password']
         )
-        user.save()  # Salva diretamente no banco
         return user
 
-
+# Serializer para login
 class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
-    username_field = 'email'  # Substitui o campo padrão 'username' por 'email'
+    username_field = 'email'
 
     def validate(self, attrs):
-        email = attrs.get("email")
-        password = attrs.get("password")
+        email = attrs.get('email')
+        password = attrs.get('password')
 
-        if not email:
+        if not email or not password:
             raise serializers.ValidationError(
-                {"email": "O campo email é obrigatório."})
-        if not password:
-            raise serializers.ValidationError(
-                {"password": "O campo password é obrigatório."})
+                {"detail": "Email e senha são obrigatórios."}
+            )
 
-        user = User.objects.filter(email=email).first()
-        # Compara a senha em texto puro diretamente
-        if user and user.password == password:  # Comparação direta, sem hash
-            attrs['username'] = user.username
-            return super().validate(attrs)
-        else:
+        user = authenticate(
+            request=self.context.get('request'),
+            email=email,
+            password=password
+        )
+
+        if not user:
             raise serializers.ValidationError(
-                {"detail": "Email ou senha inválidos."})
+                {"detail": "Email ou senha inválidos."}
+            )
+
+        attrs['username'] = user.username
+        return super().validate(attrs)
