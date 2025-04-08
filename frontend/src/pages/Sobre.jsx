@@ -1,12 +1,13 @@
 // src/pages/Sobre.jsx
 import React from 'react';
 import '../styles/Sobre.css';
+import { COMPANY_NAME } from '../constants/company';
 
 const Sobre = () => {
   return (
     <div className="sobre-container">
       <div className="sobre-box">
-        <h2 className="title">Engenharia Fácil</h2>
+        <h2 className="title">{COMPANY_NAME}</h2>
         <h3 className="subtitle">Visão Geral do Projeto</h3>
         <p className="text">
           Plataforma de suporte para pessoas que desejam iniciar uma obra, oferecendo auxílio tanto para cidadãos comuns quanto para profissionais da construção civil. Nosso objetivo é simplificar o processo por meio de uma IA capaz de estimar a quantidade média de materiais necessários para a obra. Além disso, a plataforma conta com funcionalidades como perfis de usuários, feedbacks sobre projetos concluídos, validação das estimativas de materiais geradas pela IA e um espaço para compartilhamento de projetos e experiências.
