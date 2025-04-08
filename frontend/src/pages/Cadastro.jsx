@@ -21,7 +21,7 @@ const Cadastro = () => {
         password,
       });
       console.log("Cadastro successful!", response);
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       console.log("Cadastro error", error);
       setError('Erro ao cadastrar. Verifique os dados e tente novamente.');

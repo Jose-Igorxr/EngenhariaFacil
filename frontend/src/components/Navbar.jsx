@@ -1,6 +1,7 @@
 // src/components/Navbar.jsx
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { COMPANY_NAME } from '../constants/company';
 import '../styles/Navbar.css'; // Novo arquivo de estilo pra navbar
 
 const Navbar = () => {
@@ -14,7 +15,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-      <h1>Engenharia Fácil</h1>
+      <h1>{COMPANY_NAME}</h1>
       </div>
       <ul className="navbar-links">
         <li><Link to="/dashboard" className="nav-link">INÍCIO</Link></li>
