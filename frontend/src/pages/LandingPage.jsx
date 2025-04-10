@@ -153,7 +153,7 @@ const LandingPage = () => {
           </div>
           <div className="pricing-card professional">
             <h3><FaRocket /> Profissional</h3>
-            <p className="price">R$ 19,90/mês</p>
+            <p className="price">R$ 49,90/mês</p>
             <p className="description">Para profissionais que buscam mais recursos e flexibilidade.</p>
             <ul>
               <li>Estimativas ilimitadas</li>
@@ -166,7 +166,7 @@ const LandingPage = () => {
           <div className="pricing-card enterprise highlighted">
             <div className="highlight-badge">Mais Popular</div>
             <h3><FaBuilding /> Empresarial</h3>
-            <p className="price">R$ 59,90/mês</p>
+            <p className="price">R$ 99,90/mês</p>
             <p className="description">Solução completa para empresas e grandes projetos.</p>
             <ul>
               <li>Acesso multiusuário (até 15 contas)</li>
