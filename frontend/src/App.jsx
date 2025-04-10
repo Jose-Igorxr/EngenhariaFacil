@@ -5,7 +5,6 @@ import Cadastro from './pages/Cadastro';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import Sobre from './pages/Sobre';
-import Perfil from './pages/Perfil';
 import PrivateLayout from './components/PrivateLayout';
 
 const PrivateRoute = ({ element }) => {
@@ -21,7 +20,6 @@ function App() {
       <Route path="/cadastro" element={<Cadastro />} />
       <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
       <Route path="/sobre" element={<PrivateRoute element={<Sobre />} />} />
-      <Route path="/perfil" element={<PrivateRoute element={<Perfil />} />} />
     </Routes>
   );
 }
