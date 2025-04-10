@@ -1,3 +1,4 @@
+# profiles/views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -10,7 +11,6 @@ class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        # Pega ou cria o perfil do usuário logado
         profile, created = Profile.objects.get_or_create(user=request.user)
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
@@ -32,10 +32,9 @@ class ProfileView(APIView):
             else:
                 return Response({'error': 'Senha atual incorreta'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Edição da foto de perfil
-        if 'profile_picture' in request.FILES:
-            profile.profile_picture = request.FILES['profile_picture']
-            profile.save()
-
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data)
+        # Edição da foto de perfil usando o serializer
+        serializer = ProfileSerializer(profile, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
