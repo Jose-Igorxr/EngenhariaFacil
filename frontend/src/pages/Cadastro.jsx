@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../config';
-import '../styles/Cadastro.css'; // Importe o CSS
+import '../styles/Cadastro.css'; // Importa o CSS
 
 const Cadastro = () => {
   const navigate = useNavigate();
@@ -29,52 +29,64 @@ const Cadastro = () => {
   };
 
   return (
-    <div className="cadastro-container">
-      <div className="cadastro-box">
-        <h2 className="title">Cadastro</h2>
-        <form onSubmit={handleSubmit} className="form">
-          <div className="input-group">
-            <label className="label">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="input"
-              placeholder="Digite seu email"
-            />
-          </div>
-          <div className="input-group">
-            <label className="label">Nome de usuário</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className="input"
-              placeholder="Escolha um nome de usuário"
-            />
-          </div>
-          <div className="input-group">
-            <label className="label">Senha</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="input"
-              placeholder="Digite sua senha"
-            />
-          </div>
-          {error && <p className="error">{error}</p>}
-          <button type="submit" className="button">Cadastrar</button>
-        </form>
-        <p className="login-text">
-          Já tem uma conta?{' '}
-          <Link to="/" className="link">
-            Faça login
-          </Link>
+    <div className="cadastro-page">
+      <div className="cadastro-left">
+        <h1 className="main-title">Engenharia Fácil</h1>
+        <p className="sub-title">
+          Junte-se a nós para simplificar suas obras com tecnologia inteligente!
         </p>
+        <p className="sub-title">
+          Crie sua conta e tenha acesso a ferramentas para calcular materiais,
+          compartilhar projetos e muito mais.
+        </p>
+      </div>
+      <div className="cadastro-right">
+        <div className="cadastro-box">
+          <h2 className="title">Cadastro</h2>
+          <form onSubmit={handleSubmit} className="form">
+            <div className="input-group">
+              <label className="label">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="input"
+                placeholder="Digite seu email"
+              />
+            </div>
+            <div className="input-group">
+              <label className="label">Nome de usuário</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="input"
+                placeholder="Escolha um nome de usuário"
+              />
+            </div>
+            <div className="input-group">
+              <label className="label">Senha</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="input"
+                placeholder="Digite sua senha"
+              />
+            </div>
+            {error && <p className="error">{error}</p>}
+            <button type="submit" className="button">Cadastrar</button>
+          </form>
+          <p className="login-text">
+            Já tem uma conta?{' '}
+            <Link to="/login" className="link">
+              Faça login
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

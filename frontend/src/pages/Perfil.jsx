@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getProfile, updateProfile } from '../services/api';
+import '../styles/Perfil.css';
+import defaultProfileImage from '../assets/images/default-profile.png';  // Importe a imagem padrão
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -13,7 +15,7 @@ const Profile = () => {
       try {
         const data = await getProfile();
         setProfile(data);
-      } catch (error) { 
+      } catch (error) {
         setError('Erro ao carregar o perfil');
         console.error('Erro ao chamar getProfile:', error);
       } finally {
@@ -44,27 +46,26 @@ const Profile = () => {
   };
 
   if (loading) return <p>Carregando...</p>;
-  if (error) return <p>{error}</p>;
-  if (!profile) return <p>Perfil não encontrado</p>;
+  if (error) return <p className="profile-feedback">{error}</p>;
+  if (!profile) return <p className="profile-feedback">Perfil não encontrado</p>;
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="profile-container">
       <h1>Perfil</h1>
-      <div>
+      <div className="profile-info">
         <p><strong>Nome:</strong> {profile.user.username}</p>
         <p><strong>Email:</strong> {profile.user.email}</p>
         <p><strong>Data de criação:</strong> {new Date(profile.created_at).toLocaleDateString()}</p>
-        {profile.profile_picture ? (
-          <img
-            src={profile.profile_picture}
-            alt="Foto de perfil"
-            style={{ width: '100px', height: '100px', borderRadius: '50%' }}
-          />
-        ) : (
-          <p>Sem foto de perfil</p>
-        )}
+
+        {/* Verifica se o usuário tem foto de perfil, caso contrário, usa a imagem padrão */}
+        <img
+          className="profile-image"
+          src={profile.profile_picture ? profile.profile_picture : defaultProfileImage}
+          alt="Foto de perfil"
+        />
       </div>
-      <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
+
+      <form onSubmit={handleSubmit} className="profile-form">
         <label>
           Alterar foto de perfil:
           <input
@@ -77,6 +78,8 @@ const Profile = () => {
           Atualizar Foto
         </button>
       </form>
+
+      {error && <p className="profile-feedback">{error}</p>}
     </div>
   );
 };
