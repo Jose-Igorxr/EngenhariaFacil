@@ -15,7 +15,7 @@ const Cadastro = () => {
     e.preventDefault();
     console.log("Submitting form...", { email, username, password });
     try {
-      const response = await axios.post(`${API_URL}/accounts/register/`, {
+      const response = await axios.post(`${API_URL}/profiles/register/`, {
         email,
         username,
         password,

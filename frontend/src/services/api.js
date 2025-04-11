@@ -48,7 +48,7 @@ api.interceptors.response.use(
 export const login = async (credentials) => {
   console.log("Enviando para login:", credentials);
   try {
-    const response = await axios.post(`${API_URL}/accounts/login/`, credentials, {
+    const response = await axios.post(`${API_URL}/profiles/login/`, credentials, {
       headers: { 'Content-Type': 'application/json' },
     });
     // Armazenar os tokens no localStorage (assumindo que a resposta contém access e refresh)
