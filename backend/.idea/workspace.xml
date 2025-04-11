@@ -5,19 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88a1fc95-97cd-47cc-9bcf-ba7327015794" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/profiles/authentication.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/profiles/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/profile.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/profile.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/steps/profile_steps.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/steps/profile_steps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/api/serializers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/api/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/api/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/profiles/api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/authentication.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/profiles/api/viewsets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plataform/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/plataform/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

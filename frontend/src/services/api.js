@@ -67,7 +67,7 @@ export const getProfile = async () => {
   const token = localStorage.getItem('access_token');
   setAuthToken(token);
   try {
-    const response = await api.get('/profile/');
+    const response = await api.get('/profiles/');
     return response.data;
   } catch (error) {
     console.error("Error fetching profile:", error.response?.data || error.message);
@@ -87,7 +87,7 @@ export const updateProfile = async (data) => {
   if (data.profile_picture) formData.append('profile_picture', data.profile_picture);
 
   try {
-    const response = await api.put('/profile/', formData, {
+    const response = await api.put('/profiles/', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     return response.data;
