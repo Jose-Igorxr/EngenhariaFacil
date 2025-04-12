@@ -3,10 +3,10 @@ import { API_URL } from '../config';
 
 // Criar instância do axios com baseURL
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: API_URL || '/api',
 });
 
-// Função para configurar o token nos headers
+// Configura o token JWT no header
 const setAuthToken = (token) => {
   if (token) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -15,7 +15,7 @@ const setAuthToken = (token) => {
   }
 };
 
-// Interceptar respostas para renovar o token automaticamente
+// Interceptador para renovar token automaticamente
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -24,8 +24,8 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = localStorage.getItem('refresh_token');
-        const response = await axios.post(`${API_URL}/token/refresh/`, { refresh: refreshToken }, {
-          headers: { 'Content-Type': 'application/json' },
+        const response = await axios.post(`${API_URL}/profiles/token/refresh/`, {
+          refresh: refreshToken,
         });
         const newAccessToken = response.data.access;
         localStorage.setItem('access_token', newAccessToken);
@@ -33,7 +33,6 @@ api.interceptors.response.use(
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
-        console.error('Erro ao renovar token:', refreshError.response?.data || refreshError.message);
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         window.location.href = '/login';
@@ -44,55 +43,45 @@ api.interceptors.response.use(
   }
 );
 
-// Função de login (mantida do seu código, com ajustes para JWT)
+// Login
 export const login = async (credentials) => {
-  console.log("Enviando para login:", credentials);
-  try {
-    const response = await axios.post(`${API_URL}/profiles/login/`, credentials, {
-      headers: { 'Content-Type': 'application/json' },
-    });
-    // Armazenar os tokens no localStorage (assumindo que a resposta contém access e refresh)
-    localStorage.setItem('access_token', response.data.access);
-    localStorage.setItem('refresh_token', response.data.refresh);
-    setAuthToken(response.data.access); // Configurar o token imediatamente
-    return response.data;
-  } catch (error) {
-    console.error("Error during login:", error.response?.data || error.message);
-    throw new Error('Erro ao fazer login');
-  }
+  const response = await axios.post(`${API_URL}/profiles/login/`, credentials, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const { access, refresh } = response.data;
+  localStorage.setItem('access_token', access);
+  localStorage.setItem('refresh_token', refresh);
+  setAuthToken(access);
+  return response.data;
 };
 
-// Função para pegar os dados do perfil
+// Obter perfil do usuário autenticado
 export const getProfile = async () => {
   const token = localStorage.getItem('access_token');
+  console.log("📦 Token acessado:", token);
   setAuthToken(token);
   try {
-    const response = await api.get('/profiles/');
+    const response = await api.get('/profiles/me/');
+    console.log("✅ Dados do perfil recebidos:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Error fetching profile:", error.response?.data || error.message);
-    throw new Error('Erro ao carregar perfil');
+    console.error("❌ Erro ao carregar perfil:", error.response?.data || error.message);
+    throw error; // Propagar erro para o componente
   }
 };
 
-// Função para atualizar o perfil
+// Atualizar perfil
 export const updateProfile = async (data) => {
   const token = localStorage.getItem('access_token');
   setAuthToken(token);
-
-  const formData = new FormData();
-  if (data.username) formData.append('username', data.username);
-  if (data.current_password) formData.append('current_password', data.current_password);
-  if (data.new_password) formData.append('new_password', data.new_password);
-  if (data.profile_picture) formData.append('profile_picture', data.profile_picture);
-
   try {
-    const response = await api.put('/profiles/', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+    const response = await api.put('/profiles/me/', data, {
+      headers: { 'Content-Type': 'application/json' },
     });
+    console.log("✅ Perfil atualizado:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Error updating profile:", error.response?.data || error.message);
-    throw new Error('Erro ao atualizar perfil');
+    console.error("❌ Erro ao atualizar perfil:", error.response?.data || error.message);
+    throw error;
   }
 };

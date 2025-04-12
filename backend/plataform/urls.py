@@ -6,8 +6,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/profiles/', include('profiles.urls')),
+    path('api/profiles/', include('profiles.urls')),  # Confirme que está assim
     path('api/token/', TokenObtainPairView.as_view(),
          name='token_obtain_pair'),  # Login
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/refresh/', TokenRefreshView.as_view(),
+         name='token_refresh'),  # Refresh do token
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

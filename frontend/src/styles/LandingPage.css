@@ -1,9 +1,26 @@
+/* RESET GERAL */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ícones */
+svg, .feature-icon {
+  color: #FFFFFF !important;
+  font-size: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-block;
+}
+
 /* Container Principal */
 .landing-container {
   font-family: Arial, sans-serif;
-  color: #333;
-  background-color: #f5f5f5;
+  color: #FFFFFF;
+  background-color: #212121;
   overflow-x: hidden;
+  /* Removido padding-bottom para eliminar espaço abaixo do footer */
 }
 
 /* Cabeçalho */
@@ -11,53 +28,70 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #007bff;
-  padding: 15px 30px;
-  color: white;
+  background: linear-gradient(90deg, #2C3E50, #1A252F);
+  padding: 20px 40px;
+  color: #FFFFFF;
+  /* Removido border-bottom */
 }
 
 .landing-header .logo {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
+  color: #FFFFFF;
 }
 
 .nav-menu a {
-  margin-left: 20px;
-  color: white;
+  margin-left: 25px;
+  color: #FFFFFF;
   text-decoration: none;
   font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
 .nav-menu a:hover {
-  text-decoration: underline;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
 }
 
 .login-link {
-  border: 1px solid white;
-  padding: 5px 10px;
-  border-radius: 4px;
+  border: 2px solid #FFFFFF;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #FFFFFF;
+  transition: background-color 0.3s ease;
 }
 
-/* Seção Hero */
+.login-link:hover {
+  background-color: #FFFFFF;
+  color: #2C3E50;
+}
+
+/* Hero */
 .hero {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #e9ecef;
-  padding: 40px 20px;
+  background: #212121;
+  padding: 60px 20px;
+  color: #FFFFFF;
+  text-align: center;
 }
 
 .carousel-container {
   position: relative;
   width: 100%;
   max-width: 800px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .carousel {
   width: 100%;
   overflow: hidden;
   border-radius: 8px;
+  border: 1px solid #FFFFFF;
 }
 
 .carousel-inner {
@@ -83,8 +117,8 @@
   bottom: 20px;
   left: 20px;
   font-size: 22px;
-  color: white;
-  background: rgba(0, 0, 0, 0.4);
+  color: #FFFFFF;
+  /* Removido fundo para eliminar contraste */
   padding: 8px 16px;
   border-radius: 8px;
 }
@@ -93,13 +127,14 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
+  background: #FFFFFF;
+  color: #2C3E50;
   border: none;
   padding: 10px;
   cursor: pointer;
   font-size: 18px;
   border-radius: 50%;
+  transition: background 0.3s ease;
 }
 
 .carousel-btn.prev {
@@ -111,49 +146,52 @@
 }
 
 .carousel-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.hero-content {
-  text-align: center;
-  max-width: 700px;
+  background: #F0F2F5;
 }
 
 .hero-content h1 {
   font-size: 38px;
   margin-bottom: 20px;
+  color: #FFFFFF;
+  /* Removido text-shadow para eliminar contraste */
 }
 
 .hero-content p {
   font-size: 18px;
   margin-bottom: 30px;
+  color: #F0F2F5;
 }
 
 .cta-button {
   padding: 15px 30px;
-  background: #007bff;
-  border: none;
-  color: white;
+  background: #FFFFFF;
+  color: #2C3E50;
   font-size: 18px;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease;
+  border: 2px solid #2C3E50;
 }
 
 .cta-button:hover {
-  background: #0056b3;
+  background: #F0F2F5;
 }
 
-/* Seção Features */
+/* Features */
 .features {
-  background: white;
-  padding: 40px 20px;
+  background: #212121;
+  padding: 60px 20px;
   text-align: center;
+  color: #FFFFFF;
 }
 
 .features h2 {
   font-size: 32px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  color: #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  display: inline-block;
+  padding-bottom: 10px;
 }
 
 .features-list {
@@ -163,15 +201,14 @@
 }
 
 .feature-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  background: #2C3E50;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  border: 1px solid #FFFFFF;
 }
 
 .feature-icon {
-  font-size: 36px;
-  color: #007bff;
   margin-bottom: 15px;
 }
 
@@ -182,26 +219,29 @@
 
 .feature-item p {
   font-size: 16px;
-  color: #666;
+  color: #F0F2F5;
 }
 
-/* Seção Pricing */
+/* Pricing */
 .pricing {
-  background: #fff;
-  padding: 60px 20px;
+  background: #212121;
+  padding: 80px 20px;
   text-align: center;
+  color: #FFFFFF;
 }
 
 .pricing h2 {
   font-size: 36px;
-  margin-bottom: 15px;
-  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #FFFFFF;
+  display: inline-block;
+  padding-bottom: 10px;
 }
 
 .pricing > p {
   font-size: 18px;
-  color: #666;
-  margin-bottom: 40px;
+  color: #F0F2F5;
+  margin-bottom: 50px;
 }
 
 .pricing-cards {
@@ -212,26 +252,25 @@
 }
 
 .pricing-card {
-  background: #f8f8f8;
+  background: #2C3E50;
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
-  width: 100%;
   max-width: 350px;
+  border: 1px solid #FFFFFF;
 }
 
 .pricing-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
 }
 
 .pricing-card h3 {
   font-size: 28px;
   margin-bottom: 15px;
-  color: #007bff;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -239,15 +278,14 @@
 
 .pricing-card .price {
   font-size: 26px;
-  color: #333;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
 .pricing-card .description {
   font-size: 16px;
-  color: #666;
   margin-bottom: 20px;
+  color: #F0F2F5;
 }
 
 .pricing-card ul {
@@ -259,7 +297,6 @@
 .pricing-card ul li {
   margin-bottom: 12px;
   font-size: 16px;
-  color: #333;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -267,87 +304,63 @@
 
 .pricing-card ul li::before {
   content: '✓';
-  color: #007bff;
-  font-weight: bold;
+  color: #FFFFFF;
+  margin-right: 8px;
 }
 
 .pricing-card button {
   padding: 12px 25px;
-  background: #007bff;
-  border: none;
+  background: #FFFFFF;
+  border: 2px solid #2C3E50;
   border-radius: 6px;
-  color: white;
+  color: #212121;
   cursor: pointer;
   font-size: 18px;
   transition: background 0.3s ease;
 }
 
 .pricing-card button:hover {
-  background: #0056b3;
+  background: #F0F2F5;
 }
 
 /* Destaque no plano Empresarial */
 .pricing-card.highlighted {
-  background: linear-gradient(135deg, #007bff, #003d99);
-  color: white;
+  background: linear-gradient(135deg, #212121, #2C3E50);
+  border: 2px solid #FFFFFF;
   transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
 }
 
-.pricing-card.highlighted h3,
-.pricing-card.highlighted .price,
-.pricing-card.highlighted .description,
-.pricing-card.highlighted ul li {
-  color: white;
-}
-
-.pricing-card.highlighted ul li::before {
-  color: #fff;
-}
-
-.pricing-card.highlighted button {
-  background: white;
-  color: #007bff;
-}
-
-.pricing-card.highlighted button:hover {
-  background: #f0f0f0;
+.pricing-card.highlighted:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
 }
 
 .highlight-badge {
   position: absolute;
-  top: 0px;
+  top: 0;
   right: -10px;
-  background: #ffd700;
-  color: #333;
-  padding: 5px 15px;
+  background: #FFFFFF;
+  color: #2C3E50;
+  padding: 6px 18px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 0 0 0 12px;
 }
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-  .pricing-cards {
-    grid-template-columns: 1fr;
-  }
-  .pricing-card {
-    max-width: 100%;
-  }
-  .pricing-card.highlighted {
-    transform: scale(1);
-  }
-}
-
-/* Depoimentos */
+/* Testimonials */
 .testimonials {
-  background: #e9ecef;
-  padding: 40px 20px;
+  background: #212121;
+  padding: 60px 20px;
   text-align: center;
 }
 
 .testimonials h2 {
   font-size: 32px;
   margin-bottom: 30px;
+  border-bottom: 2px solid #FFFFFF;
+  display: inline-block;
+  padding-bottom: 10px;
 }
 
 .testimonial-items {
@@ -358,39 +371,66 @@
 }
 
 .testimonial-item {
-  background: white;
+  background: #2C3E50;
   padding: 20px;
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  border: 1px solid #FFFFFF;
 }
 
 .testimonial-item p {
   margin-bottom: 15px;
+  color: #F0F2F5;
 }
 
 .testimonial-item span {
   font-weight: bold;
-  color: #007bff;
-}
-
-/* Chamada para Ação Final */
-.final-cta {
-  background: white;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.final-cta h2 {
-  font-size: 32px;
-  margin-bottom: 30px;
+  background: #FFFFFF;
+  color: #2C3E50;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 /* Rodapé */
 .landing-footer {
-  background: #007bff;
-  color: white;
+  background: #2C3E50;
+  color: #FFFFFF;
   text-align: center;
-  padding: 20px;
+  padding: 40px 20px;
   font-size: 14px;
+  border-top: 2px solid #FFFFFF;
+}
+
+.landing-footer p {
+  margin-bottom: 15px;
+}
+
+.landing-footer a {
+  color: #FFFFFF;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.landing-footer a:hover {
+  color: #F0F2F5;
+}
+
+.footer-links {
+  margin-top: 20px;
+}
+
+.footer-links a {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid #FFFFFF;
+  border-radius: 4px;
+  margin: 5px;
+}
+
+.footer-links a:hover {
+  background: #FFFFFF;
+  color: #2C3E50;
 }
 
 /* Responsividade */
@@ -409,7 +449,21 @@
 
   .features h2,
   .testimonials h2,
-  .final-cta h2 {
+  .pricing h2 {
     font-size: 28px;
+  }
+
+  .pricing-cards,
+  .features-list,
+  .testimonial-items {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel-image {
+    height: 200px;
+  }
+
+  .landing-footer {
+    padding: 30px 10px;
   }
 }

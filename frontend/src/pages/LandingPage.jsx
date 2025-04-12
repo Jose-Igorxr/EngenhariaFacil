@@ -10,9 +10,9 @@ import image03 from '../assets/images/image - 03.jpeg';
 
 const LandingPage = () => {
   const originalItems = [
-    { src: image01, alt: 'Imagem 1', caption: 'Simplifique seus projetos com IA' },
-    { src: image02, alt: 'Imagem 2', caption: 'Estimativas precisas em minutos' },
-    { src: image03, alt: 'Imagem 3', caption: 'Construa com confiança' },
+    { src: image01, alt: 'Imagem 1', caption: 'Planeje sua obra com precisão' },
+    { src: image02, alt: 'Imagem 2', caption: 'Estimativas confiáveis com IA' },
+    { src: image03, alt: 'Imagem 3', caption: 'Conecte-se e colabore' },
   ];
 
   const carouselItems = [
@@ -49,9 +49,6 @@ const LandingPage = () => {
       <header className="landing-header">
         <div className="logo">{COMPANY_NAME}</div>
         <nav className="nav-menu">
-          <Link to="/sobre">Sobre</Link>
-          <Link to="#recursos">Recursos</Link>
-          <Link to="#contato">Contato</Link>
           <Link to="/login" className="login-link">Entrar</Link>
         </nav>
       </header>
@@ -79,117 +76,111 @@ const LandingPage = () => {
           <button className="carousel-btn next" onClick={nextSlide}>❯</button>
         </div>
         <div className="hero-content">
-          <h1>Planeje sua obra com inteligência</h1>
-          <p>Descubra como a nossa plataforma simplifica o planejamento e a execução de projetos de construção com o uso de IA.</p>
+          <h1>Construa com Inteligência e Simplicidade</h1>
+          <p>Engenharia Fácil utiliza IA avançada para estimar materiais, otimizar projetos e conectar profissionais e iniciantes em uma plataforma colaborativa.</p>
           <Link to="/cadastro">
-            <button className="cta-button">Comece Agora</button>
+            <button className="cta-button">Experimente Grátis</button>
           </Link>
         </div>
       </section>
 
       <section id="recursos" className="features">
-        <h2>Recursos que fazem a diferença</h2>
+        <h2>Por que Escolher a Engenharia Fácil?</h2>
         <div className="features-list">
           <div className="feature-item">
             <FaClock className="feature-icon" />
-            <h3>Agilidade</h3>
-            <p>Obtenha estimativas em minutos e acelere o planejamento do seu projeto.</p>
+            <h3>Rapidez</h3>
+            <p>Gere estimativas precisas de materiais em minutos com nossa IA treinada em milhares de obras.</p>
           </div>
           <div className="feature-item">
             <FaMoneyBillWave className="feature-icon" />
-            <h3>Eficiência</h3>
-            <p>Reduza desperdícios e otimize os investimentos na sua obra.</p>
+            <h3>Economia</h3>
+            <p>Evite desperdícios planejando com dados confiáveis e otimize seu orçamento.</p>
           </div>
           <div className="feature-item">
             <FaUsers className="feature-icon" />
-            <h3>Comunidade</h3>
-            <p>Conecte-se com outros profissionais e compartilhe experiências.</p>
+            <h3>Colaboração</h3>
+            <p>Compartilhe projetos, receba feedback e conecte-se com a comunidade da construção civil.</p>
           </div>
           <div className="feature-item">
             <FaLock className="feature-icon" />
-            <h3>Segurança</h3>
-            <p>Tenha a garantia de que seus dados estão sempre protegidos.</p>
+            <h3>Confiabilidade</h3>
+            <p>Valide estimativas com dados reais e proteja seus projetos com segurança de ponta.</p>
           </div>
         </div>
       </section>
 
       <section className="testimonials">
-        <h2>O que dizem nossos clientes</h2>
+        <h2>Histórias de Sucesso</h2>
         <div className="testimonial-items">
           <div className="testimonial-item">
-            <p>"A {COMPANY_NAME} transformou completamente a forma como planejamos nossas obras. Simples e eficiente!"</p>
-            <span>- Carlos, Engenheiro</span>
+            <p>"A Engenharia Fácil simplificou o planejamento das minhas obras. A IA é impressionante e economizou horas de trabalho!"</p>
+            <span>- André, Engenheiro Civil</span>
           </div>
           <div className="testimonial-item">
-            <p>"Economizei tempo e dinheiro utilizando a plataforma. Recomendo a todos!"</p>
-            <span>- Marina, Arquiteta</span>
+            <p>"Como iniciante, consegui planejar minha reforma com confiança. A plataforma é intuitiva e os dados são confiáveis."</p>
+            <span>- Luiza, Proprietária</span>
           </div>
           <div className="testimonial-item">
-            <p>"A interface moderna e os recursos de planejamento me surpreenderam. Nunca foi tão fácil gerenciar um projeto!"</p>
-            <span>- João, Gerente de Obras</span>
+            <p>"A validação das estimativas e o espaço colaborativo transformaram a gestão dos meus projetos. Altamente recomendável!"</p>
+            <span>- Marcos, Gerente de Construção</span>
           </div>
           <div className="testimonial-item">
-            <p>"Os planos se adaptam perfeitamente às necessidades de qualquer obra. Excelente custo-benefício!"</p>
-            <span>- Fernanda, Designer de Interiores</span>
+            <p>"Os relatórios detalhados e o suporte dedicado fazem toda a diferença para nossa equipe. Melhor investimento!"</p>
+            <span>- Ana, Diretora de Construtora</span>
           </div>
         </div>
       </section>
 
-      {/* Seção de Planos */}
       <section className="pricing">
-        <h2>Escolha o Plano Perfeito para Sua Obra</h2>
-        <p>Construa com confiança e eficiência com a Obra Fácil</p>
+        <h2>Planos para Todos os Projetos</h2>
+        <p>Escolha o plano ideal e construa com precisão, eficiência e colaboração.</p>
         <div className="pricing-cards">
           <div className="pricing-card basic">
             <h3><FaCheck /> Básico</h3>
             <p className="price">Grátis</p>
-            <p className="description">Ideal para quem está começando ou testando a plataforma.</p>
+            <p className="description">Perfeito para iniciantes ou pequenas reformas.</p>
             <ul>
-              <li>Estimativas simples de materiais</li>
-              <li>Limite de 3 projetos por mês</li>
-              <li>Suporte básico via e-mail</li>
+              <li>Estimativas básicas de materiais com IA</li>
+              <li>Limite de 2 projetos por mês</li>
+              <li>Acesso ao fórum da comunidade</li>
+              <li>Suporte via e-mail (resposta em até 48h)</li>
             </ul>
-            <button>Assinar</button>
+            <button>Começar Grátis</button>
           </div>
           <div className="pricing-card professional">
             <h3><FaRocket /> Profissional</h3>
-            <p className="price">R$ 49,90/mês</p>
-            <p className="description">Para profissionais que buscam mais recursos e flexibilidade.</p>
+            <p className="price">R$ 99,90/mês</p>
+            <p className="description">Ideal para profissionais que buscam eficiência e precisão.</p>
             <ul>
-              <li>Estimativas ilimitadas</li>
-              <li>Exportação de relatórios em PDF</li>
-              <li>Suporte prioritário via chat</li>
-              <li>Acesso ao histórico de projetos</li>
+              <li>Estimativas ilimitadas com validação de IA</li>
+              <li>Exportação de relatórios em PDF e Excel</li>
+              <li>Feedback e compartilhamento de projetos</li>
+              <li>Suporte prioritário via chat (resposta em até 12h)</li>
+              <li>Acesso ao histórico completo de projetos</li>
             </ul>
-            <button>Assinar</button>
+            <button>Assinar Agora</button>
           </div>
           <div className="pricing-card enterprise highlighted">
             <div className="highlight-badge">Mais Popular</div>
             <h3><FaBuilding /> Empresarial</h3>
-            <p className="price">R$ 99,90/mês</p>
-            <p className="description">Solução completa para empresas e grandes projetos.</p>
+            <p className="price">R$ 249,90/mês</p>
+            <p className="description">Solução completa para empresas e grandes obras.</p>
             <ul>
-              <li>Acesso multiusuário (até 15 contas)</li>
-              <li>Integração completa via API</li>
+              <li>Acesso multiusuário (até 20 contas)</li>
+              <li>Integração avançada via API</li>
+              <li>Validação personalizada de estimativas com IA</li>
+              <li>Relatórios analíticos com insights de obras</li>
+              <li>Espaço colaborativo para equipes e clientes</li>
               <li>Suporte dedicado 24/7 com gerente de conta</li>
-              <li>Relatórios avançados com analytics</li>
-              <li>Validação de estimativas com IA personalizada</li>
-              <li>Espaço exclusivo para compartilhamento de projetos</li>
             </ul>
-            <button>Assinar</button>
+            <button>Assinar Agora</button>
           </div>
         </div>
       </section>
 
-      <section className="final-cta">
-        <h2>Pronto para transformar seu projeto?</h2>
-        <Link to="/cadastro">
-          <button className="cta-button">Cadastre-se Gratuitamente</button>
-        </Link>
-      </section>
-
       <footer className="landing-footer" id="contato">
-        <p>&copy; {new Date().getFullYear()} {COMPANY_NAME}. Todos os direitos reservados.</p>
+        <p>© {new Date().getFullYear()} {COMPANY_NAME}. Todos os direitos reservados.</p>
       </footer>
     </div>
   );

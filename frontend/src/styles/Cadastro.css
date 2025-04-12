@@ -1,3 +1,14 @@
+/* ===== RESET CSS ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: Arial, sans-serif;
+}
+
 /* Container principal dividido em duas áreas */
 .cadastro-page {
   display: flex;
@@ -9,7 +20,7 @@
 /* Painel esquerdo com títulos e mensagem */
 .cadastro-left {
   flex: 1;
-  background-color: #2c3e50; /* Fundo escuro para a área esquerda */
+  background-color: #2c3e50;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -36,13 +47,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #212121; /* Fundo escuro para a área direita */
+  background-color: #212121;
   padding: 20px;
 }
 
 /* Estilização da caixa de cadastro */
 .cadastro-box {
-  background-color: #fff; /* Caixa com fundo branco */
+  background-color: #fff;
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -60,7 +71,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px; /* Distância entre os campos diminuída */
 }
 
 .input-group {
@@ -69,7 +80,7 @@
 
 .label {
   font-size: 14px;
-  color: #555;
+  color: #212121 !important; /* Força a cor escura */
   margin-bottom: 5px;
   display: block;
 }
@@ -88,8 +99,52 @@
   border-color: #212121 !important;
 }
 
+.input.invalid {
+  border-color: #ff6b6b;
+}
+
+.input:disabled {
+  background-color: #f0f2f5;
+  cursor: not-allowed;
+}
+
+.input::placeholder {
+  color: rgba(33, 33, 33, 0.5); /* Placeholder escurecido */
+  opacity: 1;
+}
+
+.password-requirements {
+  list-style: none;
+  margin-top: 10px;
+  padding: 0;
+  font-size: 12px;
+  color: #555;
+}
+
+.password-requirements li {
+  margin-bottom: 5px;
+}
+
+.password-requirements li.valid {
+  color: #4caf50;
+}
+
+.password-requirements li.valid::before {
+  content: '✓ ';
+  color: #4caf50;
+}
+
+.password-requirements li.invalid {
+  color: #ff6b6b;
+}
+
+.password-requirements li.invalid::before {
+  content: '✗ ';
+  color: #ff6b6b;
+}
+
 .error {
-  color: red;
+  color: #ff6b6b;
   font-size: 14px;
   margin: 10px 0;
 }
@@ -105,8 +160,13 @@
   transition: background-color 0.3s;
 }
 
-.button:hover {
+.button:hover:not(:disabled) {
   background-color: #171717 !important;
+}
+
+.button:disabled {
+  background-color: #3a3a3a;
+  cursor: not-allowed;
 }
 
 .login-text {
@@ -121,20 +181,25 @@
   font-weight: bold;
 }
 
-/* Responsividade: em telas menores, as áreas ficam empilhadas */
+.link:hover {
+  color: #171717 !important;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
   .cadastro-page {
     flex-direction: column;
   }
-  
-  .cadastro-left, .cadastro-right {
+
+  .cadastro-left,
+  .cadastro-right {
     flex: initial;
     width: 100%;
     padding: 20px;
     text-align: center;
     align-items: center;
   }
-  
+
   .cadastro-left {
     padding: 20px;
   }

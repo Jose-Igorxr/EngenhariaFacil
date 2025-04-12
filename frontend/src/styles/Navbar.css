@@ -1,50 +1,75 @@
-/* src/styles/Navbar.css */
+/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Já tá correto pra alinhar verticalmente */
-  background-color: #ffffff;
-  padding: 10px 20px;
-  color: #000000;
+  align-items: center;
+  background: linear-gradient(90deg, #2C3E50, #1A252F);
+  padding: 20px 40px;
+  color: #FFFFFF;
 }
 
-.navbar-brand h1 {
-  margin: 0;
-  font-size: 24px;
+.navbar .logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #FFFFFF;
 }
 
-.navbar-links {
-  list-style: none;
+.nav-menu {
   display: flex;
-  align-items: center; /* Adiciona isso pra centralizar os itens dentro do ul */
-  margin: 0;
-  padding: 0;
+  align-items: center;
 }
 
-.navbar-links li {
-  margin-left: 20px;
-}
-
-.nav-link {
-  color: #000000;
+.nav-menu .nav-link {
+  margin-left: 25px;
+  color: #FFFFFF;
   text-decoration: none;
   font-size: 16px;
-}
-
-.nav-link:hover {
-  color: #007bff;
-}
-
-.logout-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
   padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
-.logout-button:hover {
-  background-color: #0056b3;
+.nav-menu .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-menu .logout-link {
+  margin-left: 25px;
+  border: 2px solid #FFFFFF;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-menu .logout-link:hover {
+  background-color: #FFFFFF;
+  color: #2C3E50;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-menu {
+    margin-top: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .nav-menu .nav-link,
+  .nav-menu .logout-link {
+    margin-left: 0;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
 }

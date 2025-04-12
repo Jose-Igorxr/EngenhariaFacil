@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/api';
-import '../styles/Login.css'; // Importando o CSS
+import '../styles/Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,14 +11,29 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form...", { email, password });
+
+    console.log("🚀 Formulário de login enviado");
+    console.log("📧 Email:", email);
+    console.log("🔒 Senha:", password);
+
     try {
       const response = await login({ email, password });
-      console.log("Login successful!", response);
-      localStorage.setItem('token', response.access);
-      navigate('/dashboard'); // Redireciona para o dashboard
+      console.log("✅ Login realizado com sucesso");
+      console.log("📦 Tokens recebidos:", response);
+
+      // Salvando tokens
+      localStorage.setItem('access_token', response.access);
+      localStorage.setItem('refresh_token', response.refresh);
+
+      console.log("💾 Tokens salvos no localStorage");
+
+      navigate('/Home'); // Redireciona para o Home
     } catch (error) {
-      console.log("Login error", error);
+      console.error("❌ Erro ao fazer login:", error.message);
+      if (error.response) {
+        console.error("📡 Resposta do servidor:", error.response.data);
+      }
+
       setError('Email ou senha inválidos');
     }
   };
