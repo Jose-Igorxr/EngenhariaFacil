@@ -11,6 +11,7 @@ urlpatterns = [
          name='token_obtain_pair'),  # Login
     path('api/token/refresh/', TokenRefreshView.as_view(),
          name='token_refresh'),  # Refresh do token
+    path('api/postagens/', include('postagens.api.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
