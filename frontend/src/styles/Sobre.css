@@ -1,42 +1,142 @@
-/* src/styles/Sobre.css */
-.sobre-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #f5f5f5; /* Fundo claro, igual ao dashboard */
+/* About.css */
+
+.about-section {
+  width: 100%;
+  padding: 60px 20px;
+  background-color: #f9fafb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .about-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
   }
-  
-  .sobre-box {
-    max-width: 800px; /* Um pouco mais largo que o dashboard pra texto */
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: left; /* Texto alinhado à esquerda pra leitura */
-  }
-  
-  .title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center; /* Título centralizado */
-  }
-  
-  .subtitle {
-    font-size: 20px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .text {
-    font-size: 16px;
-    color: #666;
-    line-height: 1.5; /* Espaçamento pra legibilidade */
-    margin-bottom: 15px;
-  }
-  
-  .text strong {
-    color: #333; /* Destaque pras perguntas */
-  }
+}
+
+.about-text-content h2 {
+  font-size: 2.8rem;
+  color: #111827;
+  margin-bottom: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.about-text-content h2 .highlight {
+  background-color: #d1fae5;
+  border-radius: 0.4rem;
+  padding: 4px 8px;
+  transform: rotate(-1deg);
+  display: inline-block;
+}
+
+.about-text-content p {
+  font-size: 1.125rem;
+  color: #4b5563;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.about-text-content p.subtext {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.about-button {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.about-button:hover {
+  background-color: #1e40af;
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e5e7eb;
+  padding: 8px;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.developers-section {
+  padding: 60px 20px;
+  background-color: #f3f4f6;
+}
+
+.developers-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.developers-container h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 40px;
+}
+
+.developer-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.developer-card {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  width: 220px;
+}
+
+.developer-card:hover {
+  transform: translateY(-5px);
+}
+
+.dev-avatar {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 60px;
+  margin-bottom: 12px;
+}
