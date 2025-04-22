@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { API_URL } from '../config';
 import '../styles/Cadastro.css';
 
@@ -9,7 +10,9 @@ const Cadastro = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [passwordErrors, setPasswordErrors] = useState({
@@ -41,8 +44,8 @@ const Cadastro = () => {
     setError('');
     setIsLoading(true);
 
-    console.log("📝 Submetendo cadastro...", { email, username, password });
-    console.log("URL chamada:", `${API_URL}/profiles/register/`); // Log para depuração
+    console.log("📝 Submetendo cadastro...", { email, username, password, confirmPassword });
+    console.log("URL chamada:", `${API_URL}/profiles/register/`);
 
     if (!/\S+@\S+\.\S+/.test(email)) {
       setError('Por favor, insira um email válido.');
@@ -65,6 +68,13 @@ const Cadastro = () => {
       return;
     }
 
+    if (password !== confirmPassword) {
+      setError('As senhas não coincidem.');
+      console.error("❌ Erro: senhas não coincidem.");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${API_URL}/profiles/register/`,
@@ -83,7 +93,7 @@ const Cadastro = () => {
       navigate('/login');
     } catch (err) {
       const errorMessage = err.response?.data?.detail || 'Erro ao cadastrar. Verifique os dados e tente novamente.';
-      console.error("❌ Erro no cadastro:", err.response?.data || err.message); // Log mais detalhado do erro
+      console.error("❌ Erro no cadastro:", err.response?.data || err.message);
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -132,29 +142,57 @@ const Cadastro = () => {
             </div>
             <div className="input-group">
               <label className="label">Senha</label>
-              <input
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-                required
-                className={`input ${password && !Object.values(passwordErrors).every((v) => v) ? 'invalid' : ''}`}
-                placeholder="Digite sua senha"
-                disabled={isLoading}
-              />
+              <div className="input-wrapper">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={handlePasswordChange}
+                  required
+                  className={`input ${password && !Object.values(passwordErrors).every((v) => v) ? 'invalid' : ''}`}
+                  placeholder="Digite sua senha"
+                  disabled={isLoading}
+                />
+                <span
+                  className="toggle-password"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
               <ul className="password-requirements">
-                <li className={passwordErrors.length ? 'valid' : 'invalid'}>
-                  Pelo menos 8 caracteres
-                </li>
-                <li className={passwordErrors.uppercase ? 'valid' : 'invalid'}>
-                  Pelo menos uma letra maiúscula
-                </li>
-                <li className={passwordErrors.number ? 'valid' : 'invalid'}>
-                  Pelo menos um número
-                </li>
-                <li className={passwordErrors.special ? 'valid' : 'invalid'}>
-                  Pelo menos um caractere especial (ex.: !@#$% -)
-                </li>
+                {!passwordErrors.length && (
+                  <li className="invalid">Pelo menos 8 caracteres</li>
+                )}
+                {!passwordErrors.uppercase && (
+                  <li className="invalid">Pelo menos uma letra maiúscula</li>
+                )}
+                {!passwordErrors.number && (
+                  <li className="invalid">Pelo menos um número</li>
+                )}
+                {!passwordErrors.special && (
+                  <li className="invalid">Pelo menos um caractere especial (ex.: !@#$% -)</li>
+                )}
               </ul>
+            </div>
+            <div className="input-group">
+              <label className="label">Confirmar Senha</label>
+              <div className="input-wrapper">
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  className={`input ${confirmPassword && confirmPassword !== password ? 'invalid' : ''}`}
+                  placeholder="Confirme sua senha"
+                  disabled={isLoading}
+                />
+                <span
+                  className="toggle-password"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
             </div>
             {error && <p className="error">{error}</p>}
             <button

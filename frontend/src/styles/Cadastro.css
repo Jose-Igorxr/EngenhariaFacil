@@ -26,19 +26,20 @@ body, html {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 0 60px;
+  padding: 0 40px; /* Reduzido de 60px para economizar espaço */
 }
 
+/* Reduzido o tamanho da fonte para compactar */
 .main-title {
-  font-size: 48px;
-  margin-bottom: 20px;
+  font-size: 36px; /* Reduzido de 48px */
+  margin-bottom: 15px; /* Reduzido de 20px */
   font-weight: bold;
 }
 
 .sub-title {
-  font-size: 18px;
-  line-height: 1.5;
-  margin-bottom: 15px;
+  font-size: 16px; /* Reduzido de 18px */
+  line-height: 1.4; /* Ajustado de 1.5 */
+  margin-bottom: 10px; /* Reduzido de 15px */
 }
 
 /* Área direita: contém a caixa de cadastro */
@@ -48,30 +49,30 @@ body, html {
   justify-content: center;
   align-items: center;
   background-color: #212121;
-  padding: 20px;
+  padding: 15px; /* Reduzido de 20px */
 }
 
 /* Estilização da caixa de cadastro */
 .cadastro-box {
   background-color: #fff;
-  padding: 40px;
+  padding: 30px; /* Reduzido de 40px */
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
+  max-width: 360px; /* Reduzido de 400px para compactar */
   text-align: center;
 }
 
 .title {
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin-bottom: 15px; /* Reduzido de 20px */
+  font-size: 22px; /* Reduzido de 24px */
   color: #333;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Distância entre os campos diminuída */
+  gap: 6px; /* Reduzido de 8px para compactar */
 }
 
 .input-group {
@@ -79,16 +80,21 @@ body, html {
 }
 
 .label {
-  font-size: 14px;
-  color: #212121 !important; /* Força a cor escura */
-  margin-bottom: 5px;
+  font-size: 13px; /* Reduzido de 14px */
+  color: #212121 !important;
+  margin-bottom: 4px; /* Reduzido de 5px */
   display: block;
+}
+
+/* Estilização do wrapper para inputs com ícone */
+.input-wrapper {
+  position: relative;
 }
 
 .input {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
+  padding: 8px 40px 8px 10px; /* Adicionado espaço à direita para o ícone */
+  font-size: 15px; /* Reduzido de 16px */
   border-radius: 4px;
   border: 1px solid #ddd;
   outline: none;
@@ -109,29 +115,36 @@ body, html {
 }
 
 .input::placeholder {
-  color: rgba(33, 33, 33, 0.5); /* Placeholder escurecido */
+  color: rgba(33, 33, 33, 0.5);
   opacity: 1;
+}
+
+/* Estilização do ícone de mostrar/esconder senha */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555;
+  font-size: 16px;
+}
+
+.toggle-password:hover {
+  color: #212121;
 }
 
 .password-requirements {
   list-style: none;
-  margin-top: 10px;
+  margin-top: 8px; /* Reduzido de 10px */
   padding: 0;
-  font-size: 12px;
+  font-size: 11px; /* Reduzido de 12px */
   color: #555;
 }
 
 .password-requirements li {
-  margin-bottom: 5px;
-}
-
-.password-requirements li.valid {
-  color: #4caf50;
-}
-
-.password-requirements li.valid::before {
-  content: '✓ ';
-  color: #4caf50;
+  margin-bottom: 4px; /* Reduzido de 5px */
+  transition: opacity 0.3s ease; /* Transição suave para sumir */
 }
 
 .password-requirements li.invalid {
@@ -145,13 +158,13 @@ body, html {
 
 .error {
   color: #ff6b6b;
-  font-size: 14px;
-  margin: 10px 0;
+  font-size: 13px; /* Reduzido de 14px */
+  margin: 8px 0; /* Reduzido de 10px */
 }
 
 .button {
-  padding: 12px;
-  font-size: 16px;
+  padding: 10px; /* Reduzido de 12px */
+  font-size: 15px; /* Reduzido de 16px */
   background-color: #212121 !important;
   color: #fff;
   border: none;
@@ -170,8 +183,8 @@ body, html {
 }
 
 .login-text {
-  margin-top: 20px;
-  font-size: 14px;
+  margin-top: 15px; /* Reduzido de 20px */
+  font-size: 13px; /* Reduzido de 14px */
   color: #555;
 }
 
@@ -195,12 +208,25 @@ body, html {
   .cadastro-right {
     flex: initial;
     width: 100%;
-    padding: 20px;
+    padding: 15px; /* Reduzido de 20px */
     text-align: center;
     align-items: center;
   }
 
   .cadastro-left {
+    padding: 15px;
+  }
+
+  .main-title {
+    font-size: 28px; /* Ajustado para telas menores */
+  }
+
+  .sub-title {
+    font-size: 14px;
+  }
+
+  .cadastro-box {
+    max-width: 320px; /* Ajustado para telas menores */
     padding: 20px;
   }
 }
