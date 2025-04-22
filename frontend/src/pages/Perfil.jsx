@@ -1,53 +1,111 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser, FaEnvelope, FaLock, FaCamera } from 'react-icons/fa';
+import { debounce } from 'lodash';
 import '../styles/Perfil.css';
 import { getProfile, updateProfile } from '../services/api';
 
 const Perfil = () => {
-  const [user, setUser] = useState({ username: '', email: '', profile: { profile_picture: null } });
-  const [newEmail, setNewEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [profileImageFile, setProfileImageFile] = useState(null);
+  const [user, setUser] = useState(null);
+  const [formData, setFormData] = useState({
+    email: '',
+    currentPassword: '',
+    newPassword: '',
+    confirmNewPassword: '',
+    profileImageFile: null,
+  });
   const [profileImagePreview, setProfileImagePreview] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Carrega dados do usuário
   useEffect(() => {
+    let isMounted = true;
     const fetchUser = async () => {
-      console.log("🔄 Iniciando requisição para carregar dados do usuário...");
       try {
         const data = await getProfile();
-        console.log("🔍 Dados recebidos:", data);
-        setUser(data);
-        if (data.profile?.profile_picture) {
-          setProfileImagePreview(`${API_URL}/media/${data.profile.profile_picture}`);
+        console.log('📥 Resposta do backend (GET /me/):', data); // Log para depuração
+        if (isMounted) {
+          setUser(data);
+          setFormData((prev) => ({ ...prev, email: data.email || '' }));
+          if (data.profile?.profile_picture) {
+            console.log('🖼️ URL da imagem do perfil:', data.profile.profile_picture);
+            setProfileImagePreview(data.profile.profile_picture);
+          } else {
+            console.log('⚠️ Nenhuma imagem de perfil encontrada na resposta.');
+            setProfileImagePreview(null);
+          }
         }
       } catch (err) {
-        console.error("❌ Erro ao carregar dados do perfil:", err);
-        setError('Erro ao carregar perfil. Tente novamente.');
+        if (isMounted) {
+          console.error('❌ Erro ao carregar perfil:', err);
+          setError('Erro ao carregar perfil. Tente novamente.');
+        }
       }
     };
     fetchUser();
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("📸 Imagem escolhida:", file);
-      setProfileImageFile(file);
-      const reader = new FileReader();
-      reader.onload = () => {
-        setProfileImagePreview(reader.result);
-        setSuccess('Imagem carregada com sucesso!');
-        setError('');
-      };
-      reader.readAsDataURL(file);
+      if (profileImagePreview && profileImagePreview.startsWith('blob:')) {
+        URL.revokeObjectURL(profileImagePreview);
+      }
+      setFormData((prev) => ({ ...prev, profileImageFile: file }));
+      setProfileImagePreview(URL.createObjectURL(file));
+      setSuccess('Imagem carregada com sucesso!');
+      setError('');
     }
   };
+
+  const debouncedSaveProfile = debounce(async (formData, token) => {
+    const submission = new FormData();
+    if (formData.email && formData.email !== user.email) submission.append('email', formData.email);
+    if (formData.newPassword) {
+      submission.append('current_password', formData.currentPassword);
+      submission.append('password', formData.newPassword);
+    }
+    if (formData.profileImageFile) {
+      submission.append('profile.profile_picture', formData.profileImageFile);
+    }
+
+    try {
+      const updatedUser = await updateProfile(submission);
+      console.log('📥 Resposta do backend (PUT /me/):', updatedUser); // Log para depuração
+      if (updatedUser.profile?.profile_picture) {
+        if (profileImagePreview && profileImagePreview.startsWith('blob:')) {
+          URL.revokeObjectURL(profileImagePreview);
+        }
+        console.log('🖼️ Nova URL da imagem do perfil:', updatedUser.profile.profile_picture);
+        setProfileImagePreview(updatedUser.profile.profile_picture);
+      } else {
+        console.log('⚠️ Nenhuma imagem de perfil retornada após o upload.');
+      }
+      setUser(updatedUser);
+      setSuccess('Perfil atualizado com sucesso!');
+      setFormData({
+        email: updatedUser.email || '',
+        currentPassword: '',
+        newPassword: '',
+        confirmNewPassword: '',
+        profileImageFile: null,
+      });
+    } catch (err) {
+      console.error('❌ Erro ao atualizar perfil:', err);
+      const errorMessage = err.response?.data?.detail || 'Erro ao atualizar perfil.';
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  }, 500);
 
   const handleSaveProfile = async (e) => {
     e.preventDefault();
@@ -55,38 +113,28 @@ const Perfil = () => {
     setSuccess('');
     setIsLoading(true);
 
-    console.log("📝 Salvando perfil...");
-    console.log("📧 Novo e-mail:", newEmail);
-    console.log("🔒 Senha atual:", currentPassword);
-    console.log("🔑 Nova senha:", newPassword);
-    console.log("🔄 Confirmação nova senha:", confirmNewPassword);
-    console.log("📸 Imagem de perfil:", profileImageFile ? "Selecionada" : "Nenhuma");
+    const { email, currentPassword, newPassword, confirmNewPassword, profileImageFile } = formData;
 
-    // Validações
     if (newPassword && !currentPassword) {
       setError('A senha atual é obrigatória para alterar a senha.');
-      console.error("❌ Erro: senha atual não fornecida.");
       setIsLoading(false);
       return;
     }
 
     if (newPassword && newPassword !== confirmNewPassword) {
       setError('As novas senhas não coincidem.');
-      console.error("❌ Erro: novas senhas não coincidem.");
       setIsLoading(false);
       return;
     }
 
     if (newPassword && newPassword.length < 8) {
       setError('A nova senha deve ter pelo menos 8 caracteres.');
-      console.error("❌ Erro: nova senha muito curta.");
       setIsLoading(false);
       return;
     }
 
-    if (newEmail && !/\S+@\S+\.\S+/.test(newEmail)) {
+    if (email && !/\S+@\S+\.\S+/.test(email)) {
       setError('Por favor, insira um e-mail válido.');
-      console.error("❌ Erro: e-mail inválido.");
       setIsLoading(false);
       return;
     }
@@ -94,46 +142,22 @@ const Perfil = () => {
     const token = localStorage.getItem('access_token');
     if (!token) {
       setError('Usuário não autenticado. Faça login novamente.');
-      console.error("❌ Erro: token não encontrado.");
       setIsLoading(false);
       return;
     }
 
-    const updateData = {};
-    if (newEmail) updateData.email = newEmail;
-    if (newPassword) {
-      updateData.current_password = currentPassword;
-      updateData.new_password = newPassword;
-    }
-    if (profileImageFile) updateData.profile_picture = profileImageFile;
-    console.log("🔄 Enviando dados para a API:", updateData);
-
-    try {
-      if (Object.keys(updateData).length > 0) {
-        const updatedUser = await updateProfile(updateData);
-        console.log("✅ Perfil atualizado com sucesso:", updatedUser);
-        setUser(updatedUser);
-        if (updatedUser.profile?.profile_picture) {
-          setProfileImagePreview(`${API_URL}/media/${updatedUser.profile.profile_picture}`);
-        }
-      } else {
-        console.log("⚠️ Nenhum dado para atualizar.");
-      }
-
-      setSuccess('Perfil atualizado com sucesso!');
-      setNewEmail('');
-      setCurrentPassword('');
-      setNewPassword('');
-      setConfirmNewPassword('');
-      setProfileImageFile(null);
-    } catch (err) {
-      const errorMessage = err.response?.data?.detail || 'Erro ao atualizar perfil. Verifique os dados.';
-      setError(errorMessage);
-      console.error("❌ Erro ao salvar perfil:", err);
-    } finally {
-      setIsLoading(false);
-    }
+    debouncedSaveProfile(formData, token);
   };
+
+  if (!user) {
+    return <p>Carregando perfil...</p>;
+  }
+
+  const hasChanges =
+    formData.email !== user.email ||
+    formData.currentPassword ||
+    formData.newPassword ||
+    formData.profileImageFile;
 
   return (
     <div className="profile-container">
@@ -147,9 +171,7 @@ const Perfil = () => {
             {profileImagePreview ? (
               <img src={profileImagePreview} alt="Perfil" className="profile-image" />
             ) : (
-              <div className="profile-image-placeholder">
-                <FaCamera />
-              </div>
+              <div className="profile-image-placeholder"><FaCamera /></div>
             )}
             <input
               type="file"
@@ -163,33 +185,30 @@ const Perfil = () => {
               Escolher Imagem
             </label>
           </div>
-        </form>
 
-        <form className="profile-section" onSubmit={handleSaveProfile}>
           <h2><FaEnvelope /> E-mail</h2>
           <div className="input-group">
             <label>E-mail atual: {user.email || 'Não definido'}</label>
             <input
               type="email"
+              name="email"
               placeholder="Novo e-mail"
-              value={newEmail}
-              onChange={(e) => setNewEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
               className="profile-input"
               disabled={isLoading}
             />
           </div>
-        </form>
 
-        <form className="profile-section" onSubmit={handleSaveProfile}>
           <h2><FaLock /> Alterar Senha</h2>
           <div className="input-group">
             <label htmlFor="current-password">Senha Atual</label>
             <input
               id="current-password"
+              name="currentPassword"
               type="password"
-              placeholder="Digite sua senha atual"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
+              value={formData.currentPassword}
+              onChange={handleChange}
               className="profile-input"
               disabled={isLoading}
             />
@@ -198,10 +217,10 @@ const Perfil = () => {
             <label htmlFor="new-password">Nova Senha</label>
             <input
               id="new-password"
+              name="newPassword"
               type="password"
-              placeholder="Digite a nova senha"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              value={formData.newPassword}
+              onChange={handleChange}
               className="profile-input"
               disabled={isLoading}
             />
@@ -210,10 +229,10 @@ const Perfil = () => {
             <label htmlFor="confirm-new-password">Confirmar Nova Senha</label>
             <input
               id="confirm-new-password"
+              name="confirmNewPassword"
               type="password"
-              placeholder="Confirme a nova senha"
-              value={confirmNewPassword}
-              onChange={(e) => setConfirmNewPassword(e.target.value)}
+              value={formData.confirmNewPassword}
+              onChange={handleChange}
               className="profile-input"
               disabled={isLoading}
             />
@@ -223,7 +242,7 @@ const Perfil = () => {
             <button
               type="submit"
               className="cta-button"
-              disabled={isLoading}
+              disabled={isLoading || !hasChanges}
             >
               {isLoading ? 'Salvando...' : 'Salvar Perfil'}
             </button>

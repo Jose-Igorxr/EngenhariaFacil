@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { API_URL } from '../config';
 
-// Criar instância do axios com baseURL
 const api = axios.create({
-  baseURL: API_URL || '/api',
+  baseURL: API_URL || 'http://localhost:8000/api',
 });
 
-// Configura o token JWT no header
 const setAuthToken = (token) => {
   if (token) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -15,7 +13,6 @@ const setAuthToken = (token) => {
   }
 };
 
-// Interceptador para renovar token automaticamente
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -43,7 +40,6 @@ api.interceptors.response.use(
   }
 );
 
-// Login
 export const login = async (credentials) => {
   const response = await axios.post(`${API_URL}/profiles/login/`, credentials, {
     headers: { 'Content-Type': 'application/json' },
@@ -52,36 +48,46 @@ export const login = async (credentials) => {
   localStorage.setItem('access_token', access);
   localStorage.setItem('refresh_token', refresh);
   setAuthToken(access);
+  console.log('🔑 Login bem-sucedido:', response.data);
   return response.data;
 };
 
-// Obter perfil do usuário autenticado
 export const getProfile = async () => {
   const token = localStorage.getItem('access_token');
-  console.log("📦 Token acessado:", token);
+  console.log('📦 Token acessado:', token);
   setAuthToken(token);
   try {
     const response = await api.get('/profiles/me/');
-    console.log("✅ Dados do perfil recebidos:", response.data);
+    console.log('✅ Dados do perfil recebidos:', response.data);
+    if (!response.data.profile) {
+      console.warn('⚠️ Campo "profile" ausente na resposta do backend.');
+    } else if (!response.data.profile.profile_picture) {
+      console.warn('⚠️ Campo "profile.profile_picture" ausente ou null.');
+    }
     return response.data;
   } catch (error) {
-    console.error("❌ Erro ao carregar perfil:", error.response?.data || error.message);
-    throw error; // Propagar erro para o componente
+    console.error('❌ Erro ao carregar perfil:', error.response?.data || error.message);
+    throw error;
   }
 };
 
-// Atualizar perfil
-export const updateProfile = async (data) => {
+export const updateProfile = async (formData) => {
   const token = localStorage.getItem('access_token');
+  console.log('📦 Token acessado para atualização:', token);
   setAuthToken(token);
   try {
-    const response = await api.put('/profiles/me/', data, {
-      headers: { 'Content-Type': 'application/json' },
+    const response = await api.put('/profiles/me/', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
-    console.log("✅ Perfil atualizado:", response.data);
+    console.log('✅ Perfil atualizado:', response.data);
+    if (!response.data.profile) {
+      console.warn('⚠️ Campo "profile" ausente na resposta do backend.');
+    } else if (!response.data.profile.profile_picture) {
+      console.warn('⚠️ Campo "profile.profile_picture" ausente ou null após atualização.');
+    }
     return response.data;
   } catch (error) {
-    console.error("❌ Erro ao atualizar perfil:", error.response?.data || error.message);
+    console.error('❌ Erro ao atualizar perfil:', error.response?.data || error.message);
     throw error;
   }
 };

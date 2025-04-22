@@ -11,4 +11,6 @@ urlpatterns = [
          name='token_obtain_pair'),  # Login
     path('api/token/refresh/', TokenRefreshView.as_view(),
          name='token_refresh'),  # Refresh do token
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
