@@ -41,7 +41,7 @@ const Login = () => {
   return (
     <div className="login-page">
       <div className="login-left">
-        <h1 className="main-title">Engenharia Fácil</h1>
+        <h1 className="main-title">Obra Fácil</h1>
         <p className="sub-title">
           Simplifique o processo da sua obra com inteligência artificial! Estime facilmente a quantidade de materiais necessários e compartilhe experiências com outros usuários.
         </p>
@@ -84,6 +84,7 @@ const Login = () => {
               Crie uma
             </Link>
           </p>
+          <p className="register-text">Esqueceu a senha?</p>
         </div>
       </div>
     </div>

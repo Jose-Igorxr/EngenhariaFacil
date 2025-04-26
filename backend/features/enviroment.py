@@ -22,7 +22,7 @@ def before_scenario(context, scenario):
     from rest_framework.test import APIClient
     from profiles.models import Profile
     from django.contrib.auth.models import User
-    # Limpar o perfil do testuser
+
     try:
         user = User.objects.get(username="testuser")
         Profile.objects.filter(user=user).delete()

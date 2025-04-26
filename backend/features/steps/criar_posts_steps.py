@@ -24,7 +24,8 @@ def before_all(context):
 def step_impl(context):
     payload = {
         'titulo': 'Meu Primeiro Post',
-        'conteudo': 'Conteúdo incrível do meu post.'
+        'conteudo': 'Conteúdo incrível do meu post.',
+        'autor': context.user.id
     }
     context.response = context.client.post('/api/postagens/posts/', payload)
 

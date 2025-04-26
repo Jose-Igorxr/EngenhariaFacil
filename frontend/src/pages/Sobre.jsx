@@ -33,7 +33,7 @@ const Sobre = () => {
         <p>Renan Amorim</p>
       </div>
       <div className="developer-card">
-        <span className="dev-avatar">MG</span>
+        <span className="dev-avatar">JI</span>
         <p>José Igor</p>
       </div>
     </div>

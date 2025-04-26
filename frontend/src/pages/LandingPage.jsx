@@ -77,7 +77,7 @@ const LandingPage = () => {
         </div>
         <div className="hero-content">
           <h1>Construa com Inteligência e Simplicidade</h1>
-          <p>Engenharia Fácil utiliza IA avançada para estimar materiais, otimizar projetos e conectar profissionais e iniciantes em uma plataforma colaborativa.</p>
+          <p>Obra Fácil utiliza IA avançada para estimar materiais, otimizar projetos e conectar profissionais e iniciantes em uma plataforma colaborativa.</p>
           <Link to="/cadastro">
             <button className="cta-button">Experimente Grátis</button>
           </Link>
@@ -85,7 +85,7 @@ const LandingPage = () => {
       </section>
 
       <section id="recursos" className="features">
-        <h2>Por que Escolher a Engenharia Fácil?</h2>
+        <h2>Por que Escolher a Obra Fácil?</h2>
         <div className="features-list">
           <div className="feature-item">
             <FaClock className="feature-icon" />
@@ -146,7 +146,7 @@ const LandingPage = () => {
               <li>Acesso ao fórum da comunidade</li>
               <li>Suporte via e-mail (resposta em até 48h)</li>
             </ul>
-            <button>Começar Grátis</button>
+            <button><Link to="/cadastro" className="link-style">Começar Grátis</Link></button>
           </div>
           <div className="pricing-card professional">
             <h3><FaRocket /> Profissional</h3>

@@ -103,7 +103,7 @@ const Cadastro = () => {
   return (
     <div className="cadastro-page">
       <div className="cadastro-left">
-        <h1 className="main-title">Engenharia Fácil</h1>
+        <h1 className="main-title">Obra Fácil</h1>
         <p className="sub-title">
           Junte-se a nós para simplificar suas obras com tecnologia inteligente!
         </p>

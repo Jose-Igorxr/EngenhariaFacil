@@ -467,3 +467,8 @@ svg, .feature-icon {
     padding: 30px 10px;
   }
 }
+
+.link-style {
+  color: black;
+  text-decoration: none;
+}
