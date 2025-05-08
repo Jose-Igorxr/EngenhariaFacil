@@ -7,7 +7,7 @@
 
 /* Ícones */
 svg, .feature-icon {
-  color: #FFFFFF !important;
+  color: #F28C38 !important; /* Laranja vibrante para ícones */
   font-size: 36px;
   min-width: 36px;
   min-height: 36px;
@@ -17,10 +17,9 @@ svg, .feature-icon {
 /* Container Principal */
 .landing-container {
   font-family: Arial, sans-serif;
-  color: #FFFFFF;
-  background-color: #212121;
+  color: #2C3E50; /* Cinza escuro para texto principal */
+  background-color: #FFFFFF; /* Fundo branco */
   overflow-x: hidden;
-  /* Removido padding-bottom para eliminar espaço abaixo do footer */
 }
 
 /* Cabeçalho */
@@ -28,10 +27,9 @@ svg, .feature-icon {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #2C3E50, #1A252F);
+  background: #F28C38; /* Laranja sólido */
   padding: 20px 40px;
   color: #FFFFFF;
-  /* Removido border-bottom */
 }
 
 .landing-header .logo {
@@ -51,22 +49,74 @@ svg, .feature-icon {
 }
 
 .nav-menu a:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #D2691E; /* Laranja mais escuro no hover */
   color: #FFFFFF;
 }
 
 .login-link {
-  border: 2px solid #FFFFFF;
+  border: 2px solid #FFFFFF; /* Borda branca para contraste */
   padding: 6px 12px;
   border-radius: 6px;
   background-color: transparent;
   color: #FFFFFF;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .login-link:hover {
-  background-color: #FFFFFF;
-  color: #2C3E50;
+  background-color: #D2691E; /* Laranja mais escuro */
+  color: #FFFFFF;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #F28C38; /* Laranja sólido */
+  padding: 20px 40px;
+  color: #FFFFFF;
+}
+
+.navbar .logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #FFFFFF; /* Branco */
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu .nav-link {
+  margin-left: 25px;
+  color: #FFFFFF; /* Branco */
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-menu .nav-link:hover {
+  background-color: #D2691E; /* Laranja mais escuro no hover */
+}
+
+.nav-menu .logout-link {
+  margin-left: 25px;
+  border: 2px solid #FFFFFF; /* Borda branca para contraste */
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #FFFFFF; /* Texto branco */
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-menu .logout-link:hover {
+  background-color: #D2691E; /* Laranja mais escuro */
+  color: #FFFFFF; /* Texto branco */
 }
 
 /* Hero */
@@ -74,9 +124,9 @@ svg, .feature-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #212121;
+  background: #FFFFFF; /* Fundo branco */
   padding: 60px 20px;
-  color: #FFFFFF;
+  color: #2C3E50; /* Texto cinza escuro */
   text-align: center;
 }
 
@@ -91,7 +141,7 @@ svg, .feature-icon {
   width: 100%;
   overflow: hidden;
   border-radius: 8px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #F28C38; /* Laranja para borda */
 }
 
 .carousel-inner {
@@ -118,7 +168,7 @@ svg, .feature-icon {
   left: 20px;
   font-size: 22px;
   color: #FFFFFF;
-  /* Removido fundo para eliminar contraste */
+  background: rgba(242, 140, 56, 0.7); /* Laranja semi-transparente */
   padding: 8px 16px;
   border-radius: 8px;
 }
@@ -127,14 +177,16 @@ svg, .feature-icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: #FFFFFF;
-  color: #2C3E50;
+  background: #F28C38;
+  color: #FFFFFF;
   border: none;
   padding: 10px;
   cursor: pointer;
   font-size: 18px;
   border-radius: 50%;
   transition: background 0.3s ease;
+  z-index: 20;
+  opacity: 1 !important;
 }
 
 .carousel-btn.prev {
@@ -146,26 +198,25 @@ svg, .feature-icon {
 }
 
 .carousel-btn:hover {
-  background: #F0F2F5;
+  background: #D2691E; /* Laranja mais escuro no hover */
 }
 
 .hero-content h1 {
   font-size: 38px;
   margin-bottom: 20px;
-  color: #FFFFFF;
-  /* Removido text-shadow para eliminar contraste */
+  color: #2C3E50;
 }
 
 .hero-content p {
   font-size: 18px;
   margin-bottom: 30px;
-  color: #F0F2F5;
+  color: #2C3E50;
 }
 
 .cta-button {
   padding: 15px 30px;
-  background: #FFFFFF;
-  color: #2C3E50;
+  background: #F28C38; /* Laranja */
+  color: #FFFFFF;
   font-size: 18px;
   border-radius: 5px;
   cursor: pointer;
@@ -174,22 +225,22 @@ svg, .feature-icon {
 }
 
 .cta-button:hover {
-  background: #F0F2F5;
+  background: #D2691E; /* Laranja mais escuro */
 }
 
 /* Features */
 .features {
-  background: #212121;
+  background: #FFFFFF; /* Fundo branco */
   padding: 60px 20px;
   text-align: center;
-  color: #FFFFFF;
+  color: #2C3E50;
 }
 
 .features h2 {
   font-size: 32px;
   margin-bottom: 40px;
-  color: #FFFFFF;
-  border-bottom: 2px solid #FFFFFF;
+  color: #2C3E50;
+  border-bottom: 2px solid #F28C38; /* Borda laranja */
   display: inline-block;
   padding-bottom: 10px;
 }
@@ -201,15 +252,11 @@ svg, .feature-icon {
 }
 
 .feature-item {
-  background: #2C3E50;
+  background: #FFFFFF; /* Fundo branco */
   padding: 25px;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-  border: 1px solid #FFFFFF;
-}
-
-.feature-icon {
-  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #F28C38; /* Laranja */
 }
 
 .feature-item h3 {
@@ -219,28 +266,28 @@ svg, .feature-icon {
 
 .feature-item p {
   font-size: 16px;
-  color: #F0F2F5;
+  color: #2C3E50;
 }
 
 /* Pricing */
 .pricing {
-  background: #212121;
+  background: #FFFFFF; /* Fundo branco */
   padding: 80px 20px;
   text-align: center;
-  color: #FFFFFF;
+  color: #2C3E50;
 }
 
 .pricing h2 {
   font-size: 36px;
   margin-bottom: 20px;
-  border-bottom: 2px solid #FFFFFF;
+  border-bottom: 2px solid #F28C38; /* Borda laranja */
   display: inline-block;
   padding-bottom: 10px;
 }
 
 .pricing > p {
   font-size: 18px;
-  color: #F0F2F5;
+  color: #2C3E50;
   margin-bottom: 50px;
 }
 
@@ -252,20 +299,20 @@ svg, .feature-icon {
 }
 
 .pricing-card {
-  background: #2C3E50;
+  background: #FFFFFF; /* Fundo branco */
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
   max-width: 350px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #F28C38; /* Laranja */
 }
 
 .pricing-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .pricing-card h3 {
@@ -280,12 +327,13 @@ svg, .feature-icon {
   font-size: 26px;
   margin-bottom: 10px;
   font-weight: bold;
+  color: #F28C38; /* Laranja */
 }
 
 .pricing-card .description {
   font-size: 16px;
   margin-bottom: 20px;
-  color: #F0F2F5;
+  color: #2C3E50;
 }
 
 .pricing-card ul {
@@ -304,44 +352,44 @@ svg, .feature-icon {
 
 .pricing-card ul li::before {
   content: '✓';
-  color: #FFFFFF;
+  color: #F28C38; /* Laranja */
   margin-right: 8px;
 }
 
 .pricing-card button {
   padding: 12px 25px;
-  background: #FFFFFF;
+  background: #F28C38; /* Laranja */
   border: 2px solid #2C3E50;
   border-radius: 6px;
-  color: #212121;
+  color: #FFFFFF;
   cursor: pointer;
   font-size: 18px;
   transition: background 0.3s ease;
 }
 
 .pricing-card button:hover {
-  background: #F0F2F5;
+  background: #D2691E; /* Laranja mais escuro */
 }
 
 /* Destaque no plano Empresarial */
 .pricing-card.highlighted {
-  background: linear-gradient(135deg, #212121, #2C3E50);
-  border: 2px solid #FFFFFF;
+  background: #FFFFFF; /* Fundo branco */
+  border: 2px solid #F28C38; /* Borda laranja */
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .pricing-card.highlighted:hover {
   transform: scale(1.08);
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .highlight-badge {
   position: absolute;
   top: 0;
   right: -10px;
-  background: #FFFFFF;
-  color: #2C3E50;
+  background: #F28C38; /* Laranja */
+  color: #FFFFFF;
   padding: 6px 18px;
   font-size: 14px;
   font-weight: bold;
@@ -350,7 +398,7 @@ svg, .feature-icon {
 
 /* Testimonials */
 .testimonials {
-  background: #212121;
+  background: #FFFFFF; /* Fundo branco */
   padding: 60px 20px;
   text-align: center;
 }
@@ -358,7 +406,7 @@ svg, .feature-icon {
 .testimonials h2 {
   font-size: 32px;
   margin-bottom: 30px;
-  border-bottom: 2px solid #FFFFFF;
+  border-bottom: 2px solid #F28C38; /* Borda laranja */
   display: inline-block;
   padding-bottom: 10px;
 }
@@ -371,34 +419,37 @@ svg, .feature-icon {
 }
 
 .testimonial-item {
-  background: #2C3E50;
+  background: #FFFFFF; /* Fundo branco */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-  border: 1px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #F28C38; /* Laranja */
 }
 
 .testimonial-item p {
   margin-bottom: 15px;
-  color: #F0F2F5;
+  color: #2C3E50;
 }
 
 .testimonial-item span {
   font-weight: bold;
-  background: #FFFFFF;
-  color: #2C3E50;
+  background: #F28C38; /* Laranja */
+  color: #FFFFFF;
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 /* Rodapé */
 .landing-footer {
-  background: #2C3E50;
+  background: #F28C38; /* Laranja sólido */
   color: #FFFFFF;
   text-align: center;
-  padding: 40px 20px;
+  padding: 15px 15px;
   font-size: 14px;
-  border-top: 2px solid #FFFFFF;
+  border-top: 2px solid #FFFFFF; /* Borda branca para contraste */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza conteúdo verticalmente */
 }
 
 .landing-footer p {
@@ -406,31 +457,34 @@ svg, .feature-icon {
 }
 
 .landing-footer a {
-  color: #FFFFFF;
+  color: #FFFFFF; /* Branco */
   text-decoration: none;
   margin: 0 10px;
   transition: color 0.3s ease;
 }
 
 .landing-footer a:hover {
-  color: #F0F2F5;
+  color: #D2691E; /* Laranja mais escuro */
 }
 
 .footer-links {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .footer-links a {
   display: inline-block;
   padding: 8px 12px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #FFFFFF; /* Borda branca */
   border-radius: 4px;
   margin: 5px;
 }
 
 .footer-links a:hover {
-  background: #FFFFFF;
-  color: #2C3E50;
+  background: #D2691E; /* Laranja mais escuro */
+  color: #FFFFFF;
 }
 
 /* Responsividade */
@@ -466,9 +520,41 @@ svg, .feature-icon {
   .landing-footer {
     padding: 30px 10px;
   }
+
+  .navbar {
+    padding: 15px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-menu {
+    margin-top: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .nav-menu .nav-link,
+  .nav-menu .logout-link {
+    margin-left: 0;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: #FFFFFF; /* Branco */
+  }
+
+  .nav-menu .logout-link {
+    border-color: #FFFFFF; /* Borda branca */
+    color: #FFFFFF; /* Texto branco */
+  }
+
+  .nav-menu .logout-link:hover {
+    background-color: #D2691E; /* Laranja mais escuro */
+    color: #FFFFFF; /* Texto branco */
+  }
 }
 
 .link-style {
-  color: black;
+  color: #2C3E50;
   text-decoration: none;
 }
