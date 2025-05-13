@@ -5,71 +5,64 @@ import os
 
 def generate_dataset():
     # Configurações
-    num_samples = 100_000
+    num_samples = 999_999
     script_dir = os.path.dirname(os.path.abspath(__file__))
     dataset_path = os.path.join(script_dir, 'dataset.csv')
 
-    # Gerar áreas
+    # Gerar áreas (30% entre 1–10 m², 30% entre 10–50 m², 40% entre 50–500 m²)
     np.random.seed(42)
-    areas = np.random.exponential(
-        scale=100, size=num_samples).clip(1, 500).round(1)
+    samples_small = int(num_samples * 0.3)
+    samples_mid = int(num_samples * 0.3)
+    samples_large = num_samples - samples_small - samples_mid
 
-    # Tipos de construção e regiões
-    construction_types = np.random.choice(
-        ['residential', 'commercial', 'industrial'], size=num_samples, p=[0.6, 0.3, 0.1])
-    regions = np.random.choice(
-        ['urban', 'suburban', 'rural'], size=num_samples, p=[0.5, 0.3, 0.2])
+    areas_small = np.exp(np.random.uniform(
+        np.log(1),   np.log(10),  samples_small)).round(1)
+    areas_mid = np.exp(np.random.uniform(
+        np.log(10),  np.log(50),  samples_mid)).round(1)
+    areas_large = np.exp(np.random.uniform(
+        np.log(50),  np.log(500), samples_large)).round(1)
+    areas = np.concatenate([areas_small, areas_mid, areas_large])
 
-    # Fatores de ajuste
-    cement_factors = {'residential': 1.0,
-                      'commercial': 1.05, 'industrial': 1.1}
-    sand_factors = {'residential': 1.0, 'commercial': 1.0, 'industrial': 1.05}
-    brick_factors = {
-        'urban': {'residential': 1.0, 'commercial': 1.2, 'industrial': 1.5},
-        'suburban': {'residential': 0.95, 'commercial': 1.15, 'industrial': 1.4},
-        'rural': {'residential': 0.9, 'commercial': 1.1, 'industrial': 1.3}
-    }
-
-    # Gerar dados
     cement = np.zeros(num_samples)
     sand = np.zeros(num_samples)
     bricks = np.zeros(num_samples)
 
     for i in range(num_samples):
         area = areas[i]
-        c_type = construction_types[i]
-        region = regions[i]
 
-        # Cimento: 0.2 kg/m² ±10%
-        cement_base = 0.2 * area * cement_factors[c_type]
-        cement[i] = cement_base * np.random.uniform(0.9, 1.1)
+        # Cimento: 8 kg/m² ±5%
+        cement[i] = 8.0 * area * np.random.uniform(0.95, 1.05)
 
-        # Areia: 0.6 kg/m² ±20%
-        sand_base = 0.6 * area * sand_factors[c_type]
-        # Aumentada variabilidade
-        sand[i] = sand_base * np.random.uniform(0.8, 1.2)
+        # Areia: 20 kg/m² ±5%
+        sand[i] = 20.0 * area * np.random.uniform(0.95, 1.05)
 
-        # Tijolos: 62.5/m² ±10%, normalizado por 1000
-        bricks_base = 62.5 * area * brick_factors[region][c_type]
-        bricks[i] = bricks_base * np.random.uniform(0.9, 1.1) / 1000
+        # Tijolos: 14 un/m² ± variação ajustada
+        base = 14.0 * area
+        if area < 10:
+            # variação mais restrita em pequenas áreas ±10%
+            var = np.random.uniform(0.90, 1.10)
+        elif area < 50:
+            var = np.random.uniform(0.90, 1.10)
+        else:
+            # em áreas grandes seguimos ±8%
+            var = np.random.uniform(0.92, 1.08)
+        bricks[i] = base * var
 
-    # Garantir valores não negativos e arredondar
+    # Garantir não negativos e arredondar
     cement = np.clip(cement, 0, None).round(1)
-    sand = np.clip(sand, 0, None).round(1)
-    bricks = np.clip(bricks, 0, None).round(3)
+    sand = np.clip(sand,   0, None).round(1)
+    bricks = np.clip(bricks, 0, None).round(0)
 
-    # Criar DataFrame
-    data = {
-        'area': areas,
-        'construction_type': construction_types,
-        'region': regions,
+    df = pd.DataFrame({
+        'area':   areas,
         'cimento': cement,
-        'areia': sand,
+        'areia':  sand,
         'tijolos': bricks
-    }
-    df = pd.DataFrame(data)
+    })
 
-    # Salvando o dataset
+    print("Estatísticas do dataset:")
+    print(df.describe())
+
     df.to_csv(dataset_path, index=False)
     print(f"Dataset gerado com {num_samples} entradas em: {dataset_path}")
 

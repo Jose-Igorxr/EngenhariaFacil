@@ -5,23 +5,19 @@ class DeepEstimatorNet(nn.Module):
     def __init__(self):
         super(DeepEstimatorNet, self).__init__()
         self.layers = nn.Sequential(
-            nn.Linear(7, 64),  # Simplificado para estabilidade
-            nn.BatchNorm1d(64),
+            nn.Linear(1, 64),
             nn.ReLU(),
-            nn.Dropout(0.2),
             nn.Linear(64, 32),
-            nn.BatchNorm1d(32),
             nn.ReLU(),
-            nn.Dropout(0.2),
             nn.Linear(32, 3),
-            nn.Sigmoid()  # Restaurado para normalização
+            nn.ReLU()  # Garante saídas não negativas
         )
         self._initialize_weights()
 
     def _initialize_weights(self):
         for m in self.layers:
             if isinstance(m, nn.Linear):
-                nn.init.xavier_normal_(m.weight)  # Xavier para Sigmoid
+                nn.init.kaiming_normal_(m.weight, nonlinearity='relu')
                 if m.bias is not None:
                     nn.init.constant_(m.bias, 0)
 

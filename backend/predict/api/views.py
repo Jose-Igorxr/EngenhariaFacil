@@ -10,25 +10,19 @@ class EstimativaIAView(APIView):
 
     def post(self, request):
         area = request.data.get('area')
-        construction_type = request.data.get('construction_type')
-        region = request.data.get('region')
 
-        if not all([area, construction_type, region]):
-            return Response({'erro': 'Campos obrigatórios: area, construction_type, region'}, status=status.HTTP_400_BAD_REQUEST)
+        if not area:
+            return Response({'erro': 'Campo obrigatório: area'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             area = float(area)
             if area <= 0:
                 raise ValueError("Área deve ser maior que zero")
-            if construction_type not in ['residential', 'commercial', 'industrial']:
-                raise ValueError("Tipo de construção inválido")
-            if region not in ['urban', 'suburban', 'rural']:
-                raise ValueError("Região inválida")
         except (ValueError, TypeError) as e:
             return Response({'erro': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            result = predict(area, construction_type, region)
+            result = predict(area)
             print(f"📊 Resultado da previsão: {result}")  # Log para depuração
             return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
