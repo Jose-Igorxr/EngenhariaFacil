@@ -181,6 +181,7 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
             "password": password
         })
 
+        data['user_id'] = user.id
         data['user'] = {
             'username': user.username,
             'email': user.email,

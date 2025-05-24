@@ -3,13 +3,13 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #f5f5f5; /* Fundo claro, igual ao login/cadastro */
+    background-color: #f5f5f5; 
   }
   
-  /* Conteúdo Principal */
+
   .dashboard-box {
     max-width: 600px;
-    margin: 20px auto; /* Centraliza como nas outras telas */
+    margin: 20px auto; 
     padding: 20px;
     background-color: white;
     border-radius: 8px;

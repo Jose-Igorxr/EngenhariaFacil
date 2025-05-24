@@ -21,13 +21,14 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/profiles/', include('profiles.urls')),  # Confirme que está assim
+    path('api/profiles/', include('profiles.urls')),
     path('api/token/', TokenObtainPairView.as_view(),
-         name='token_obtain_pair'),  # Login
+         name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(),
-         name='token_refresh'),  # Refresh do token
+         name='token_refresh'),
     path('api/postagens/', include('postagens.api.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

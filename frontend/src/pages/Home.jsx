@@ -3,7 +3,7 @@ import React from 'react';
 import '../styles/Home.css';
 import { Link } from 'react-router-dom';
 
-const Home = () => { // Renomeei pra Home conforme você pediu
+const Home = () => { 
   return (
     <div className="Home-container">
       <div className="Home-box">

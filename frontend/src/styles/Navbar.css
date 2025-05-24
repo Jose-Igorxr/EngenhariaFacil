@@ -1,75 +1,49 @@
-/* Navbar */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&display=swap');
+
 .navbar {
+  background-color: #D35400;
+  color: white;
+  font-family: 'Barlow', sans-serif;
+  padding: 15px 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background: linear-gradient(90deg, #2C3E50, #1A252F);
-  padding: 20px 40px;
-  color: #FFFFFF;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.navbar .logo {
-  font-size: 26px;
-  font-weight: bold;
-  color: #FFFFFF;
+.logo {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-right: 40px;
 }
 
 .nav-menu {
   display: flex;
+  gap: 20px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.nav-menu .nav-link {
-  margin-left: 25px;
-  color: #FFFFFF;
+.nav-link {
+  color: white;
   text-decoration: none;
-  font-size: 16px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
-.nav-menu .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+.nav-link:hover {
+  color: #1abc9c;
 }
 
-.nav-menu .logout-link {
-  margin-left: 25px;
-  border: 2px solid #FFFFFF;
-  padding: 6px 12px;
-  border-radius: 6px;
-  background-color: transparent;
-  color: #FFFFFF;
+.logout-button {
+  background: none;
+  border: none;
+  color: white;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+  padding: 4px;
+  transition: color 0.2s ease;
 }
 
-.nav-menu .logout-link:hover {
-  background-color: #FFFFFF;
-  color: #2C3E50;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 15px 20px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-menu {
-    margin-top: 15px;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .nav-menu .nav-link,
-  .nav-menu .logout-link {
-    margin-left: 0;
-    margin-bottom: 10px;
-    width: 100%;
-    text-align: center;
-  }
+.logout-button:hover {
+  color: #e74c3c;
 }

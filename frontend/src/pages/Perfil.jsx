@@ -202,154 +202,178 @@ const Perfil = () => {
   const hasChanges = hasPasswordChanges || hasOtherChanges;
 
   return (
-    <div className="profile-container">
-      <section className="profile-content">
+<div className="profile-container">
+  <section className="profile-card">
+    <div className="profile-header">
+      <div className="profile-image-wrapper">
+        {profileImagePreview ? (
+          <img src={profileImagePreview} alt="Perfil" className="profile-image" />
+        ) : (
+          <div className="profile-image-placeholder">+</div>
+        )}
+        <input
+          type="file"
+          accept="image/*"
+          id="profile-image-upload"
+          onChange={handleImageUpload}
+          style={{ display: 'none' }}
+          disabled={isLoading}
+        />
+        <label htmlFor="profile-image-upload" className="cta-button small-button">
+          Escolher Imagem
+        </label>
+      </div>
+      <div className="profile-info">
         <h1>Olá, {user.username || 'Usuário'}</h1>
         <p>Gerencie suas informações pessoais e personalize seu perfil.</p>
-
-        <form className="profile-section" onSubmit={handleSaveProfile}>
-          <h2><FaUser /> Imagem de Perfil</h2>
-          <div className="profile-image-container">
-            {profileImagePreview ? (
-              <img src={profileImagePreview} alt="Perfil" className="profile-image" />
-            ) : (
-              <div className="profile-image-placeholder"><FaCamera /></div>
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              id="profile-image-upload"
-              onChange={handleImageUpload}
-              style={{ display: 'none' }}
-              disabled={isLoading}
-            />
-            <label htmlFor="profile-image-upload" className="cta-button">
-              Escolher Imagem
-            </label>
-          </div>
-
-          <h2><FaUser /> Nome de Usuário</h2>
-          <div className="input-group">
-            <label>Nome de usuário atual: {user.username || 'Não definido'}</label>
-            <input
-              type="text"
-              name="username"
-              placeholder="Novo nome de usuário"
-              value={formData.username}
-              onChange={handleChange}
-              className="profile-input"
-              disabled={isLoading}
-            />
-          </div>
-
-          <h2><FaEnvelope /> E-mail</h2>
-          <div className="input-group">
-            <label>E-mail atual: {user.email || 'Não definido'}</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Novo e-mail"
-              value={formData.email}
-              onChange={handleChange}
-              className="profile-input"
-              disabled={isLoading}
-            />
-          </div>
-
-          <h2><FaLock /> Alterar Senha</h2>
-          <div className="input-group">
-            <label htmlFor="current-password">Senha Atual</label>
-            <div className="input-wrapper">
-              <input
-                id="current-password"
-                name="currentPassword"
-                type={showCurrentPassword ? 'text' : 'password'}
-                value={formData.currentPassword}
-                onChange={handleChange}
-                className="profile-input"
-                disabled={isLoading}
-              />
-              <span
-                className="toggle-password"
-                onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-              >
-                {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div>
-          </div>
-          <div className="input-group">
-            <label htmlFor="new-password">Nova Senha</label>
-            <div className="input-wrapper">
-              <input
-                id="new-password"
-                name="newPassword"
-                type={showNewPassword ? 'text' : 'password'}
-                value={formData.newPassword}
-                onChange={handleChange}
-                className="profile-input"
-                disabled={isLoading}
-              />
-              <span
-                className="toggle-password"
-                onClick={() => setShowNewPassword(!showNewPassword)}
-              >
-                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div>
-            {formData.newPassword && (
-              <ul className="password-requirements">
-                {!passwordErrors.length && (
-                  <li className="invalid">Pelo menos 8 caracteres</li>
-                )}
-                {!passwordErrors.uppercase && (
-                  <li className="invalid">Pelo menos uma letra maiúscula</li>
-                )}
-                {!passwordErrors.number && (
-                  <li className="invalid">Pelo menos um número</li>
-                )}
-                {!passwordErrors.special && (
-                  <li className="invalid">Pelo menos um caractere especial (ex.: !@#$% -)</li>
-                )}
-              </ul>
-            )}
-          </div>
-          <div className="input-group">
-            <label htmlFor="confirm-new-password">Confirmar Nova Senha</label>
-            <div className="input-wrapper">
-              <input
-                id="confirm-new-password"
-                name="confirmNewPassword"
-                type={showConfirmPassword ? 'text' : 'password'}
-                value={formData.confirmNewPassword}
-                onChange={handleChange}
-                className="profile-input"
-                disabled={isLoading}
-              />
-              <span
-                className="toggle-password"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
-                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div>
-          </div>
-
-          <div className="profile-actions">
-            <button
-              type="submit"
-              className="cta-button"
-              disabled={isLoading || !hasChanges}
-            >
-              {isLoading ? 'Salvando...' : 'Salvar Perfil'}
-            </button>
-          </div>
-
-          {error && <p className="error-message">{error}</p>}
-          {success && <p className="success-message">{success}</p>}
-        </form>
-      </section>
+      </div>
     </div>
+
+    <form className="profile-form" onSubmit={handleSaveProfile}>
+      <div className="profile-section">
+        <h2>Nome de Usuário</h2>
+        <div className="input-group">
+          <label>Nome de usuário atual: {user.username || 'Não definido'}</label>
+          <input
+            type="text"
+            name="username"
+            placeholder="Novo nome de usuário"
+            value={formData.username}
+            onChange={handleChange}
+            className="profile-input"
+            disabled={isLoading}
+          />
+        </div>
+      </div>
+
+      <div className="profile-section">
+        <h2>E-mail</h2>
+        <div className="input-group">
+          <label>E-mail atual: {user.email || 'Não definido'}</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Novo e-mail"
+            value={formData.email}
+            onChange={handleChange}
+            className="profile-input"
+            disabled={isLoading}
+          />
+        </div>
+      </div>
+
+      <div className="profile-section">
+        <h2>Alterar Senha</h2>
+
+        <div className="input-group">
+          <label htmlFor="current-password">Senha Atual</label>
+          <div className="input-wrapper">
+            <input
+              id="current-password"
+              name="currentPassword"
+              type={showCurrentPassword ? 'text' : 'password'}
+              value={formData.currentPassword}
+              onChange={handleChange}
+              className="profile-input"
+              disabled={isLoading}
+            />
+            <span
+              className="toggle-password"
+              onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+            >
+              {showCurrentPassword ? (
+                <FaEyeSlash style={{ color: '#000' }} />
+              ) : (
+                <FaEye style={{ color: '#000' }} />
+              )}
+            </span>
+          </div>
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="new-password">Nova Senha</label>
+          <div className="input-wrapper">
+            <input
+              id="new-password"
+              name="newPassword"
+              type={showNewPassword ? 'text' : 'password'}
+              value={formData.newPassword}
+              onChange={handleChange}
+              className="profile-input"
+              disabled={isLoading}
+            />
+            <span
+              className="toggle-password"
+              onClick={() => setShowNewPassword(!showNewPassword)}
+            >
+              {showNewPassword ? (
+                <FaEyeSlash style={{ color: '#000' }} />
+              ) : (
+                <FaEye style={{ color: '#000' }} />
+              )}
+            </span>
+          </div>
+          {formData.newPassword && (
+            <ul className="password-requirements">
+              {!passwordErrors.length && (
+                <li className="invalid">Pelo menos 8 caracteres</li>
+              )}
+              {!passwordErrors.uppercase && (
+                <li className="invalid">Pelo menos uma letra maiúscula</li>
+              )}
+              {!passwordErrors.number && (
+                <li className="invalid">Pelo menos um número</li>
+              )}
+              {!passwordErrors.special && (
+                <li className="invalid">Pelo menos um caractere especial (ex.: !@#$%)</li>
+              )}
+            </ul>
+          )}
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="confirm-new-password">Confirmar Nova Senha</label>
+          <div className="input-wrapper">
+            <input
+              id="confirm-new-password"
+              name="confirmNewPassword"
+              type={showConfirmPassword ? 'text' : 'password'}
+              value={formData.confirmNewPassword}
+              onChange={handleChange}
+              className="profile-input"
+              disabled={isLoading}
+            />
+            <span
+              className="toggle-password"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? (
+                <FaEyeSlash style={{ color: '#000' }} />
+              ) : (
+                <FaEye style={{ color: '#000' }} />
+              )}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="profile-actions">
+        <button
+          type="submit"
+          className="cta-button"
+          disabled={isLoading || !hasChanges}
+        >
+          {isLoading ? 'Salvando...' : 'Salvar Perfil'}
+        </button>
+      </div>
+
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
+    </form>
+  </section>
+</div>
   );
+  
 };
 
 export default Perfil;

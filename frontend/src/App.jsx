@@ -5,7 +5,12 @@ import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import Perfil from './pages/Perfil';
 import Sobre from './pages/Sobre';
+import PostagensList from './pages/PostagensList';
+import PostagemDetalhada from './pages/PostagemDetalhada';
+import MinhasPostagens from './pages/MinhasPostagens';
 import PrivateLayout from './components/PrivateLayout';
+import EditarPostagem from './pages/EditarPostagem';
+import CriarPostagem from './pages/CriarPostagem';
 
 const PrivateRoute = ({ element }) => {
   const token = localStorage.getItem('access_token'); // Alterado de 'token' para 'access_token'
@@ -21,6 +26,11 @@ function App() {
       <Route path="/home" element={<PrivateRoute element={<Home />} />} />
       <Route path="/perfil" element={<PrivateRoute element={<Perfil />} />} />
       <Route path="/sobre" element={<PrivateRoute element={<Sobre />} />} />
+      <Route path="/postagens" element={<PrivateRoute element={<PostagensList />} />} />
+      <Route path="/postagens/:id" element={<PrivateRoute element={<PostagemDetalhada />} />} />
+      <Route path="/minhas-postagens" element={<PrivateRoute element={<MinhasPostagens />} />} />
+      <Route path="/criar-postagem" element={<PrivateRoute element={<CriarPostagem />} />} />
+      <Route path="/editar-postagem/:id" element={<PrivateRoute element={<EditarPostagem />} />} />
     </Routes>
   );
 }
