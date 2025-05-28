@@ -7,7 +7,7 @@ import Perfil from './pages/Perfil';
 import Sobre from './pages/Sobre';
 import Predict from './pages/Predict';
 import PrivateLayout from './components/PrivateLayout';
-import './App.css';
+
 
 const PrivateRoute = ({ element }) => {
   const token = localStorage.getItem('access_token');

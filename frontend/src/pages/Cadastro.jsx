@@ -77,7 +77,7 @@ const Cadastro = () => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/profiles/register/`,
+        `${API_URL}/api/profiles/register/`,
         {
           email,
           username,
