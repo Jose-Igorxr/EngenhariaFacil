@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import Perfil from './pages/Perfil';
 import Sobre from './pages/Sobre';
+
 import PostagensList from './pages/PostagensList';
 import PostagemDetalhada from './pages/PostagemDetalhada';
 import MinhasPostagens from './pages/MinhasPostagens';
@@ -12,8 +13,11 @@ import PrivateLayout from './components/PrivateLayout';
 import EditarPostagem from './pages/EditarPostagem';
 import CriarPostagem from './pages/CriarPostagem';
 
+import Predict from './pages/Predict';
+import './App.css';
+
 const PrivateRoute = ({ element }) => {
-  const token = localStorage.getItem('access_token'); // Alterado de 'token' para 'access_token'
+  const token = localStorage.getItem('access_token');
   return token ? <PrivateLayout>{element}</PrivateLayout> : <Navigate to="/login" />;
 };
 
@@ -31,8 +35,9 @@ function App() {
       <Route path="/minhas-postagens" element={<PrivateRoute element={<MinhasPostagens />} />} />
       <Route path="/criar-postagem" element={<PrivateRoute element={<CriarPostagem />} />} />
       <Route path="/editar-postagem/:id" element={<PrivateRoute element={<EditarPostagem />} />} />
+      <Route path="/predict" element={<PrivateRoute element={<Predict />} />} />
     </Routes>
   );
 }
 
-export default App
+export default App;

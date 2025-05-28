@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME } from '../constants/company';
 import { FaClock, FaMoneyBillWave, FaUsers, FaLock, FaCheck, FaRocket, FaBuilding } from 'react-icons/fa';
@@ -22,19 +22,29 @@ const LandingPage = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
+  const [showButtons, setShowButtons] = useState(true);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+    if (isInteracting) return;
+    setIsInteracting(true);
     setIsTransitioning(true);
+    setShowButtons(true); // Garante que os botões estejam visíveis
+    setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => prevIndex - 1);
+    if (isInteracting) return;
+    setIsInteracting(true);
     setIsTransitioning(true);
+    setShowButtons(true); // Garante que os botões estejam visíveis
+    setCurrentIndex((prevIndex) => prevIndex - 1);
   };
 
   const handleTransitionEnd = () => {
+    setIsInteracting(false);
+    setShowButtons(true); // Mantém botões visíveis após transição
     if (currentIndex === 0) {
       setIsTransitioning(false);
       setCurrentIndex(carouselItems.length - 2);
@@ -43,6 +53,13 @@ const LandingPage = () => {
       setCurrentIndex(1);
     }
   };
+
+  useEffect(() => {
+    if (!isTransitioning) {
+      setIsInteracting(false);
+      setShowButtons(true); // Força visibilidade dos botões
+    }
+  }, [isTransitioning, currentIndex]);
 
   return (
     <div className="landing-container">
@@ -55,7 +72,13 @@ const LandingPage = () => {
 
       <section className="hero">
         <div className="carousel-container">
-          <button className="carousel-btn prev" onClick={prevSlide}>❮</button>
+          <button
+            className="carousel-btn prev"
+            onClick={prevSlide}
+            style={{ display: showButtons ? 'block' : 'none' }}
+          >
+            ❮
+          </button>
           <div className="carousel">
             <div
               className="carousel-inner"
@@ -73,7 +96,13 @@ const LandingPage = () => {
               ))}
             </div>
           </div>
-          <button className="carousel-btn next" onClick={nextSlide}>❯</button>
+          <button
+            className="carousel-btn next"
+            onClick={nextSlide}
+            style={{ display: showButtons ? 'block' : 'none' }}
+          >
+            ❯
+          </button>
         </div>
         <div className="hero-content">
           <h1>Construa com Inteligência e Simplicidade</h1>

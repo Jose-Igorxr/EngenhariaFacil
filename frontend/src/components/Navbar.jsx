@@ -22,8 +22,9 @@ const Navbar = () => {
         <Link to="/sobre" className="nav-link"><b>SOBRE</b></Link>
         <Link to="/postagens" className="nav-link"><b>POSTAGENS</b></Link>
         <Link to="/minhas-postagens" className="nav-link"><b>POSTAGENS PESSOAIS</b></Link>
+        <Link to="/predict" className="nav-link">CALCULAR MATERIAIS</Link>  
         <button onClick={handleLogout} className="logout-button" title="Sair">
-          <FiLogOut size={20} />
+          <FiLogOut size={20} />      
         </button>
       </nav>
     </header>

@@ -1,0 +1,138 @@
+/* Container principal */
+.predict-container {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.predict-container:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Título */
+.predict-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1a202c;
+  margin-bottom: 1.5rem;
+}
+
+/* Formulário */
+.predict-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Grupo de input */
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.input-group input {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #1a202c;
+  background: #f7fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.input-group input::placeholder {
+  color: #a0aec0;
+}
+
+/* Botão */
+.predict-button {
+  padding: 0.75rem;
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.predict-button:hover {
+  background: #2563eb;
+}
+
+.predict-button:active {
+  transform: scale(0.95);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #ef4444;
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  font-size: 0.9rem;
+}
+
+/* Resultados */
+.predictions {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 8px;
+}
+
+/* Título dos resultados */
+.predictions-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 1rem;
+}
+
+/* Lista de resultados */
+.predictions-list {
+  list-style: none;
+  padding: 0;
+  font-size: 1rem;
+  color: #2d3748;
+}
+
+.predictions-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.predictions-list li:last-child {
+  border-bottom: none;
+}
+
+/* Gráfico */
+.prediction-chart {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-height: 14rem; /* Ajustado para gráfico de rosca */
+}
