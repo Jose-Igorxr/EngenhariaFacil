@@ -1,161 +1,270 @@
-/* CriarPostagem.css - Estilos similares ao EditarPostagem.css */
+/* styles/CriarPostagem.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-.criar-postagem-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: calc(100vh - 80px); /* Ajuste pela altura do seu header/navbar */
-    background-color: #f4f7fa; /* Mesma cor de fundo */
-    padding: 40px 20px;
-    font-family: 'Segoe UI', sans-serif;
-    box-sizing: border-box;
+.criar-postagem-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinha o card no topo se a página for maior */
+  min-height: calc(100vh - 120px); /* Ajuste 120px para altura do navbar+footer */
+  background-color: #f4f7fa;
+  padding: 30px 20px; /* Aumentado padding vertical */
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+.form-card-criar {
+  background-color: white;
+  border-radius: 12px; /* Bordas mais arredondadas */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 750px; /* Largura aumentada para formulário de postagem */
+  padding: 30px 35px; /* Padding interno aumentado */
+  box-sizing: border-box;
+}
+
+.form-title {
+  font-size: 2rem; /* Tamanho do título principal do formulário */
+  font-weight: 600;
+  color: #D35400; /* Laranja principal */
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.form-subtitle {
+  font-size: 1rem;
+  color: #5a6a7a;
+  margin-bottom: 30px; /* Mais espaço abaixo do subtítulo */
+  text-align: center;
+  line-height: 1.5;
+}
+
+.criar-postagem-form .form-group {
+  margin-bottom: 22px; /* Espaçamento entre grupos de formulário */
+}
+
+.criar-postagem-form .form-group label {
+  display: block;
+  font-size: 0.9rem; /* Tamanho do label */
+  font-weight: 500; /* Peso da fonte do label */
+  color: #495057;
+  margin-bottom: 8px;
+}
+
+.criar-postagem-form .form-group input[type="text"],
+.criar-postagem-form .form-group textarea {
+  width: 100%;
+  padding: 12px 14px; /* Padding interno dos inputs */
+  border: 1px solid #ced4da;
+  border-radius: 6px; /* Bordas arredondadas dos inputs */
+  font-size: 0.95rem;
+  font-family: inherit;
+  background-color: #fdfdfe; /* Fundo levemente off-white para inputs */
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.criar-postagem-form .form-group input[type="text"]:focus,
+.criar-postagem-form .form-group textarea:focus {
+  border-color: #D35400;
+  outline: none;
+  box-shadow: 0 0 0 0.18rem rgba(211, 84, 0, 0.2); /* Sombra de foco laranja */
+}
+
+.criar-postagem-form .form-group textarea {
+  resize: vertical;
+  min-height: 180px; /* Altura mínima maior para o conteúdo */
+}
+
+.file-input-label {
+  display: inline-flex; /* Para alinhar ícone e texto */
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  background-color: #e9ecef; /* Fundo para o botão de upload */
+  color: #495057;
+  border: 1px dashed #adb5bd; /* Borda tracejada */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  font-weight: 500 !important; /* Sobrescreve o label padrão */
+}
+
+.file-input-label:hover {
+  background-color: #dee2e6;
+  border-color: #6c757d;
+}
+
+.file-input-field { /* Esconde o input de arquivo padrão, o label faz o trabalho */
+  display: none;
+}
+
+.image-preview-container {
+  margin-top: 15px;
+  text-align: left; /* Alinha à esquerda */
+  position: relative; /* Para posicionar o botão de remover */
+  display: inline-block; /* Para que o container não ocupe largura total */
+  border: 1px solid #e0e0e0;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.image-preview {
+  max-width: 250px; /* Aumentado tamanho da prévia */
+  max-height: 250px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+  display: block;
+}
+
+.remove-image-button {
+  position: absolute;
+  top: -10px; /* Posiciona acima e à direita da prévia */
+  right: -10px;
+  background-color: rgba(44, 62, 80, 0.8); /* Fundo escuro semi-transparente */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.remove-image-button:hover {
+  background-color: #e74c3c; /* Vermelho no hover */
+  transform: scale(1.1);
+}
+
+
+.form-actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end; /* Alinha botões à direita */
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef; /* Linha separadora */
+}
+
+.cta-button {
+  padding: 12px 24px; /* Padding aumentado */
+  font-size: 0.95rem; /* Tamanho da fonte */
+  font-weight: 500; /* Peso da fonte */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cta-button.primary {
+  background-color: #D35400;
+  color: white;
+  box-shadow: 0 3px 8px rgba(211, 84, 0, 0.2);
+}
+.cta-button.primary:hover:not(:disabled) {
+  background-color: #b34800;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(179, 68, 0, 0.3);
+}
+.cta-button.primary:disabled {
+  background-color: #fdba74;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.cta-button.secondary {
+  background-color: #6c757d;
+  color: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+.cta-button.secondary:hover:not(:disabled) {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+.cta-button.secondary:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+
+.error-message-form, .success-message-form { /* Classes específicas para esta página */
+  font-size: 0.9rem;
+  padding: 12px 15px; /* Padding aumentado */
+  border-radius: 6px;
+  margin-top: 10px; /* Ajustado margin */
+  margin-bottom: 20px;
+  text-align: center;
+  border-left-width: 4px;
+  border-left-style: solid;
+}
+
+.error-message-form {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-left-color: #e74c3c; /* Vermelho mais forte para a borda */
+}
+
+.success-message-form {
+  color: #155724;
+  background-color: #d4edda;
+  border-left-color: #28a745; /* Verde mais forte para a borda */
+}
+
+@media (max-width: 768px) {
+  .criar-postagem-page-container {
+    padding: 20px 15px;
   }
-  
-  /* Reutilizando .form-card do EditarPostagem.css */
-  /* Se você tiver um arquivo CSS global, pode definir .form-card lá */
-  .form-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 700px;
-    padding: 30px 40px;
-    box-sizing: border-box;
+  .form-card-criar {
+    padding: 25px;
   }
-  
-  .form-card h2 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #333;
+  .form-title {
+    font-size: 1.7rem;
+  }
+  .form-subtitle {
+    font-size: 0.9rem;
     margin-bottom: 25px;
-    text-align: center;
   }
-  
-  /* Reutilizando .profile-form-similar e .form-group do EditarPostagem.css */
-  .profile-form-similar .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .profile-form-similar .form-group label {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #444;
-    margin-bottom: 8px;
-  }
-  
-  .profile-form-similar .form-group input[type="text"],
-  .profile-form-similar .form-group textarea,
-  .profile-form-similar .form-group input[type="file"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-family: inherit;
-    background-color: #f9f9f9;
-    box-sizing: border-box;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  .profile-form-similar .form-group input[type="file"] {
-    padding: 8px 12px;
-    background-color: white;
-  }
-  
-  .profile-form-similar .form-group input[type="text"]:focus,
-  .profile-form-similar .form-group textarea:focus {
-    border-color: #D35400; /* Cor de destaque laranja */
-    outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(211, 84, 0, 0.25);
-  }
-  
-  .profile-form-similar .form-group textarea {
-    resize: vertical;
-    min-height: 150px; /* Um pouco mais de altura para o conteúdo da postagem */
-  }
-  
-  /* Reutilizando .image-preview-container e .image-preview do EditarPostagem.css */
-  .image-preview-container {
-    margin-top: 15px;
-    text-align: left;
-  }
-  
-  .image-preview-container p {
-    font-size: 0.85rem;
-    color: #555;
-    margin-bottom: 8px;
-  }
-  
-  .image-preview {
-    max-width: 200px;
-    max-height: 200px;
-    height: auto;
-    border-radius: 8px;
-    border: 1px solid #eee;
-    object-fit: cover;
-  }
-  
-  /* Reutilizando .form-actions e .cta-button do EditarPostagem.css */
   .form-actions {
-    margin-top: 30px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
+    flex-direction: column-reverse; /* Empilha botões, primário em baixo */
+    gap: 12px;
   }
-  
   .cta-button {
-    background-color: #D35400;
-    color: white;
-    padding: 12px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    width: 100%; /* Botões ocupam largura total */
   }
-  
-  .cta-button:hover:not(:disabled) {
-    background-color: #b34800;
-    transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .form-card-criar {
+    padding: 20px 15px;
   }
-  
-  .cta-button:disabled {
-    background-color: #f3a375; /* Laranja mais claro para desabilitado */
-    cursor: not-allowed;
+  .form-title {
+    font-size: 1.5rem;
   }
-  
-  .cta-button.secondary {
-    background-color: #6c757d;
-    color: white;
+  .form-subtitle {
+    font-size: 0.85rem;
   }
-  
-  .cta-button.secondary:hover:not(:disabled) {
-    background-color: #5a6268;
-  }
-  
-  /* Reutilizando .error-message e .success-message do EditarPostagem.css */
-  /* (ou do seu CSS global) */
-  .error-message {
+  .criar-postagem-form .form-group input[type="text"],
+  .criar-postagem-form .form-group textarea {
+    padding: 10px 12px;
     font-size: 0.9rem;
-    color: #e74c3c;
-    background-color: #fdd;
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 15px;
-    margin-bottom: 15px; /* Adicionado para espaçamento se houver botão abaixo */
-    text-align: center;
   }
-  
-  .success-message {
-    font-size: 0.9rem;
-    color: #28a745; /* Verde para sucesso */
-    background-color: #d4edda; /* Fundo levemente esverdeado */
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    text-align: center;
+  .criar-postagem-form .form-group textarea {
+    min-height: 150px;
   }
+  .image-preview {
+    max-width: 100%; /* Prévia ocupa largura disponível */
+  }
+}

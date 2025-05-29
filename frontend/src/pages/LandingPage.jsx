@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME } from '../constants/company';
-import { FaClock, FaMoneyBillWave, FaUsers, FaLock, FaCheck, FaRocket, FaBuilding } from 'react-icons/fa';
+import { FaMoneyBillWave, FaUsers, FaLock } from 'react-icons/fa'; // FaClock removido
+import Footer from '../components/Footer';
+import { motion } from 'framer-motion';
 import '../styles/LandingPage.css';
 
+// VERIFIQUE SE ESTES CAMINHOS ESTÃO CORRETOS E SE AS IMAGENS EXISTEM LÁ
 import image01 from '../assets/images/image - 01.jpeg';
 import image02 from '../assets/images/image - 02.jpeg';
 import image03 from '../assets/images/image - 03.jpeg';
 
 const LandingPage = () => {
   const originalItems = [
-    { src: image01, alt: 'Imagem 1', caption: 'Planeje sua obra com precisão' },
-    { src: image02, alt: 'Imagem 2', caption: 'Estimativas confiáveis com IA' },
-    { src: image03, alt: 'Imagem 3', caption: 'Conecte-se e colabore' },
+    { src: image01, alt: 'Planejamento de obra preciso', caption: 'Planeje sua obra com precisão' },
+    { src: image02, alt: 'Estimativas com Inteligência Artificial', caption: 'Estimativas confiáveis com IA' },
+    { src: image03, alt: 'Colaboração em projetos de construção', caption: 'Conecte-se e colabore' },
   ];
 
   const carouselItems = [
@@ -22,195 +25,177 @@ const LandingPage = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isInteracting, setIsInteracting] = useState(false);
-  const [showButtons, setShowButtons] = useState(true);
+  const [isCssTransitionEnabled, setIsCssTransitionEnabled] = useState(true); // Controla a transição CSS
+  const intervalRef = useRef(null);
+  const CAROUSEL_INTERVAL = 3500; // Intervalo reduzido para 3.5 segundos
+  const TRANSITION_DURATION_MS = 600; // Duração da transição CSS em milissegundos
 
-  const nextSlide = () => {
-    if (isInteracting) return;
-    setIsInteracting(true);
-    setIsTransitioning(true);
-    setShowButtons(true); // Garante que os botões estejam visíveis
+  const advanceSlide = () => {
+    setIsCssTransitionEnabled(true); // Garante que a transição CSS esteja ativa para o movimento
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
-  const prevSlide = () => {
-    if (isInteracting) return;
-    setIsInteracting(true);
-    setIsTransitioning(true);
-    setShowButtons(true); // Garante que os botões estejam visíveis
-    setCurrentIndex((prevIndex) => prevIndex - 1);
-  };
+  useEffect(() => {
+    intervalRef.current = setInterval(advanceSlide, CAROUSEL_INTERVAL);
+    return () => clearInterval(intervalRef.current);
+  }, []);
 
   const handleTransitionEnd = () => {
-    setIsInteracting(false);
-    setShowButtons(true); // Mantém botões visíveis após transição
-    if (currentIndex === 0) {
-      setIsTransitioning(false);
-      setCurrentIndex(carouselItems.length - 2);
-    } else if (currentIndex === carouselItems.length - 1) {
-      setIsTransitioning(false);
-      setCurrentIndex(1);
+    // A transição CSS terminou. Agora verificamos se precisamos "pular" para o slide real.
+    if (currentIndex === 0) { // Chegou ao clone do último item (no início)
+      setIsCssTransitionEnabled(false); // Desativa a transição CSS para o salto
+      setCurrentIndex(carouselItems.length - 2); // Salta para o último item real
+    } else if (currentIndex === carouselItems.length - 1) { // Chegou ao clone do primeiro item (no fim)
+      setIsCssTransitionEnabled(false); // Desativa a transição CSS para o salto
+      setCurrentIndex(1); // Salta para o primeiro item real
     }
+    // Não é necessário reativar isCssTransitionEnabled aqui,
+    // pois advanceSlide() fará isso no próximo movimento.
   };
+  
+  // Animações de hover/tap mantidas, mas as de entrada de seção foram removidas
+  // const sectionVariants = { ... };
+  // const itemVariants = { ... };
 
-  useEffect(() => {
-    if (!isTransitioning) {
-      setIsInteracting(false);
-      setShowButtons(true); // Força visibilidade dos botões
-    }
-  }, [isTransitioning, currentIndex]);
+  const featuresList = [
+    // { icon: <FaClock className="feature-icon" />, title: "Rapidez", description: "Gere estimativas precisas de materiais em minutos com nossa IA treinada." }, // Removido
+    { icon: <FaMoneyBillWave className="feature-icon" />, title: "Economia", description: "Evite desperdícios planejando com dados confiáveis e otimize seu orçamento." },
+    { icon: <FaUsers className="feature-icon" />, title: "Colaboração", description: "Compartilhe projetos, receba feedback e conecte-se com a comunidade." },
+    { icon: <FaLock className="feature-icon" />, title: "Confiabilidade", description: "Valide estimativas com dados reais e proteja seus projetos com segurança." },
+  ];
+
+  const testimonialsList = [
+    { quote: "\"A Obra Fácil simplificou o planejamento das minhas obras. A IA é impressionante!\"", author: "- André, Engenheiro Civil" },
+    { quote: "\"Como iniciante, consegui planejar minha reforma com confiança. Plataforma intuitiva.\"", author: "- Luiza, Proprietária" },
+    { quote: "\"A validação das estimativas e o espaço colaborativo transformaram meus projetos.\"", author: "- Marcos, Gerente de Construção" },
+  ];
+  
+  const pricingPlans = [
+    { type: "Básico", price: "Grátis", description: "Perfeito para iniciantes ou pequenas reformas.", features: ["Estimativas básicas com IA", "Limite de 2 projetos/mês", "Acesso ao fórum", "Suporte via e-mail"], cta: "Começar Grátis", link: "/cadastro", iconName: "FaCheck" },
+    { type: "Profissional", price: "R$ 49,90/mês", description: "Ideal para profissionais que buscam eficiência.", features: ["Estimativas ilimitadas", "Exportação de relatórios", "Compartilhamento de projetos", "Suporte prioritário", "Histórico de projetos"], cta: "Assinar Agora", link: "/cadastro", iconName: "FaRocket", highlighted: false },
+    { type: "Empresarial", price: "R$ 199,90/mês", description: "Solução completa para empresas e grandes obras.", features: ["Acesso multiusuário (10)", "Integração API", "Validação IA personalizada", "Relatórios analíticos", "Suporte dedicado 24/7"], cta: "Fale Conosco", link: "/contato", iconName: "FaBuilding", highlighted: true },
+  ];
+
+  const getIconComponent = (iconName) => {
+    return <span className="pricing-plan-default-icon">✓</span>;
+  };
 
   return (
     <div className="landing-container">
       <header className="landing-header">
+        {/* Logo não é mais um Link */}
         <div className="logo">{COMPANY_NAME}</div>
-        <nav className="nav-menu">
-          <Link to="/login" className="login-link">Entrar</Link>
+        <nav className="landing-nav-menu">
+          <Link to="/login" className="login-link-landing">Entrar</Link>
         </nav>
       </header>
 
       <section className="hero">
         <div className="carousel-container">
-          <button
-            className="carousel-btn prev"
-            onClick={prevSlide}
-            style={{ display: showButtons ? 'block' : 'none' }}
-          >
-            ❮
-          </button>
           <div className="carousel">
             <div
               className="carousel-inner"
               style={{
                 transform: `translateX(-${currentIndex * 100}%)`,
-                transition: isTransitioning ? 'transform 0.5s ease' : 'none',
+                transition: isCssTransitionEnabled ? `transform ${TRANSITION_DURATION_MS}ms cubic-bezier(0.77, 0, 0.175, 1)` : 'none',
               }}
               onTransitionEnd={handleTransitionEnd}
             >
               {carouselItems.map((item, index) => (
                 <div key={index} className="carousel-item">
-                  <img src={item.src} alt={item.alt} className="carousel-image" />
+                  {/* Adicionada verificação se item.src existe */}
+                  {item.src ? (
+                    <img src={item.src} alt={item.alt} className="carousel-image" />
+                  ) : (
+                    <div className="carousel-image-placeholder">Imagem não disponível</div>
+                  )}
                   <div className="carousel-caption">{item.caption}</div>
                 </div>
               ))}
             </div>
           </div>
-          <button
-            className="carousel-btn next"
-            onClick={nextSlide}
-            style={{ display: showButtons ? 'block' : 'none' }}
-          >
-            ❯
-          </button>
         </div>
-        <div className="hero-content">
+        <motion.div className="hero-content"> {/* Animações de entrada removidas, mas motion.div mantido para whileHover/Tap no botão */}
           <h1>Construa com Inteligência e Simplicidade</h1>
           <p>Obra Fácil utiliza IA avançada para estimar materiais, otimizar projetos e conectar profissionais e iniciantes em uma plataforma colaborativa.</p>
           <Link to="/cadastro">
-            <button className="cta-button">Experimente Grátis</button>
+            <motion.button 
+              className="cta-button hero-cta"
+              whileHover={{ scale: 1.05, y: -2, boxShadow: "0 8px 20px rgba(211, 84, 0, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Experimente Grátis
+            </motion.button>
           </Link>
-        </div>
+        </motion.div>
       </section>
 
       <section id="recursos" className="features">
         <h2>Por que Escolher a Obra Fácil?</h2>
         <div className="features-list">
-          <div className="feature-item">
-            <FaClock className="feature-icon" />
-            <h3>Rapidez</h3>
-            <p>Gere estimativas precisas de materiais em minutos com nossa IA treinada em milhares de obras.</p>
-          </div>
-          <div className="feature-item">
-            <FaMoneyBillWave className="feature-icon" />
-            <h3>Economia</h3>
-            <p>Evite desperdícios planejando com dados confiáveis e otimize seu orçamento.</p>
-          </div>
-          <div className="feature-item">
-            <FaUsers className="feature-icon" />
-            <h3>Colaboração</h3>
-            <p>Compartilhe projetos, receba feedback e conecte-se com a comunidade da construção civil.</p>
-          </div>
-          <div className="feature-item">
-            <FaLock className="feature-icon" />
-            <h3>Confiabilidade</h3>
-            <p>Valide estimativas com dados reais e proteja seus projetos com segurança de ponta.</p>
-          </div>
+          {featuresList.map((feature, index) => (
+            <motion.div // Animações de entrada removidas
+              key={index} 
+              className="feature-item"
+              whileHover={{ y: -7, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)"}} // Mantido hover
+            >
+              {feature.icon}
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
       <section className="testimonials">
         <h2>Histórias de Sucesso</h2>
         <div className="testimonial-items">
-          <div className="testimonial-item">
-            <p>"A Engenharia Fácil simplificou o planejamento das minhas obras. A IA é impressionante e economizou horas de trabalho!"</p>
-            <span>- André, Engenheiro Civil</span>
-          </div>
-          <div className="testimonial-item">
-            <p>"Como iniciante, consegui planejar minha reforma com confiança. A plataforma é intuitiva e os dados são confiáveis."</p>
-            <span>- Luiza, Proprietária</span>
-          </div>
-          <div className="testimonial-item">
-            <p>"A validação das estimativas e o espaço colaborativo transformaram a gestão dos meus projetos. Altamente recomendável!"</p>
-            <span>- Marcos, Gerente de Construção</span>
-          </div>
-          <div className="testimonial-item">
-            <p>"Os relatórios detalhados e o suporte dedicado fazem toda a diferença para nossa equipe. Melhor investimento!"</p>
-            <span>- Ana, Diretora de Construtora</span>
-          </div>
+          {testimonialsList.map((testimonial, index) => (
+             <motion.div // Animações de entrada removidas
+              key={index} 
+              className="testimonial-item"
+              whileHover={{ y: -5, boxShadow: "0 8px 20px rgba(0, 0, 0, 0.08)"}} // Mantido hover
+            >
+              <p>{testimonial.quote}</p>
+              <span>{testimonial.author}</span>
+            </motion.div>
+          ))}
         </div>
       </section>
 
       <section className="pricing">
         <h2>Planos para Todos os Projetos</h2>
-        <p>Escolha o plano ideal e construa com precisão, eficiência e colaboração.</p>
+        <p className="pricing-subtitle">Escolha o plano ideal e construa com precisão, eficiência e colaboração.</p>
         <div className="pricing-cards">
-          <div className="pricing-card basic">
-            <h3><FaCheck /> Básico</h3>
-            <p className="price">Grátis</p>
-            <p className="description">Perfeito para iniciantes ou pequenas reformas.</p>
-            <ul>
-              <li>Estimativas básicas de materiais com IA</li>
-              <li>Limite de 2 projetos por mês</li>
-              <li>Acesso ao fórum da comunidade</li>
-              <li>Suporte via e-mail (resposta em até 48h)</li>
-            </ul>
-            <button><Link to="/cadastro" className="link-style">Começar Grátis</Link></button>
-          </div>
-          <div className="pricing-card professional">
-            <h3><FaRocket /> Profissional</h3>
-            <p className="price">R$ 99,90/mês</p>
-            <p className="description">Ideal para profissionais que buscam eficiência e precisão.</p>
-            <ul>
-              <li>Estimativas ilimitadas com validação de IA</li>
-              <li>Exportação de relatórios em PDF e Excel</li>
-              <li>Feedback e compartilhamento de projetos</li>
-              <li>Suporte prioritário via chat (resposta em até 12h)</li>
-              <li>Acesso ao histórico completo de projetos</li>
-            </ul>
-            <button>Assinar Agora</button>
-          </div>
-          <div className="pricing-card enterprise highlighted">
-            <div className="highlight-badge">Mais Popular</div>
-            <h3><FaBuilding /> Empresarial</h3>
-            <p className="price">R$ 249,90/mês</p>
-            <p className="description">Solução completa para empresas e grandes obras.</p>
-            <ul>
-              <li>Acesso multiusuário (até 20 contas)</li>
-              <li>Integração avançada via API</li>
-              <li>Validação personalizada de estimativas com IA</li>
-              <li>Relatórios analíticos com insights de obras</li>
-              <li>Espaço colaborativo para equipes e clientes</li>
-              <li>Suporte dedicado 24/7 com gerente de conta</li>
-            </ul>
-            <button>Assinar Agora</button>
-          </div>
+          {pricingPlans.map((plan, index) => (
+            <motion.div // Animações de entrada removidas
+              key={index} 
+              className={`pricing-card ${plan.highlighted ? 'highlighted' : ''}`}
+              whileHover={{ y: -10, boxShadow: "0 12px 30px rgba(44, 62, 80, 0.15)"}} // Mantido hover
+            >
+              {plan.highlighted && <div className="highlight-badge">Mais Popular</div>}
+              <h3>{getIconComponent(plan.iconName)} {plan.type}</h3>
+              <p className="price">{plan.price}</p>
+              <p className="description">{plan.description}</p>
+              <ul>
+                {plan.features.map((feature, fIndex) => (
+                  <li key={fIndex}>{feature}</li>
+                ))}
+              </ul>
+              <Link to={plan.link} className="pricing-cta-link">
+                <motion.button 
+                  className="cta-button pricing-button"
+                  whileHover={{ scale: 1.03, boxShadow: "0 6px 18px rgba(211, 84, 0, 0.35)" }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  {plan.cta}
+                </motion.button>
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </section>
-
-      <footer className="landing-footer" id="contato">
-        <p>© {new Date().getFullYear()} {COMPANY_NAME}. Todos os direitos reservados.</p>
-      </footer>
+      <Footer />
     </div>
   );
 };

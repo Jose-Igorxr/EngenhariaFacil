@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
-//import './index.css';
-import { COMPANY_NAME } from './constants/company'; // 👈 Importa a constante
+import { COMPANY_NAME } from './constants/company';
 
-document.title = COMPANY_NAME; // 👈 Define o <title> dinamicamente
+document.title = COMPANY_NAME;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

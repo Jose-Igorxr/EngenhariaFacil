@@ -1,20 +1,23 @@
 /* src/styles/Home.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&display=swap');
 
 .hero-container {
-  height: calc(100vh - 60px); 
+  height: calc(100vh - 60px); /* Ajuste '60px' para a altura real do seu Navbar */
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: relative; /* Necessário para o overlay */
-  overflow: hidden; /* Para garantir que nada transborde */
-  color: white; /* Cor do texto padrão para contraste com a imagem de fundo */
-  background-image: url('src/assets/images/silhueta-de-construcao.jpg'); /* Placeholder */
-  background-size: cover; 
-  
+  position: relative;
+  overflow: hidden;
+  color: white !important;
+  background-image: url('../assets/images/silhueta-de-construcao.jpg');
+  background-position: center center;
+  background-size: cover;
   background-repeat: no-repeat;
+  font-family: 'Inter', sans-serif;
 }
 
 .hero-overlay {
@@ -23,85 +26,171 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* Overlay escuro semitransparente (ajuste a opacidade) */
-  z-index: 1; /* Garante que o overlay fique sobre a imagem de fundo */
+  background-color: rgba(0, 0, 0, 0.7); /* Overlay um pouco mais escuro para melhor contraste */
+  z-index: 1;
 }
 
 .hero-content {
-  position: relative; /* Para ficar acima do overlay */
+  position: relative;
   z-index: 2;
-  padding: 20px;
-  max-width: 800px; /* Limita a largura do conteúdo para melhor legibilidade */
+  padding: 20px 30px;
+  max-width: 850px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .hero-title {
-  font-size: 2.8rem; /* Tamanho grande para o título principal */
-  font-weight: bold;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para destacar o texto */
+  font-family: 'Barlow', sans-serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #FFF !important; /* Laranja principal */
+  margin-bottom: 1.5rem;
+  line-height: 1.25;
+  width: bold ;
 }
 
 .hero-subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  max-width: 600px; /* Limita a largura do subtítulo */
-  line-height: 1.6;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  font-size: 1.3rem; /* Aumentado ligeiramente para mais impacto */
+  margin-bottom: 2.5rem;
+  max-width: 700px;
+  line-height: 1.7;
+  color: #FFFFFF !important; /* Cor branca para o subtítulo */
+  font-weight: 500; /* Mais peso para "forte" */
+  text-shadow: 
+    1px 1px 3px rgba(0, 0, 0, 0.8), /* Sombra escura mais pronunciada */
+    0 0 5px rgba(0,0,0,0.5); /* Leve brilho escuro para destacar do fundo */
+}
+
+.hero-subtitle strong {
+  color: #FFB74D; /* Laranja mais claro e vibrante para o <strong> */
+  font-weight: 700; /* Garante que o strong seja ainda mais destacado */
 }
 
 .hero-cta-button {
-  background-color: #D35400; /* Seu laranja principal para call-to-action */
+  background-color: #D35400;
   color: white;
-  padding: 15px 30px; /* Botão maior */
-  font-size: 1.1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px; /* Bordas mais arredondadas */
+  padding: 16px 35px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border: 2px solid transparent;
+  border-radius: 8px;
   text-decoration: none;
-  text-transform: uppercase; /* Deixa o texto do botão em maiúsculas */
-  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para o botão */
+  transition: background-color 0.25s ease, transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  display: inline-block;
 }
 
 .hero-cta-button:hover {
-  background-color: #b34800; /* Laranja mais escuro no hover */
-  transform: translateY(-2px); /* Efeito sutil de elevação */
+  background-color: #ffffff;
+  color: #D35400;
+  border-color: #D35400;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(211, 84, 0, 0.3);
 }
 
-/* Media Queries para Responsividade (Exemplo) */
+.hero-quick-features {
+  margin-top: 3rem;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.quick-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 150px;
+}
+
+.quick-feature span[role="img"] {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
+}
+
+.quick-feature p {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  font-weight: 500;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Adiciona sombra para legibilidade */
+}
+
+
+/* Media Queries para Responsividade */
 @media (max-width: 768px) {
+  .hero-container {
+    height: calc(100vh - 55px);
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
   .hero-title {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
+    text-shadow:
+      -1px -1px 0 #fff,  
+       1px -1px 0 #fff,
+      -1px  1px 0 #fff,
+       1px  1px 0 #fff,
+       1px  1px 3px rgba(0, 0, 0, 0.7); /* Sombra um pouco menor para mobile */
   }
   .hero-subtitle {
-    font-size: 1rem;
+    font-size: 1.15rem; /* Ajustado */
+    margin-bottom: 2rem;
   }
   .hero-cta-button {
-    padding: 12px 25px;
-    font-size: 1rem;
+    padding: 14px 28px;
+    font-size: 1.05rem;
+  }
+  .hero-quick-features {
+    margin-top: 2rem;
+    gap: 20px;
+  }
+  .quick-feature span[role="img"] {
+    font-size: 2rem;
+  }
+  .quick-feature p {
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero-container {
-     /* Ajusta a altura em telas menores se o navbar for responsivo ou se não houver navbar */
-    height: calc(100vh - 50px);
+    height: auto;
+    min-height: calc(100vh - 50px);
+    padding: 30px 15px;
   }
   .hero-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
+    text-shadow:
+      -1px -1px 0 #fff,  
+       1px -1px 0 #fff,
+      -1px  1px 0 #fff,
+       1px  1px 0 #fff,
+       1px  1px 2px rgba(0, 0, 0, 0.7); /* Sombra ainda menor */
   }
   .hero-subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 1.8rem;
   }
   .hero-cta-button {
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    padding: 12px 22px;
+    font-size: 1rem;
   }
+  .hero-quick-features {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .quick-feature {
+    max-width: none;
+  }
+}
+
+.quick-feature span[role="img"] {
+  filter: sepia(1) saturate(5) hue-rotate(-15deg) brightness(1.1) !important;
 }

@@ -1,142 +1,260 @@
-/* About.css */
+/* styles/Sobre.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@600;700;800&display=swap');
 
-.about-section {
-  width: 100%;
-  padding: 60px 20px;
-  background-color: #f9fafb;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.sobre-page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 120px); /* Ajuste para altura do navbar + footer */
+  font-family: 'Inter', sans-serif;
+  color: #34495e; /* Cor de texto base */
+  background-color: #f8f9fa; /* Fundo geral da página um pouco mais claro */
 }
 
-.about-container {
-  max-width: 1200px;
+.about-section-main {
+  width: 100%;
+  padding: 50px 20px; /* Padding vertical reduzido */
+  background-color: #ffffff; /* Seção principal com fundo branco */
+}
+
+.about-container-grid {
+  max-width: 1100px; /* Largura máxima do conteúdo */
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px;
+  grid-template-columns: 1fr; /* Uma coluna por padrão */
+  gap: 40px; /* Espaço entre texto e imagem em mobile */
   align-items: center;
 }
 
 @media (min-width: 900px) {
-  .about-container {
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
+  .about-container-grid {
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas em telas maiores */
+    gap: 60px; /* Espaço aumentado */
   }
 }
 
 .about-text-content h2 {
-  font-size: 2.8rem;
-  color: #111827;
+  font-family: 'Barlow', sans-serif;
+  font-size: 2.6rem; /* Tamanho do título */
+  color: #2c3e50; /* Cor escura para o título */
   margin-bottom: 20px;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .about-text-content h2 .highlight {
   background-color: #D35400;
-  border-radius: 0.4rem;
-  padding: 4px 8px;
-  transform: rotate(-1deg);
+  color: #ffffff; /* Texto do highlight em branco */
+  border-radius: 6px; /* Raio de borda mais suave */
+  padding: 2px 10px; /* Padding ajustado */
+  transform: rotate(-1.5deg); /* Rotação sutil */
   display: inline-block;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
 }
 
 .about-text-content p {
-  font-size: 1.125rem;
-  color: #4b5563;
-  margin-bottom: 20px;
-  line-height: 1.6;
+  font-size: 1.05rem; /* Tamanho do parágrafo */
+  color: #4a5568; /* Cor do parágrafo */
+  margin-bottom: 18px; /* Espaçamento */
+  line-height: 1.7; /* Altura da linha para melhor leitura */
 }
 
 .about-text-content p.subtext {
-  color: #6b7280;
-  font-size: 1rem;
+  color: #6c757d; /* Cor mais clara para o subtexto */
+  font-size: 0.95rem;
+  font-style: italic;
 }
 
-.about-button {
+.about-cta-button { /* Reutilizando e adaptando .cta-button */
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 25px; /* Espaço acima do botão */
   background-color: #D35400;
   color: white;
   font-weight: 600;
-  padding: 12px 24px;
+  font-size: 1rem;
+  padding: 12px 28px; /* Padding do botão */
   border: none;
-  border-radius: 12px;
+  border-radius: 8px; /* Bordas arredondadas */
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 12px rgba(211, 84, 0, 0.2);
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.about-button:hover {
-  background-color: #b34800;
+.about-cta-button:hover {
+  background-color: #b34800; /* Laranja mais escuro */
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 15px rgba(179, 68, 0, 0.3);
 }
 
-.about-image {
+.about-image-wrapper { /* Renomeado de .about-image */
   width: 100%;
-  height: auto;
-  border-radius: 24px;
+  border-radius: 12px; /* Raio de borda */
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #e5e7eb;
-  padding: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada */
+  /* background-color e padding removidos, a imagem deve preencher */
 }
 
-.about-image img {
+.about-image-wrapper img {
   width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 20px;
+  height: auto; /* Mantém proporção */
+  max-height: 450px; /* Limita altura máxima da imagem */
+  object-fit: cover; /* Garante que a imagem cubra o espaço */
+  display: block; /* Remove espaço extra abaixo da imagem */
+  border-radius: 12px; /* Se a imagem for menor que o wrapper, mantém bordas */
 }
 
 .developers-section {
-  padding: 60px 20px;
-  background-color: #f3f4f6;
+  padding: 50px 20px; /* Padding vertical reduzido */
+  background-color: #f0f4f8; /* Fundo diferente para a seção de desenvolvedores */
 }
 
-.developers-container {
-  max-width: 1200px;
+.developers-container-content { /* Renomeado de .developers-container */
+  max-width: 900px; /* Largura máxima */
   margin: 0 auto;
   text-align: center;
 }
 
-.developers-container h3 {
-  font-size: 2rem;
+.section-title { /* Classe genérica para títulos de seção */
+  font-family: 'Barlow', sans-serif;
+  font-size: 2rem; /* Tamanho do título da seção */
   font-weight: 700;
-  color: #111827;
-  margin-bottom: 40px;
+  color: #2c3e50;
+  margin-bottom: 35px; /* Espaço abaixo do título */
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+.section-title::after { /* Linha decorativa laranja */
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background-color: #D35400;
+  border-radius: 2px;
 }
 
-.developer-cards {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
+
+.developer-cards-grid { /* Renomeado de .developer-cards */
+  display: grid; /* Usando grid para melhor alinhamento e responsividade */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Cards responsivos */
+  gap: 30px; /* Espaço entre os cards */
+  justify-items: center; /* Centraliza os cards se não preencherem a linha */
 }
 
-.developer-card {
+.developer-card-item { /* Renomeado de .developer-card */
   background-color: white;
-  padding: 20px 30px;
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
-  width: 220px;
+  padding: 25px 20px; /* Padding ajustado */
+  border-radius: 10px; /* Bordas arredondadas */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 100%; /* Ocupa o espaço da coluna do grid */
+  max-width: 240px; /* Largura máxima do card */
+  text-align: center;
+  border-top: 3px solid #D35400; /* Borda laranja no topo */
 }
 
-.developer-card:hover {
-  transform: translateY(-5px);
+.developer-card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
 }
 
 .dev-avatar {
-  display: inline-block;
-  width: 60px;
-  height: 60px;
+  display: inline-flex; /* Usando flex para centralizar texto no avatar */
+  justify-content: center;
+  align-items: center;
+  width: 65px; /* Tamanho do avatar */
+  height: 65px;
   background-color: #D35400;
   color: white;
   border-radius: 50%;
   font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 60px;
+  font-size: 1.3rem; /* Tamanho das iniciais */
   margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(211, 84, 0, 0.3);
+}
+
+.dev-name { /* Renomeado de .dev-avatar p */
+  color: #34495e; /* Cor do nome */
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* .dev-role {  Exemplo de estilo para papel/função
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-top: 4px;
+} */
+
+
+/* Media Queries */
+@media (max-width: 900px) { /* Ajuste para quando o grid principal quebra */
+  .about-text-content h2 {
+    font-size: 2.2rem;
+  }
+  .about-image-wrapper {
+    order: -1; /* Coloca a imagem acima do texto em telas menores */
+    margin-bottom: 30px; /* Espaço abaixo da imagem */
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section-main, .developers-section {
+    padding: 40px 15px; /* Padding reduzido */
+  }
+  .about-text-content h2 {
+    font-size: 2rem;
+  }
+  .about-text-content p {
+    font-size: 1rem;
+  }
+  .about-text-content p.subtext {
+    font-size: 0.9rem;
+  }
+  .about-cta-button {
+    padding: 10px 22px;
+    font-size: 0.95rem;
+  }
+  .section-title { /* Título dos desenvolvedores */
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+  .developer-cards-grid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-text-content h2 {
+    font-size: 1.8rem;
+  }
+  .about-text-content h2 .highlight {
+    padding: 2px 8px;
+    transform: rotate(-1deg);
+  }
+  .about-text-content p {
+    font-size: 0.95rem;
+  }
+  .about-cta-button {
+    width: 100%; /* Botão ocupa largura total */
+  }
+  .section-title {
+    font-size: 1.6rem;
+  }
+  .developer-card-item {
+    padding: 20px 15px;
+  }
+  .dev-avatar {
+    width: 55px;
+    height: 55px;
+    font-size: 1.1rem;
+  }
+  .dev-name {
+    font-size: 1rem;
+  }
 }

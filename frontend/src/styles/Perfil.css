@@ -1,33 +1,37 @@
 .profile-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
   background-color: #f4f7fa;
-  padding: 20px;
+  padding: 15px;
+  font-family: 'Inter', sans-serif;
 }
 
 .profile-card {
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 800px;
-  padding: 30px;
+  max-width: 600px;
+  padding: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .profile-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 10px;
 }
 
 .avatar-section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .profile-image-wrapper {
@@ -36,12 +40,17 @@
   height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #ddd;
-  background-color: #e0e0e0;
+  border: 3px solid #e0e7ff;
+  background-color: #e9ecef;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.profile-image-wrapper:hover {
+  transform: scale(1.03);
 }
 
 .profile-image {
@@ -51,114 +60,316 @@
 }
 
 .profile-image-placeholder {
-  font-size: 2rem;
-  color: #fff;
-  background-color: #0077cc;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #dee2e6;
 }
 
-.cta-button {
-  background-color: #D35400;
+.profile-image-placeholder svg {
+  font-size: 4.8rem;
+  color: #868e96;
+}
+
+.profile-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.55);
   color: white;
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 6px;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 50%;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
   text-align: center;
-  display: inline-block;
-  margin-top: 10px;
 }
 
-.cta-button:hover {
-  background-color: #b34800;
+.profile-image-overlay svg {
+  font-size: 24px;
+  color: white !important;
+  margin-bottom: 4px;
+}
+
+.profile-image-overlay span {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.profile-image-wrapper:hover .profile-image-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.profile-info {
+  text-align: center;
+  width: 100%;
 }
 
 .profile-info h1 {
-  font-size: 1.8rem;
-  margin: 0;
+  font-size: 1.7rem;
+  margin-top: 0;
+  margin-bottom: 4px;
+  color: #343a40;
+  font-weight: 600;
 }
 
 .profile-info p {
-  font-size: 1rem;
-  color: #777;
+  font-size: 0.9rem;
+  color: #6c757d;
+  line-height: 1.3;
+  margin-bottom: 0;
 }
 
 .profile-form {
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
 .profile-section {
-  margin-bottom: 25px;
+  margin-bottom: 8px;
+  padding: 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background-color: #fdfdfd;
 }
 
 .profile-section h2 {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  margin-top: 0;
   margin-bottom: 10px;
-  color: #333;
+  color: #495057;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 6px;
 }
 
 .input-group {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .input-group label {
-  font-size: 0.875rem;
-  color: #555;
+  display: block;
+  font-size: 0.8rem;
+  color: #495057;
+  margin-bottom: 4px;
+  font-weight: 500;
 }
 
 .profile-input {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 1rem;
-  margin-top: 5px;
-  background-color: #f9f9f9;
+  padding: 9px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 5px;
 }
 
 .profile-input:focus {
-  border-color: #0077cc;
+  border-color: #D35400;
   outline: none;
+  box-shadow: 0 0 0 0.15rem rgba(211, 84, 0, 0.2);
 }
 
-.input-wrapper {
+.show-password-control {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.show-password-control input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid #adb5bd;
+  border-radius: 3px;
+  display: inline-block;
+  vertical-align: middle;
   position: relative;
+  cursor: pointer;
+  margin-right: 6px;
+  outline: none;
+  transition: background-color 0.1s ease, border-color 0.1s ease;
 }
 
-.toggle-password {
+.show-password-control input[type="checkbox"]:checked {
+  background-color: #D35400;
+  border-color: #D35400;
+}
+
+.show-password-control input[type="checkbox"]:checked::before {
+  content: '✓';
+  font-size: 11px;
+  font-weight: bold;
+  color: white;
   position: absolute;
-  right: 10px;
+  left: 50%;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate(-50%, -55%); /* Ajuste para centralizar o '✓' verticalmente */
+  line-height: 1; /* Normaliza a altura da linha */
+}
+
+.show-password-control input[type="checkbox"]:focus-visible {
+  box-shadow: 0 0 0 2px rgba(211, 84, 0, 0.3);
+}
+
+.show-password-control label {
+  font-size: 0.8rem;
+  color: #495057;
+  font-weight: normal;
+  margin-bottom: 0;
   cursor: pointer;
+  user-select: none;
 }
 
 .password-requirements {
   list-style: none;
   padding: 0;
-  margin-top: 10px;
+  margin-top: 5px;
+  font-size: 0.7rem;
+}
+
+.password-requirements li {
+  margin-bottom: 2px;
+}
+
+.password-requirements .valid {
+  color: #28a745;
+}
+.password-requirements .valid::before {
+  content: '✓ ';
+  margin-right: 3px;
 }
 
 .password-requirements .invalid {
-  color: #e74c3c;
+  color: #dc3545;
+}
+.password-requirements .invalid::before {
+  content: '✗ ';
+  margin-right: 3px;
 }
 
 .profile-actions {
   text-align: center;
+  margin-top: 12px;
 }
 
-.error-message,
-.success-message {
-  font-size: 0.875rem;
-  color: #e74c3c;
-  margin-top: 20px;
+.cta-button {
+  background-color: #D35400;
+  color: white;
+  padding: 9px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  border: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.success-message {
-  color: #2ecc71;
+.cta-button:hover {
+  background-color: #b34800;
+  transform: translateY(-1px);
+}
+
+.cta-button:disabled {
+  background-color: #fdba74;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.global-message {
+  font-size: 0.8rem;
+  margin-top: 12px;
+  padding: 9px 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.error-message.global-message {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.success-message.global-message {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.loading-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 1rem;
+    color: #495057;
+}
+
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 15px;
+    max-width: 95%;
+  }
+  .profile-info h1 {
+    font-size: 1.5rem;
+  }
+  .profile-section h2 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 8px;
+  }
+  .profile-image-wrapper {
+    width: 110px;
+    height: 110px;
+  }
+  .profile-image-placeholder svg {
+    font-size: 4.2rem;
+  }
+  .profile-input {
+    padding: 8px 9px;
+    font-size: 0.85rem;
+  }
+  .cta-button {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+  .profile-info h1 {
+    font-size: 1.4rem;
+  }
+  .profile-section {
+    padding: 10px;
+  }
+  .global-message {
+    padding: 8px;
+  }
+  .show-password-control label {
+    font-size: 0.8rem;
+  }
+  .show-password-control input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+  }
+  .show-password-control input[type="checkbox"]:checked::before {
+    font-size: 10px; /* Ajusta o tamanho do '✓' para o checkbox menor */
+    transform: translate(-50%, -55%); /* Mantém o ajuste vertical */
+  }
 }

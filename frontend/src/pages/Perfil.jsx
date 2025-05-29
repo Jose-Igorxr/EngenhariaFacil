@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { FaUser, FaEnvelope, FaLock, FaCamera, FaEye, FaEyeSlash } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  FaUserCircle,
+  FaEnvelope,
+  FaLock,
+  FaCamera // Reintroduzido para o overlay da imagem
+} from 'react-icons/fa';
+// Ícones de olho customizados ou FaRegEye/FaRegEyeSlash não são mais necessários
 import { debounce } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Perfil.css';
@@ -19,16 +25,21 @@ const Perfil = () => {
   const [profileImagePreview, setProfileImagePreview] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Estados para controlar a visibilidade de cada senha
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [passwordErrors, setPasswordErrors] = useState({
     length: false,
     uppercase: false,
     number: false,
     special: false,
   });
+
+  const fileInputRef = useRef(null);
 
   const validatePassword = (value) => {
     const errors = {
@@ -44,6 +55,7 @@ const Perfil = () => {
   useEffect(() => {
     let isMounted = true;
     const fetchUser = async () => {
+      setIsLoading(true);
       try {
         const data = await getProfile();
         if (isMounted) {
@@ -53,15 +65,16 @@ const Perfil = () => {
             username: data.username || '',
             email: data.email || '',
           }));
-          if (data.profile?.profile_picture) {
-            setProfileImagePreview(data.profile.profile_picture);
-          } else {
-            setProfileImagePreview(null);
-          }
+          setProfileImagePreview(data.profile?.profile_picture || null);
         }
       } catch (err) {
         if (isMounted) {
           setError('Erro ao carregar perfil. Tente novamente.');
+          setProfileImagePreview(null);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
         }
       }
     };
@@ -87,54 +100,75 @@ const Perfil = () => {
       }
       setFormData((prev) => ({ ...prev, profileImageFile: file }));
       setProfileImagePreview(URL.createObjectURL(file));
-      setSuccess('Imagem carregada com sucesso!');
+      setSuccess('Imagem carregada. Salve as alterações para aplicá-la.');
       setError('');
     }
   };
 
-  const debouncedSaveProfile = debounce(async (formData, token) => {
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
+  const debouncedSaveProfile = debounce(async (formDataToSave) => {
     const submission = new FormData();
-    if (formData.username && formData.username !== user.username) {
-      submission.append('username', formData.username);
+    let hasChangesToSubmit = false;
+
+    if (user && formDataToSave.username && formDataToSave.username !== user.username) {
+      submission.append('username', formDataToSave.username);
+      hasChangesToSubmit = true;
     }
-    if (formData.email && formData.email !== user.email) {
-      submission.append('email', formData.email);
+    if (user && formDataToSave.email && formDataToSave.email !== user.email) {
+      submission.append('email', formDataToSave.email);
+      hasChangesToSubmit = true;
     }
-    if (formData.newPassword) {
-      submission.append('current_password', formData.currentPassword);
-      submission.append('password', formData.newPassword);
+    if (formDataToSave.newPassword) {
+      submission.append('current_password', formDataToSave.currentPassword);
+      submission.append('password', formDataToSave.newPassword);
+      hasChangesToSubmit = true;
     }
-    if (formData.profileImageFile) {
-      submission.append('profile.profile_picture', formData.profileImageFile);
+    if (formDataToSave.profileImageFile) {
+      submission.append('profile.profile_picture', formDataToSave.profileImageFile);
+      hasChangesToSubmit = true;
+    }
+
+    if (!hasChangesToSubmit) {
+      setSuccess('Nenhuma alteração para salvar.');
+      setIsLoading(false);
+      return;
     }
 
     try {
       const updatedUser = await updateProfile(submission);
+      setUser(updatedUser);
+      setSuccess('Perfil atualizado com sucesso!');
+      
       if (updatedUser.profile?.profile_picture) {
         if (profileImagePreview && profileImagePreview.startsWith('blob:')) {
           URL.revokeObjectURL(profileImagePreview);
         }
         setProfileImagePreview(updatedUser.profile.profile_picture);
+      } else if (!formDataToSave.profileImageFile) {
+         setProfileImagePreview(null);
       }
-      setUser(updatedUser);
-      setSuccess('Perfil atualizado com sucesso!');
-      setFormData({
+
+      setFormData((prev) => ({
+        ...prev,
         username: updatedUser.username || '',
         email: updatedUser.email || '',
         currentPassword: '',
         newPassword: '',
         confirmNewPassword: '',
         profileImageFile: null,
-      });
-      setPasswordErrors({
-        length: false,
-        uppercase: false,
-        number: false,
-        special: false,
-      });
+      }));
+      setPasswordErrors({ length: false, uppercase: false, number: false, special: false });
     } catch (err) {
-      const errorMessage = err.response?.data?.detail || 'Erro ao atualizar perfil.';
+      const errorMessage = err.response?.data?.detail || err.message || 'Erro ao atualizar perfil.';
       setError(errorMessage);
+      if (formDataToSave.profileImageFile && user?.profile?.profile_picture) {
+        setProfileImagePreview(user.profile.profile_picture);
+      } else if (formDataToSave.profileImageFile) {
+        setProfileImagePreview(null);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -144,237 +178,237 @@ const Perfil = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
-    setIsLoading(true);
-
+    
     const { username, email, currentPassword, newPassword, confirmNewPassword } = formData;
 
-    if (currentPassword || newPassword || confirmNewPassword) {
-      if (!currentPassword || !newPassword || !confirmNewPassword) {
-        setError('Preencha todos os campos de senha para alterar.');
-        setIsLoading(false);
-        return;
-      }
-      if (newPassword !== confirmNewPassword) {
-        setError('As novas senhas não coincidem.');
-        setIsLoading(false);
-        return;
-      }
-      if (!validatePassword(newPassword)) {
-        setError('A nova senha não atende aos requisitos.');
-        setIsLoading(false);
-        return;
-      }
+    if (newPassword || confirmNewPassword) {
+        if (!currentPassword) {
+            setError('Senha atual é obrigatória para alterar a senha.');
+            return;
+        }
+        if (!newPassword || !confirmNewPassword) {
+            setError('Preencha os campos de nova senha e confirmação para alterar.');
+            return;
+        }
+        if (newPassword !== confirmNewPassword) {
+            setError('As novas senhas não coincidem.');
+            return;
+        }
+        if (!validatePassword(newPassword)) {
+            setError('A nova senha não atende aos requisitos.');
+            return;
+        }
     }
 
     if (username && username.length < 3) {
       setError('O nome de usuário deve ter pelo menos 3 caracteres.');
-      setIsLoading(false);
       return;
     }
-
     if (email && !/\S+@\S+\.\S+/.test(email)) {
       setError('Por favor, insira um e-mail válido.');
-      setIsLoading(false);
       return;
     }
+    
+    const { profileImageFile } = formData;
+    const hasUsernameChanged = user && username !== user.username;
+    const hasEmailChanged = user && email !== user.email;
+    const hasPasswordChanged = newPassword;
+    const hasProfileImageChanged = profileImageFile;
 
-    const token = localStorage.getItem('access_token');
-    if (!token) {
-      setError('Usuário não autenticado. Faça login novamente.');
-      setIsLoading(false);
-      return;
+    if (!hasUsernameChanged && !hasEmailChanged && !hasPasswordChanged && !hasProfileImageChanged) {
+        setSuccess('Nenhuma alteração detectada.');
+        return;
     }
-
-    debouncedSaveProfile(formData, token);
+    
+    setIsLoading(true);
+    debouncedSaveProfile(formData);
   };
 
-  if (!user) {
-    return <p>Carregando perfil...</p>;
+  if (isLoading && !user) {
+    return <div className="profile-container"><p className="loading-message">Carregando perfil...</p></div>;
   }
 
-  const hasPasswordChanges =
-    formData.currentPassword && formData.newPassword && formData.confirmNewPassword;
-  const hasOtherChanges =
-    formData.username !== user.username ||
-    formData.email !== user.email ||
+  if (!user && !isLoading) {
+    return <div className="profile-container"><p className="error-message">{error || 'Não foi possível carregar o perfil.'}</p></div>;
+  }
+  
+  const hasPendingChanges =
+    (user && (formData.username !== user.username || formData.email !== user.email)) ||
+    formData.newPassword ||
     formData.profileImageFile;
 
-  const hasChanges = hasPasswordChanges || hasOtherChanges;
-
   return (
-<div className="profile-container">
-  <section className="profile-card">
-    <div className="profile-header">
-      <div className="avatar-section">
-        <div className="profile-image-wrapper">
-          {profileImagePreview ? (
-            <img src={profileImagePreview} alt="Perfil" className="profile-image" />
-          ) : (
-            <div className="profile-image-placeholder">+</div>
-          )}
+    <div className="profile-container">
+      <section className="profile-card">
+        <div className="profile-header">
+          <div className="avatar-section">
+            <div
+              className="profile-image-wrapper"
+              onClick={triggerFileInput}
+              onKeyPress={(e) => e.key === 'Enter' && triggerFileInput()}
+              role="button"
+              tabIndex={0}
+              aria-label="Mudar foto do perfil"
+            >
+              {profileImagePreview ? (
+                <img src={profileImagePreview} alt="Perfil" className="profile-image" />
+              ) : (
+                <div className="profile-image-placeholder">
+                  <FaUserCircle />
+                </div>
+              )}
+              <div className="profile-image-overlay">
+                <FaCamera /> {/* Ícone da React-Icons para a câmera */}
+                <span>Mudar foto</span>
+              </div>
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              id="profile-image-upload"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              style={{ display: 'none' }}
+              disabled={isLoading}
+            />
+          </div>
+          <div className="profile-info">
+            <h1>Olá, {user?.username || 'Usuário'}</h1>
+            <p>Gerencie suas informações pessoais e personalize seu perfil.</p>
+          </div>
         </div>
-        <input
-          type="file"
-          accept="image/*"
-          id="profile-image-upload"
-          onChange={handleImageUpload}
-          style={{ display: 'none' }}
-          disabled={isLoading}
-        />
-        <label htmlFor="profile-image-upload" className="cta-button small-button">
-          Escolher Imagem
-        </label>
-      </div>
-      <div className="profile-info">
-        <h1>Olá, {user.username || 'Usuário'}</h1>
-        <p>Gerencie suas informações pessoais e personalize seu perfil.</p>
-      </div>
+
+        <form className="profile-form" onSubmit={handleSaveProfile}>
+          <div className="profile-section">
+            <h2>Nome de Usuário</h2>
+            <div className="input-group">
+              <label htmlFor="username">Novo nome de usuário (atual: {user?.username || 'Não definido'})</label>
+              <input
+                id="username"
+                type="text"
+                name="username"
+                placeholder="Digite o novo nome de usuário"
+                value={formData.username}
+                onChange={handleChange}
+                className="profile-input"
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+
+          <div className="profile-section">
+            <h2>E-mail</h2>
+            <div className="input-group">
+              <label htmlFor="email">Novo e-mail (atual: {user?.email || 'Não definido'})</label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Digite o novo e-mail"
+                value={formData.email}
+                onChange={handleChange}
+                className="profile-input"
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+
+          <div className="profile-section">
+            <h2>Alterar Senha</h2>
+            <div className="input-group">
+              <label htmlFor="current-password">Senha Atual</label>
+              <input
+                id="current-password"
+                name="currentPassword"
+                type={showCurrentPassword ? 'text' : 'password'}
+                placeholder="Digite sua senha atual"
+                value={formData.currentPassword}
+                onChange={handleChange}
+                className="profile-input"
+                disabled={isLoading}
+              />
+              <div className="show-password-control">
+                <input
+                  type="checkbox"
+                  id="showCurrentPasswordCheckbox"
+                  checked={showCurrentPassword}
+                  onChange={() => setShowCurrentPassword(!showCurrentPassword)}
+                />
+                <label htmlFor="showCurrentPasswordCheckbox">Mostrar senha</label>
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="new-password">Nova Senha</label>
+              <input
+                id="new-password"
+                name="newPassword"
+                type={showNewPassword ? 'text' : 'password'}
+                placeholder="Digite a nova senha"
+                value={formData.newPassword}
+                onChange={handleChange}
+                className="profile-input"
+                disabled={isLoading}
+              />
+              <div className="show-password-control">
+                <input
+                  type="checkbox"
+                  id="showNewPasswordCheckbox"
+                  checked={showNewPassword}
+                  onChange={() => setShowNewPassword(!showNewPassword)}
+                />
+                <label htmlFor="showNewPasswordCheckbox">Mostrar senha</label>
+              </div>
+              {formData.newPassword && (
+                <ul className="password-requirements">
+                  <li className={passwordErrors.length ? 'valid' : 'invalid'}>Pelo menos 8 caracteres</li>
+                  <li className={passwordErrors.uppercase ? 'valid' : 'invalid'}>Pelo menos uma letra maiúscula</li>
+                  <li className={passwordErrors.number ? 'valid' : 'invalid'}>Pelo menos um número</li>
+                  <li className={passwordErrors.special ? 'valid' : 'invalid'}>Pelo menos um caractere especial</li>
+                </ul>
+              )}
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="confirm-new-password">Confirmar Nova Senha</label>
+              <input
+                id="confirm-new-password"
+                name="confirmNewPassword"
+                type={showConfirmPassword ? 'text' : 'password'}
+                placeholder="Confirme a nova senha"
+                value={formData.confirmNewPassword}
+                onChange={handleChange}
+                className="profile-input"
+                disabled={isLoading}
+              />
+              <div className="show-password-control">
+                <input
+                  type="checkbox"
+                  id="showConfirmPasswordCheckbox"
+                  checked={showConfirmPassword}
+                  onChange={() => setShowConfirmPassword(!showConfirmPassword)}
+                />
+                <label htmlFor="showConfirmPasswordCheckbox">Mostrar senha</label>
+              </div>
+            </div>
+          </div>
+
+          <div className="profile-actions">
+            <button
+              type="submit"
+              className="cta-button save-button"
+              disabled={isLoading || !hasPendingChanges}
+            >
+              {isLoading ? 'Salvando...' : 'Salvar Alterações'}
+            </button>
+          </div>
+
+          {error && <p className="error-message global-message">{error}</p>}
+          {success && <p className="success-message global-message">{success}</p>}
+        </form>
+      </section>
     </div>
-
-    <form className="profile-form" onSubmit={handleSaveProfile}>
-      <div className="profile-section">
-        <h2>Nome de Usuário</h2>
-        <div className="input-group">
-          <label>Nome de usuário atual: {user.username || 'Não definido'}</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Novo nome de usuário"
-            value={formData.username}
-            onChange={handleChange}
-            className="profile-input"
-            disabled={isLoading}
-          />
-        </div>
-      </div>
-
-      <div className="profile-section">
-        <h2>E-mail</h2>
-        <div className="input-group">
-          <label>E-mail atual: {user.email || 'Não definido'}</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Novo e-mail"
-            value={formData.email}
-            onChange={handleChange}
-            className="profile-input"
-            disabled={isLoading}
-          />
-        </div>
-      </div>
-
-      <div className="profile-section">
-        <h2>Alterar Senha</h2>
-        <div className="input-group">
-          <label htmlFor="current-password">Senha Atual</label>
-          <div className="input-wrapper">
-            <input
-              id="current-password"
-              name="currentPassword"
-              type={showCurrentPassword ? 'text' : 'password'}
-              value={formData.currentPassword}
-              onChange={handleChange}
-              className="profile-input"
-              disabled={isLoading}
-            />
-            <span
-              className="toggle-password"
-              onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-            >
-              {showCurrentPassword ? (
-                <FaEyeSlash style={{ color: '#000' }} />
-              ) : (
-                <FaEye style={{ color: '#000' }} />
-              )}
-            </span>
-          </div>
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="new-password">Nova Senha</label>
-          <div className="input-wrapper">
-            <input
-              id="new-password"
-              name="newPassword"
-              type={showNewPassword ? 'text' : 'password'}
-              value={formData.newPassword}
-              onChange={handleChange}
-              className="profile-input"
-              disabled={isLoading}
-            />
-            <span
-              className="toggle-password"
-              onClick={() => setShowNewPassword(!showNewPassword)}
-            >
-              {showNewPassword ? (
-                <FaEyeSlash style={{ color: '#000' }} />
-              ) : (
-                <FaEye style={{ color: '#000' }} />
-              )}
-            </span>
-          </div>
-          {formData.newPassword && (
-            <ul className="password-requirements">
-              {!passwordErrors.length && (
-                <li className="invalid">Pelo menos 8 caracteres</li>
-              )}
-              {!passwordErrors.uppercase && (
-                <li className="invalid">Pelo menos uma letra maiúscula</li>
-              )}
-              {!passwordErrors.number && (
-                <li className="invalid">Pelo menos um número</li>
-              )}
-              {!passwordErrors.special && (
-                <li className="invalid">Pelo menos um caractere especial (ex.: !@#$%)</li>
-              )}
-            </ul>
-          )}
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="confirm-new-password">Confirmar Nova Senha</label>
-          <div className="input-wrapper">
-            <input
-              id="confirm-new-password"
-              name="confirmNewPassword"
-              type={showConfirmPassword ? 'text' : 'password'}
-              value={formData.confirmNewPassword}
-              onChange={handleChange}
-              className="profile-input"
-              disabled={isLoading}
-            />
-            <span
-              className="toggle-password"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            >
-              {showConfirmPassword ? (
-                <FaEyeSlash style={{ color: '#000' }} />
-              ) : (
-                <FaEye style={{ color: '#000' }} />
-              )}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className="profile-actions">
-        <button
-          type="submit"
-          className="cta-button"
-          disabled={isLoading || !hasChanges}
-        >
-          {isLoading ? 'Salvando...' : 'Salvar Perfil'}
-        </button>
-      </div>
-
-      {error && <p className="error-message">{error}</p>}
-      {success && <p className="success-message">{success}</p>}
-    </form>
-  </section>
-</div>
   );
-  
 };
 
 export default Perfil;

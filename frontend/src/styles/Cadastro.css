@@ -1,232 +1,347 @@
-/* ===== RESET CSS ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* styles/Cadastro.css */
 
-body, html {
-  font-family: Arial, sans-serif;
-}
-
-/* Container principal dividido em duas áreas */
 .cadastro-page {
   display: flex;
-  height: 100vh;
-  width: 100vw;
-  background-color: #f0f2f5;
+  min-height: 100vh;
+  background-color: #f4f7fa;
+  font-family: Arial, sans-serif;
+  color: #333;
+  overflow-x: hidden;
 }
 
-/* Painel esquerdo com títulos e mensagem */
 .cadastro-left {
-  flex: 1;
+  flex: 1.1;
   background-color: #D35400;
   color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 0 40px; /* Reduzido de 60px para economizar espaço */
+  padding: 30px 50px;
+  box-sizing: border-box;
 }
 
-/* Reduzido o tamanho da fonte para compactar */
 .main-title {
-  font-size: 36px; /* Reduzido de 48px */
-  margin-bottom: 15px; /* Reduzido de 20px */
+  font-size: 2.8rem;
+  margin-bottom: 20px;
   font-weight: bold;
+  line-height: 1.2;
 }
 
 .sub-title {
-  font-size: 16px; /* Reduzido de 18px */
-  line-height: 1.4; /* Ajustado de 1.5 */
-  margin-bottom: 10px; /* Reduzido de 15px */
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  max-width: 500px;
 }
 
-/* Área direita: contém a caixa de cadastro */
 .cadastro-right {
-  flex: 1;
+  flex: 0.9;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  padding: 15px; /* Reduzido de 20px */
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-/* Estilização da caixa de cadastro */
 .cadastro-box {
   background-color: #fff;
-  padding: 30px; /* Reduzido de 40px */
-  border-radius: 8px;
-  box-shadow: 0 4px 12px #D35400;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 360px; /* Reduzido de 400px para compactar */
+  max-width: 400px;
   text-align: center;
+  margin: 20px 0;
 }
 
 .title {
-  margin-bottom: 15px; /* Reduzido de 20px */
-  font-size: 22px; /* Reduzido de 24px */
+  margin-bottom: 18px;
+  font-size: 1.6rem;
   color: #333;
+  font-weight: 600;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 6px; /* Reduzido de 8px para compactar */
+  gap: 12px;
 }
 
 .input-group {
   text-align: left;
+  width: 100%;
 }
 
 .label {
-  font-size: 13px; /* Reduzido de 14px */
-  color: #212121 !important;
-  margin-bottom: 4px; /* Reduzido de 5px */
+  font-size: 0.8rem;
+  color: #495057;
+  margin-bottom: 4px;
   display: block;
-}
-
-/* Estilização do wrapper para inputs com ícone */
-.input-wrapper {
-  position: relative;
+  font-weight: 500;
 }
 
 .input {
   width: 100%;
-  padding: 8px 40px 8px 10px; /* Adicionado espaço à direita para o ícone */
-  font-size: 15px; /* Reduzido de 16px */
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  padding: 9px 10px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
   outline: none;
-  transition: border-color 0.3s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  background-color: #fff;
+  margin-bottom: 4px;
 }
 
 .input:focus {
-  border-color: #212121 !important;
+  border-color: #D35400;
+  box-shadow: 0 0 0 0.15rem rgba(211, 84, 0, 0.2);
 }
 
-.input.invalid {
-  border-color: #ff6b6b;
+.input.input-invalid {
+  border-color: #dc3545;
+}
+.input.input-invalid:focus {
+  box-shadow: 0 0 0 0.15rem rgba(220, 53, 69, 0.25);
 }
 
 .input:disabled {
-  background-color: #f0f2f5;
+  background-color: #e9ecef;
   cursor: not-allowed;
 }
 
 .input::placeholder {
-  color: rgba(33, 33, 33, 0.5);
+  color: #6c757d;
   opacity: 1;
-}
-
-/* Estilização do ícone de mostrar/esconder senha */
-.toggle-password {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #555;
-  font-size: 16px;
-}
-
-.toggle-password:hover {
-  color: #212121;
 }
 
 .password-requirements {
   list-style: none;
-  margin-top: 8px; /* Reduzido de 10px */
+  margin-top: 4px;
   padding: 0;
-  font-size: 11px; /* Reduzido de 12px */
-  color: #555;
+  font-size: 0.7rem;
+  text-align: left;
+  overflow: hidden; /* Para que o max-height funcione bem na animação */
 }
 
 .password-requirements li {
-  margin-bottom: 4px; /* Reduzido de 5px */
-  transition: opacity 0.3s ease; /* Transição suave para sumir */
+  color: #495057; /* Cor padrão do texto */
+  margin-bottom: 2px;
+  padding: 2px 0; /* Adiciona um pouco de padding para a animação de max-height */
+  overflow: hidden;
+  transition: opacity 0.3s ease-out, max-height 0.3s ease-out, margin-bottom 0.3s ease-out, padding 0.3s ease-out;
+  max-height: 20px; /* Altura aproximada de um item, ajuste se necessário */
 }
 
 .password-requirements li.invalid {
-  color: #ff6b6b;
+  color: #dc3545;
+  /* max-height e opacity são controlados pela ausência da classe .met */
 }
-
 .password-requirements li.invalid::before {
   content: '✗ ';
-  color: #ff6b6b;
+  margin-right: 3px;
+  color: #dc3545; /* Garante que o X seja vermelho */
 }
 
-.error {
-  color: #ff6b6b;
-  font-size: 13px; /* Reduzido de 14px */
-  margin: 8px 0; /* Reduzido de 10px */
+.password-requirements li.met {
+  opacity: 0;
+  max-height: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  /* O ::before não será aplicado a .met, então o "✗" some naturalmente */
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin: 8px 0 4px 0;
+  text-align: left;
 }
 
 .button {
-  padding: 10px; /* Reduzido de 12px */
-  font-size: 15px; /* Reduzido de 16px */
-  background-color: #212121 !important;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  background-color: #D35400;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 4px;
 }
 
 .button:hover:not(:disabled) {
-  background-color: #171717 !important;
+  background-color: #b34800;
+  transform: translateY(-1px);
 }
 
 .button:disabled {
-  background-color: #3a3a3a;
+  background-color: #fdba74;
   cursor: not-allowed;
+  transform: none;
 }
 
-.login-text {
-  margin-top: 15px; /* Reduzido de 20px */
-  font-size: 13px; /* Reduzido de 14px */
+.alternative-action-text {
+  margin-top: 15px;
+  font-size: 0.8rem;
   color: #555;
 }
 
 .link {
-  color: #212121 !important;
+  color: #D35400;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .link:hover {
-  color: #171717 !important;
+  text-decoration: underline;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+.show-password-control {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.show-password-control input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid #adb5bd;
+  border-radius: 3px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+  margin-right: 5px;
+  outline: none;
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+.show-password-control input[type="checkbox"]:checked {
+  background-color: #D35400;
+  border-color: #D35400;
+}
+
+.show-password-control input[type="checkbox"]:checked::before {
+  content: '✓';
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -55%);
+  line-height: 1;
+}
+
+.show-password-control input[type="checkbox"]:focus-visible {
+  box-shadow: 0 0 0 2px rgba(211, 84, 0, 0.3);
+}
+
+.show-password-control label {
+  font-size: 0.75rem;
+  color: #495057;
+  font-weight: normal;
+  margin-bottom: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+@media (max-width: 860px) {
   .cadastro-page {
     flex-direction: column;
+    height: auto;
+    min-height: 100vh;
   }
-
-  .cadastro-left,
-  .cadastro-right {
-    flex: initial;
+  
+  .cadastro-left, .cadastro-right {
+    flex: none;
     width: 100%;
-    padding: 15px; /* Reduzido de 20px */
+    padding: 25px 15px;
     text-align: center;
     align-items: center;
   }
-
+  
   .cadastro-left {
-    padding: 15px;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 
   .main-title {
-    font-size: 28px; /* Ajustado para telas menores */
+    font-size: 2.2rem;
   }
 
   .sub-title {
-    font-size: 14px;
+    font-size: 0.9rem;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .cadastro-box {
-    max-width: 320px; /* Ajustado para telas menores */
-    padding: 20px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    max-width: 90%;
+    padding: 20px 25px;
+  }
+  .cadastro-right {
+     overflow-y: visible;
+  }
+}
+
+@media (max-width: 480px) {
+  .cadastro-left {
+    padding: 20px 10px;
+  }
+  .cadastro-right {
+    padding: 15px 10px;
+  }
+  .cadastro-box {
+    padding: 20px 15px;
+  }
+  .main-title {
+    font-size: 1.8rem;
+  }
+  .sub-title {
+    font-size: 0.85rem;
+  }
+  .title {
+    font-size: 1.3rem;
+  }
+  .input {
+    padding: 8px 9px;
+    font-size: 0.85rem;
+  }
+  .button {
+    padding: 9px 15px;
+    font-size: 0.85rem;
+  }
+  .show-password-control label {
+    font-size: 0.7rem;
+  }
+  .show-password-control input[type="checkbox"] {
+    width: 13px;
+    height: 13px;
+  }
+  .show-password-control input[type="checkbox"]:checked::before {
+    font-size: 9px;
+  }
+  .password-requirements {
+    font-size: 0.65rem;
+  }
+  .password-requirements li {
+    max-height: 18px; /* Ajuste para telas menores se necessário */
+  }
+  .alternative-action-text {
+    font-size: 0.75rem;
   }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+// Chart.js não é mais necessário
+// import Chart from 'chart.js/auto';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,7 +17,10 @@ const Toast = ({ message, onClose, type }) => {
     toastClass += ' toast-success';
   } else if (type === 'warning') {
     toastClass += ' toast-warning';
+  } else if (type === 'error') { // Adicionado para consistência, caso use 'error'
+    toastClass += ' toast-error';
   }
+
 
   return (
     <motion.div
@@ -56,7 +60,7 @@ const AlertDialog = ({ isOpen, title, children, onConfirm, confirmButtonDisabled
         <div className="dialog-actions-clean">
           <button
             onClick={onConfirm}
-            className="dialog-confirm-button-clean predict-button-fullscreen"
+            className="dialog-confirm-button-clean predict-button-fullscreen-v2" // Corrigido para usar a classe correta do botão
             disabled={confirmButtonDisabled}
           >
             {confirmButtonDisabled ? 'Aguarde...' : 'Entendi, Prosseguir'}
@@ -91,19 +95,13 @@ const Predict = () => {
   const [area, setArea] = useState('');
   const [predictions, setPredictions] = useState(null);
   const [toastMsg, setToastMsg] = useState(null);
-  const navigate = useNavigate();
+  // useNavigate não está sendo usado, pode ser removido se não houver planos para ele.
+  // const navigate = useNavigate(); 
   const [isLoading, setIsLoading] = useState(false);
-  const [activeChartMaterial, setActiveChartMaterial] = useState(null);
-  const chartRefs = {
-    cement: useRef(null),
-    sand: useRef(null),
-    bricks: useRef(null),
-  };
-  const chartInstances = useRef({
-    cement: null,
-    sand: null,
-    bricks: null,
-  });
+  // Estados e referências de gráfico removidos
+  // const [activeChartMaterial, setActiveChartMaterial] = useState(null);
+  // const chartRefs = { ... };
+  // const chartInstances = useRef({ ... });
   const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
   const [isDialogConfirmButtonDisabled, setIsDialogConfirmButtonDisabled] = useState(false);
 
@@ -121,25 +119,24 @@ const Predict = () => {
       return;
     }
     setPredictions(null); 
-    setActiveChartMaterial(null);
+    // setActiveChartMaterial(null); // Removido
     setIsAlertDialogOpen(true);
     setIsDialogConfirmButtonDisabled(true);
     setTimeout(() => {
       setIsDialogConfirmButtonDisabled(false);
-    }, 3000);
+    }, 3000); // Tempo para reabilitar o botão do diálogo
   };
 
   const proceedWithCalculation = async () => {
     setIsAlertDialogOpen(false);
     setIsLoading(true);
     
-    Object.values(chartInstances.current).forEach(instance => {
-      if (instance) instance.destroy();
-    });
-    chartInstances.current = { cement: null, sand: null, bricks: null };
+    // Limpeza de instâncias de gráfico removida
+    // Object.values(chartInstances.current).forEach(instance => { ... });
+    // chartInstances.current = { ... };
 
     try {
-      const response = await api.post('/api/predict/', {
+      const response = await api.post('/api/predict/', { // Certifique-se que 'api' está configurado corretamente
         area: parseFloat(area),
       });
 
@@ -148,120 +145,21 @@ const Predict = () => {
         sand: response.data.areia,
         bricks: response.data.tijolos,
       });
-      setActiveChartMaterial('cement'); 
+      // setActiveChartMaterial('cement'); // Removido
       showToast('Cálculo realizado com sucesso!', 'success');
     } catch (err) {
-      showToast(err?.response?.data?.erro || 'Erro ao prever materiais.', 'error');
+      // Tratamento de erro aprimorado
+      const errorMsg = err.response?.data?.detail || err.response?.data?.erro || err.message || 'Erro ao prever materiais.';
+      showToast(errorMsg, 'error');
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (!predictions) {
-      return;
-    }
-  
-    const materialData = {
-      cement: { label: 'Cimento', unit: 'kg', value: predictions.cement, ref: chartRefs.cement, color: '#3498db' },
-      sand: { label: 'Areia', unit: 'kg', value: predictions.sand, ref: chartRefs.sand, color: '#f39c12' },
-      bricks: { label: 'Tijolos', unit: 'unidades', value: predictions.bricks, ref: chartRefs.bricks, color: '#e74c3c' },
-    };
-  
-    Object.keys(materialData).forEach(key => {
-      const material = materialData[key];
-      const chartRef = material.ref;
-      const chartCanvas = chartRef.current;
-  
-      if (!chartCanvas) return;
-  
-      if (chartInstances.current[key]) {
-        chartInstances.current[key].destroy();
-      }
-  
-      const ctx = chartCanvas.getContext('2d');
-      if (!ctx) return;
-  
-      const dataValue = material.value;
-      const maxValue = key === 'bricks' ? MAX_AREA * 20 : MAX_AREA * 25; 
-  
-      chartInstances.current[key] = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: [material.label],
-          datasets: [{
-            label: `${material.label} (${material.unit})`,
-            data: [dataValue],
-            backgroundColor: material.color,
-            borderColor: material.color,
-            borderWidth: 1,
-            borderRadius: 4,
-            barThickness: 30,
-          }]
-        },
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            x: {
-              beginAtZero: true,
-              max: maxValue * 1.1, 
-              grid: {
-                color: 'rgba(255, 255, 255, 0.1)',
-                borderColor: 'rgba(255, 255, 255, 0.1)',
-              },
-              ticks: {
-                color: '#bdc3c7',
-                font: { size: 10 },
-                maxTicksLimit: 5,
-              }
-            },
-            y: {
-              grid: {
-                display: false,
-                borderColor: 'rgba(255, 255, 255, 0.1)',
-              },
-              ticks: {
-                color: '#ecf0f1',
-                font: { size: 13, weight: '500' }
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              display: false,
-            },
-            tooltip: {
-              enabled: true,
-              backgroundColor: 'rgba(44, 62, 80, 0.9)',
-              titleFont: { size: 13, weight: 'bold' },
-              bodyFont: { size: 12 },
-              padding: 10,
-              cornerRadius: 6,
-              displayColors: false,
-              callbacks: {
-                label: (context) => {
-                  const value = context.raw;
-                  return `${material.label}: ${value.toFixed(key === 'bricks' ? 0 : 1)} ${material.unit}`;
-                }
-              }
-            }
-          }
-        }
-      });
-    });
-  
-    return () => {
-      Object.values(chartInstances.current).forEach(instance => {
-        if (instance) instance.destroy();
-      });
-    };
-  }, [predictions]);
-
+  // useEffect para renderizar gráficos foi completamente removido.
 
   const materialDisplayInfo = [
-    { id: 'cement', name: 'Cimento', unit: 'kg', icon: '🧱' },
+    { id: 'cement', name: 'Cimento', unit: 'kg', icon: '🧱' }, // Ícone pode ser melhorado, ex:  saco de cimento
     { id: 'sand', name: 'Areia', unit: 'kg', icon: '⏳' },
     { id: 'bricks', name: 'Tijolos', unit: 'unidades', icon: '🧱' },
   ];
@@ -276,7 +174,6 @@ const Predict = () => {
       >
         <p>Os resultados gerados são estimativas e podem conter imprecisões. A IA é uma ferramenta de suporte.</p>
         <p><strong>Para decisões finais e precisas, consulte sempre um profissional qualificado da área de construção.</strong></p>
-        <p>O botão para prosseguir será liberado em instantes.</p>
       </AlertDialog>
 
       <AnimatePresence>
@@ -317,7 +214,7 @@ const Predict = () => {
               className="predict-button-fullscreen-v2"
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98, y: 0 }}
-              disabled={isLoading}
+              disabled={isLoading || !area} // Desabilitar se a área não for preenchida
             >
               {isLoading ? 'Analisando...' : 'Calcular Estimativa'}
             </motion.button>
@@ -337,41 +234,52 @@ const Predict = () => {
             >
               <h2 className="results-title-v2">Estimativa de Materiais</h2>
               <div className="numerical-results-grid-v2">
-                {materialDisplayInfo.map((material) => (
+                {materialDisplayInfo.map((material, index) => (
                   <motion.div
                     key={material.id}
                     className="material-result-card-v2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: materialDisplayInfo.indexOf(material) * 0.15, ease: "easeOut" }}
+                    transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }} // Ajustado delay
                   >
                     <span className="material-icon-v2">{material.icon}</span>
                     <h3 className="material-name-v2">{material.name}</h3>
                     <p className="material-quantity-v2">
-                      {predictions[material.id].toFixed(material.id === 'bricks' ? 0 : 1)}
+                      {/* Verifica se predictions[material.id] existe antes de chamar toFixed */}
+                      {predictions[material.id] !== undefined ? predictions[material.id].toFixed(material.id === 'bricks' ? 0 : 1) : 'N/A'}
                       <span className="material-unit-v2">{material.unit}</span>
                     </p>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="charts-grid-v2">
-                {materialDisplayInfo.map((material) => (
-                  <div key={material.id} className="chart-container-v2">
-                     <h4 className="chart-title-v2">{material.name}</h4>
-                    <div className="chart-canvas-wrapper-v2">
-                      <canvas ref={chartRefs[material.id]} id={`chart-${material.id}`}></canvas>
-                    </div>
-                  </div>
-                ))}
+              {/* Seção de gráficos removida */}
+              {/* <div className="charts-grid-v2"> ... </div> */}
+
+              <div className="ai-accuracy-info">
+                <h4>Sobre a Precisão da Estimativa:</h4>
+                <p>
+                  As quantidades apresentadas são estimativas geradas por Inteligência Artificial.
+                  O modelo foi treinado com dados que incluem variações inerentes ao processo construtivo:
+                </p>
+                <ul>
+                  <li><strong>Cimento:</strong> Quantidade base de 8 kg/m², com variação de ±5%.</li>
+                  <li><strong>Areia:</strong> Quantidade base de 20 kg/m², com variação de ±5%.</li>
+                  <li><strong>Tijolos:</strong> Quantidade base de 14 unidades/m², com variações de ±8% a ±10% dependendo da área.</li>
+                </ul>
+                <p>
+                  Estas estimativas servem como um ponto de partida e podem não refletir todas as particularidades do seu projeto.
+                  Fatores como tipo de solo, design específico, perdas de material e técnicas construtivas podem influenciar as quantidades reais.
+                </p>
+                <p>
+                  <strong>Recomendamos enfaticamente que você consulte um engenheiro civil ou profissional qualificado para obter um orçamento preciso e detalhado antes de qualquer compra ou início de obra.</strong>
+                </p>
               </div>
+
             </motion.section>
           )}
         </AnimatePresence>
       </main>
-       <footer className="app-footer-fullscreen-v2">
-        <p>&copy; {new Date().getFullYear()} Obra Fácil. Todos os direitos reservados.</p>
-      </footer>
     </div>
   );
 };

@@ -1,12 +1,16 @@
 // src/components/PrivateLayout.jsx
 import React from 'react';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 const PrivateLayout = ({ children }) => {
   return (
-    <div>
+    <div className="app-container">
       <Navbar />
-      {children}
+      <div className="main-content">
+        {children}
+      </div>
+      <Footer />
     </div>
   );
 };

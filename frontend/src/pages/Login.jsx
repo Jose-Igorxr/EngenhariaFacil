@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/api';
 import '../styles/Login.css';
@@ -7,35 +7,72 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const emailInputRef = useRef(null);
+  const passwordInputRef = useRef(null); // Referência para o campo de senha, se necessário focar
+
+  useEffect(() => {
+    // Foca no campo de email se houver um erro genérico de login
+    // ou se o erro for específico de email e não estiver carregando.
+    // Para erros de senha, poderia focar no campo de senha.
+    if (error && !isLoading && emailInputRef.current) {
+      // Se o erro não for sobre a senha, foca no email.
+      // Poderíamos adicionar uma lógica mais granular se soubermos o tipo de erro.
+      emailInputRef.current.focus();
+    }
+  }, [error, isLoading]);
+
+  const validateEmail = (emailToValidate) => {
+    if (!emailToValidate) {
+      setError('Por favor, preencha o campo de email.');
+      setIsLoading(false);
+      if (emailInputRef.current) emailInputRef.current.focus();
+      return false;
+    }
+    // Regex simples para validação de formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailToValidate)) {
+      setError('Por favor, insira um formato de email válido (ex: nome@dominio.com).');
+      setIsLoading(false);
+      if (emailInputRef.current) emailInputRef.current.focus();
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    
+    // Validação customizada do email antes de prosseguir
+    if (!validateEmail(email)) {
+      return; // Interrompe se o email for inválido
+    }
 
-    console.log("🚀 Formulário de login enviado");
-    console.log("📧 Email:", email);
-    console.log("🔒 Senha:", password);
+    if (!password) { // Validação simples para senha não vazia
+        setError('Por favor, preencha o campo de senha.');
+        if (passwordInputRef.current) passwordInputRef.current.focus();
+        return;
+    }
+
+    setIsLoading(true);
 
     try {
       const response = await login({ email, password });
-      console.log("✅ Login realizado com sucesso");
-      console.log("📦 Tokens recebidos:", response);
-
-      // Salvando tokens
       localStorage.setItem('access_token', response.access);
       localStorage.setItem('refresh_token', response.refresh);
       localStorage.setItem('userId', response.user_id);
-
-      console.log("💾 Tokens salvos no localStorage");
-
-      navigate('/Home'); 
-    } catch (error) {
-      console.error("❌ Erro ao fazer login:", error.message);
-      if (error.response) {
-        console.error("📡 Resposta do servidor:", error.response.data);
-      }
-
-      setError('Email ou senha inválidos');
+      navigate('/home');
+    } catch (err) {
+      const apiError = err.response?.data?.detail || err.response?.data?.error || 'Email ou senha inválidos. Verifique suas credenciais.';
+      setError(apiError);
+      // Foca no campo de email após erro da API, pois é o primeiro campo
+      if (emailInputRef.current) emailInputRef.current.focus();
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,39 +90,66 @@ const Login = () => {
       <div className="login-right">
         <div className="login-box">
           <h2 className="title">Login</h2>
-          <form onSubmit={handleSubmit} className="form">
+          {/* Adicionado noValidate para usar validação customizada */}
+          <form onSubmit={handleSubmit} className="form" noValidate>
             <div className="input-group">
-              <label className="label">Email</label>
+              <label className="label" htmlFor="email">Email</label>
               <input
-                type="email"
+                ref={emailInputRef}
+                type="email" // Mantém o tipo para sugestões de teclado em mobile, etc.
+                id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
+                // 'required' pode ser removido se a validação customizada for suficiente,
+                // mas mantê-lo não prejudica e adiciona uma camada de acessibilidade.
+                required 
                 className="input"
                 placeholder="Digite seu email"
+                disabled={isLoading}
+                aria-describedby={error && email.length > 0 && !/\S+@\S+\.\S+/.test(email) ? "email-error" : undefined}
               />
             </div>
             <div className="input-group">
-              <label className="label">Senha</label>
+              <label className="label" htmlFor="password">Senha</label>
               <input
-                type="password"
+                ref={passwordInputRef} // Adiciona ref ao campo de senha
+                type={showPassword ? 'text' : 'password'}
+                id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="input"
                 placeholder="Digite sua senha"
+                disabled={isLoading}
+                aria-describedby={error && password.length === 0 ? "password-error" : undefined}
               />
+              <div className="show-password-control">
+                <input
+                  type="checkbox"
+                  id="showPasswordCheckbox"
+                  checked={showPassword}
+                  onChange={() => setShowPassword(!showPassword)}
+                  disabled={isLoading}
+                />
+                <label htmlFor="showPasswordCheckbox">Mostrar senha</label>
+              </div>
             </div>
-            {error && <p className="error">{error}</p>}
-            <button type="submit" className="button">Entrar</button>
+            {/* Renderiza a mensagem de erro do estado */}
+            {error && <p id={error.toLowerCase().includes("email") ? "email-error" : "password-error"} className="error-message">{error}</p>}
+            <button 
+              type="submit" 
+              className="button" 
+              disabled={isLoading}
+            >
+              {isLoading ? 'Entrando...' : 'Entrar'}
+            </button>
           </form>
-          <p className="register-text">
+          <p className="alternative-action-text">
             Não tem uma conta?{' '}
             <Link to="/cadastro" className="link">
               Crie uma
             </Link>
           </p>
-          <p className="register-text">Esqueceu a senha?</p>
         </div>
       </div>
     </div>

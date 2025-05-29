@@ -25,25 +25,31 @@
 }
 
 .nav-link {
-  color: white;
+  color: white !important;
+  -webkit-text-stroke: 0px transparent !important;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .nav-link:hover {
-  color: #1abc9c;
+  -webkit-text-stroke: 1px white !important;
 }
+
 
 .logout-button {
   background: none;
   border: none;
-  color: black;
   cursor: pointer;
   padding: 4px;
-  transition: color 0.2s ease;
 }
 
-.logout-button:hover {
-  color: #e74c3c;
+.logout-button svg {
+  color: white !important;
+  stroke-width: 1.5;
+  transition: stroke-width 0.2s ease, color 0.2s ease;
+}
+
+.logout-button:hover svg {
+  stroke-width: 2.5;
 }

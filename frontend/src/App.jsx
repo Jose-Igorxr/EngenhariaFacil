@@ -5,14 +5,12 @@ import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import Perfil from './pages/Perfil';
 import Sobre from './pages/Sobre';
-
 import PostagensList from './pages/PostagensList';
 import PostagemDetalhada from './pages/PostagemDetalhada';
 import MinhasPostagens from './pages/MinhasPostagens';
 import PrivateLayout from './components/PrivateLayout';
 import EditarPostagem from './pages/EditarPostagem';
 import CriarPostagem from './pages/CriarPostagem';
-
 import Predict from './pages/Predict';
 
 

@@ -1,37 +1,269 @@
-.postagem-detalhada {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    padding-top: 50px;
+/* src/styles/PostagemDetalhada.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&display=swap');
+
+.postagem-detalhada-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinha o card no topo */
+  min-height: calc(100vh - 120px); /* Ajuste para altura do navbar + footer */
+  background-color: #f4f7fa;
+  padding: 30px 20px;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+.postagem-detalhada-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 850px; /* Largura para boa leitura */
+  padding: 30px 35px; /* Padding interno */
+  box-sizing: border-box;
+  overflow: hidden; /* Adicionado para garantir que nada interno force o card a expandir incorretamente */
+}
+
+.postagem-detalhada-header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start; /* Alinha botão voltar à esquerda */
+}
+
+.btn-voltar {
+  background-color: transparent;
+  color: #D35400;
+  border: 1px solid #D35400;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-voltar:hover {
+  background-color: #D35400;
+  color: white;
+}
+
+.titulo-postagem-detalhada {
+  font-family: 'Barlow', sans-serif;
+  font-size: 2.6rem; /* Título bem destacado */
+  font-weight: 700;
+  color: #D35400; /* Laranja principal */
+  margin-bottom: 15px;
+  line-height: 1.3;
+  text-align: left; /* Alinhamento à esquerda */
+  overflow-wrap: break-word; /* ESSENCIAL: Quebra palavras longas para evitar overflow */
+  word-wrap: break-word; /* Fallback para navegadores mais antigos */
+  /* word-break: break-word;  Outra opção, geralmente break-word é suficiente */
+}
+
+.informacoes-postagem-meta {
+  display: flex;
+  flex-wrap: wrap; /* Permite quebra em telas menores */
+  gap: 10px 20px; /* Espaço entre itens meta */
+  font-size: 0.85rem;
+  color: #5a6a7a; /* Cinza para meta dados */
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef; /* Linha separadora sutil */
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-item strong {
+  color: #34495e; /* Cor mais escura para o nome do autor */
+  font-weight: 600;
+}
+
+.imagem-container-detalhada {
+  margin-bottom: 25px;
+  width: 100%;
+  max-height: 450px; /* Limita altura da imagem */
+  overflow: hidden;
+  border-radius: 8px; /* Bordas arredondadas para o container da imagem */
+  background-color: #f0f2f5; /* Cor de fundo para a área da imagem */
+}
+
+.imagem-postagem-detalhada {
+  width: 100%;
+  height: 100%; /* Faz a imagem preencher o container */
+  object-fit: cover; /* Garante que a imagem cubra sem distorcer */
+  display: block; /* Remove espaço extra abaixo da imagem */
+  border-radius: 8px; /* Se a imagem for menor que o container */
+}
+
+.conteudo-postagem-detalhada {
+  font-size: 1.05rem; /* Tamanho de fonte confortável para leitura */
+  line-height: 1.75; /* Espaçamento entre linhas generoso */
+  color: #34495e; /* Cor de texto principal */
+  white-space: pre-wrap; /* Preserva quebras de linha e espaços do conteúdo */
+  overflow-wrap: break-word; /* Adicionado aqui também por segurança para o conteúdo */
+  word-wrap: break-word;
+}
+
+/* Estilos para conteúdo HTML se vier do backend */
+.conteudo-postagem-detalhada h1,
+.conteudo-postagem-detalhada h2,
+.conteudo-postagem-detalhada h3,
+.conteudo-postagem-detalhada h4,
+.conteudo-postagem-detalhada h5,
+.conteudo-postagem-detalhada h6 {
+  color: #D35400;
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+  font-family: 'Barlow', sans-serif;
+  overflow-wrap: break-word; /* Para títulos dentro do conteúdo */
+  word-wrap: break-word;
+}
+.conteudo-postagem-detalhada p {
+  margin-bottom: 1em;
+}
+.conteudo-postagem-detalhada ul,
+.conteudo-postagem-detalhada ol {
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
+.conteudo-postagem-detalhada blockquote {
+  border-left: 3px solid #D35400;
+  padding-left: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 1em;
+  font-style: italic;
+  color: #5a6a7a;
+}
+.conteudo-postagem-detalhada code {
+  background-color: #f0f2f5;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: monospace;
+  overflow-wrap: break-word; /* Para código que pode ser longo */
+  word-wrap: break-word;
+}
+.conteudo-postagem-detalhada pre {
+  background-color: #f0f2f5;
+  padding: 1em;
+  border-radius: 4px;
+  overflow-x: auto; /* Permite rolagem horizontal para blocos de código longos */
+}
+.conteudo-postagem-detalhada pre code {
+  background-color: transparent;
+  padding: 0;
+  white-space: pre; /* Mantém a formatação do código */
+  overflow-wrap: normal; /* Não quebra palavras dentro de <pre><code> */
+  word-wrap: normal;
+}
+.conteudo-postagem-detalhada a {
+  color: #D35400;
+  text-decoration: underline;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.conteudo-postagem-detalhada a:hover {
+  color: #b34800;
+}
+
+
+/* Estilos para loading e error (reutilizados/adaptados de outros CSS) */
+.loading-container-full-page,
+.error-container-full-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px);
+  padding: 20px;
+  text-align: center;
+  flex-grow: 1; /* Para ocupar espaço no container flex da página */
+}
+
+.loading-container-full-page p,
+.error-container-full-page p {
+  font-size: 1.2rem;
+  color: #495057;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.error-container-full-page p {
+  color: #721c24;
+}
+
+.loading-spinner {
+  color: #D35400;
+  animation: spin 1.5s linear infinite;
+}
+/* @keyframes spin já definido em outros CSS, se não, adicione aqui */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+
+.cta-button.secondary { /* Estilo para o botão "Voltar" em caso de erro */
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.cta-button.secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .postagem-detalhada-page-container {
+    padding: 20px 15px;
   }
-  
-  .titulo-postagem {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+  .postagem-detalhada-card {
+    padding: 20px 25px;
   }
-  
-  .informacoes-postagem {
-    text-align: center;
+  .titulo-postagem-detalhada {
+    font-size: 2rem;
+  }
+  .informacoes-postagem-meta {
+    font-size: 0.8rem;
+    gap: 8px 15px;
+  }
+  .conteudo-postagem-detalhada {
     font-size: 1rem;
-    color: #0073e6; 
-    margin-bottom: 20px;  
   }
-  
-  .conteudo-postagem {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #555;
-    margin-bottom: 20px;
+}
+
+@media (max-width: 480px) {
+  .postagem-detalhada-card {
+    padding: 15px;
   }
-  
-  .imagem-postagem {
-    max-width: 100%;
-    height: auto;
-    margin-top: 20px;
-    border-radius: 8px;
+  .titulo-postagem-detalhada {
+    font-size: 1.7rem;
   }
-  
+  .informacoes-postagem-meta {
+    flex-direction: column; /* Empilha meta dados */
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .conteudo-postagem-detalhada {
+    font-size: 0.95rem;
+  }
+  .btn-voltar {
+    padding: 7px 12px;
+    font-size: 0.85rem;
+  }
+}

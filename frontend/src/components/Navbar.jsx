@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { FiLogOut } from 'react-icons/fi'; // ícone de logout
+import { FiLogOut } from 'react-icons/fi';
 import { COMPANY_NAME } from '../constants/company';
 import '../styles/Navbar.css';
 

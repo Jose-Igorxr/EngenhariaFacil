@@ -1,158 +1,274 @@
-.minhas-postagens {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    box-sizing: border-box;
-  }
-  
-  .titulo-pagina {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .erro-mensagem {
-    color: red;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .lista-postagens {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .postagem-item {
-    border-bottom: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    width: 100%; 
-  }
-  
-  .postagem-item h3 {
-    font-size: 1.5rem;
-    color: #333;
-  }
-  
-  .data-postagem {
-    font-size: 0.9rem;
-    color: #777;
-  }
-  
-  .acoes-postagem {
-    margin-top: 10px;
-  }
-  
-  .link-detalhes {
-    color: #0073e6;
-    text-decoration: none;
-  }
-  
-  .btn-editar, .btn-excluir {
-    border: none;
-    padding: 5px 12px;
-    margin-left: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-  
-  .btn-editar {
-    background-color: #0073e6; 
-    color: white;
-  }
-  
-  .btn-excluir {
-    background-color: #ff0000; 
-    color: white;
-  }
-  
-  .btn-editar:hover {
-    background-color: #005bb5;
-  }
-  
-  .btn-excluir:hover {
-    background-color: #cc0000;
-  }
-  
-  .paginacao {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .btn-paginacao {
-    background-color: #0073e6;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
-  .btn-paginacao:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .pagina-atual {
-    margin: 0 20px;
-  }
-  
-  .nova-postagem {
-    text-align: center;
-    margin-top: 30px;
-  }
-  
-  .btn-criar {
-    background-color: #D35400;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-size: 1.2rem;
-    border-radius: 5px;
-  }
-  
-  .btn-criar:hover {
-    background-color: #b34800;
-  }
-  
+/* src/styles/MinhasPostagens.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-  @media (max-width: 768px) {
-    .minhas-postagens {
-      padding: 10px;
-    }
-  
-    .postagem-item {
-      padding: 10px;
-    }
-  
-    .btn-paginacao {
-      padding: 8px 16px;
-    }
-  
-    .btn-criar {
-      font-size: 1rem;
-    }
-  }
+.minhas-postagens-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 25px 20px; /* Aumentado padding vertical */
+  font-family: 'Inter', sans-serif; /* Fonte consistente */
+  box-sizing: border-box;
+  min-height: calc(100vh - 120px); /* Tenta ocupar altura (ajuste 120px para altura do navbar+footer) */
+  display: flex;
+  flex-direction: column;
+  /* flex-grow: 1;  Se o pai for flex, isso ajuda a ocupar espaço */
+}
 
+.topo-postagens {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.titulo-pagina {
+  font-size: 2.2rem; /* Tamanho aumentado */
+  font-weight: 600; /* Peso da fonte */
+  color: #34495e; /* Cor escura consistente */
+  margin: 0;
+}
+
+.btn-criar-postagem {
+  background-color: #D35400; /* Cor laranja principal */
+  color: white;
+  padding: 10px 18px; /* Padding ajustado */
+  text-decoration: none;
+  font-size: 0.95rem; /* Tamanho da fonte ajustado */
+  font-weight: 500;
+  border-radius: 6px; /* Bordas arredondadas */
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  display: inline-flex; /* Para alinhar ícone e texto */
+  align-items: center;
+  gap: 8px; /* Espaço entre ícone e texto */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-criar-postagem:hover {
+  background-color: #b34800; /* Laranja mais escuro no hover */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.erro-mensagem-geral { /* Renomeado para evitar conflito com erros de input */
+  color: #c0392b; /* Vermelho mais suave */
+  background-color: #fbeae5; /* Fundo claro para erro */
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #e74c3c;
+  font-size: 0.9rem;
+}
+
+.loading-mensagem {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 1.1rem;
+  color: #555;
+  font-style: italic;
+}
+
+.lista-postagens {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espaço entre os cards de postagem */
+}
+
+.postagem-item-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e7ff; /* Borda sutil */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Para empurrar ações para baixo se necessário */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.postagem-item-card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+
+.postagem-conteudo {
+  margin-bottom: 15px;
+}
+
+.postagem-titulo {
+  font-size: 1.6rem; /* Tamanho do título do post */
+  color: #D35400; /* Título em laranja */
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.postagem-resumo {
+  font-size: 0.95rem;
+  color: #5a6a7a;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.data-postagem {
+  font-size: 0.8rem;
+  color: #7f8c8d; /* Cinza mais claro para data */
+  display: block; /* Para ocupar linha própria */
+}
+.data-postagem.data-atualizacao {
+  margin-top: 4px;
+  font-style: italic;
+}
+
+
+.acoes-postagem {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px; /* Espaço entre os botões de ação */
+  align-items: center;
+  flex-wrap: wrap; /* Permite quebra em telas menores */
+  padding-top: 15px;
+  border-top: 1px dashed #eee; /* Linha sutil acima das ações */
+}
+
+.btn-acao {
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-detalhes {
+  background-color: #3498db; /* Azul para detalhes */
+  color: white;
+}
+.btn-detalhes:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+}
+
+.btn-editar {
+  background-color: #f39c12; /* Amarelo/Laranja para editar */
+  color: white;
+}
+.btn-editar:hover {
+  background-color: #e67e22;
+  transform: translateY(-1px);
+}
+
+.btn-excluir {
+  background-color: #e74c3c; /* Vermelho para excluir */
+  color: white;
+}
+.btn-excluir:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
+
+.sem-postagens-container {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 20px;
+  border: 1px dashed #ddd;
+  flex-grow: 1; /* Ajuda a ocupar espaço vertical se for o único conteúdo */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sem-postagens-texto {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sem-postagens-sugestao {
+  font-size: 1rem;
+  color: #777;
+}
+
+.link-criar-sem-postagens {
+  color: #D35400;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color 0.2s ease;
+}
+
+.link-criar-sem-postagens:hover {
+  border-bottom-color: #D35400;
+}
+
+/* Removido hr global, pois os itens de postagem têm sua própria borda */
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .minhas-postagens-container {
+    padding: 20px 15px;
+  }
   .topo-postagens {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch; /* Botão ocupa largura total */
+    text-align: center;
   }
-  
   .titulo-pagina {
-    margin: 0;
+    font-size: 1.8rem;
   }
-  
-  hr {
-    margin-top: 20px; 
+  .btn-criar-postagem {
+    font-size: 0.9rem;
+    padding: 10px 15px;
+    justify-content: center; /* Centraliza ícone e texto */
   }
-  
+  .postagem-titulo {
+    font-size: 1.4rem;
+  }
+  .acoes-postagem {
+    flex-direction: column; /* Empilha botões em telas menores */
+    align-items: stretch; /* Botões ocupam largura total */
+  }
+  .btn-acao {
+    width: 100%;
+    justify-content: center; /* Centraliza ícone e texto nos botões empilhados */
+    margin-left: 0; /* Remove margem quando empilhado */
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo-pagina {
+    font-size: 1.6rem;
+  }
+  .postagem-titulo {
+    font-size: 1.2rem;
+  }
+  .postagem-resumo {
+    font-size: 0.9rem;
+  }
+  .btn-acao {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+  .sem-postagens-texto {
+    font-size: 1rem;
+  }
+  .sem-postagens-sugestao {
+    font-size: 0.9rem;
+  }
+}
