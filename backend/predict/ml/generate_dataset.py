@@ -5,7 +5,7 @@ import os
 
 def generate_dataset():
     # Configurações
-    num_samples = 999_999
+    num_samples = 10_000_000
     script_dir = os.path.dirname(os.path.abspath(__file__))
     dataset_path = os.path.join(script_dir, 'dataset.csv')
 
