@@ -9,7 +9,7 @@
 /* Painel esquerdo com títulos e mensagem */
 .login-left {
   flex: 1;
-  background-color: #2c3e50; /* Fundo escuro para a área esquerda */
+  background-color: #D35400; /* Fundo escuro para a área esquerda */
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -36,7 +36,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #212121; /* Fundo claro para a área direita */
+  background-color: #fff; /* Fundo claro para a área direita */
   padding: 20px;
 }
 
@@ -45,7 +45,7 @@
   background-color: #fff; /* Caixa de login com fundo branco */
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px #D35400;
   width: 100%;
   max-width: 400px;
   text-align: center;
@@ -97,7 +97,7 @@
 .button {
   padding: 12px;
   font-size: 16px;
-  background-color: #212121 !important;
+  background-color: #D35400 !important;
   color: #fff;
   border: none;
   border-radius: 4px;

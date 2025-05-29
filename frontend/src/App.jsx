@@ -5,13 +5,20 @@ import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import Perfil from './pages/Perfil';
 import Sobre from './pages/Sobre';
-import Predict from './pages/Predict';
+
+import PostagensList from './pages/PostagensList';
+import PostagemDetalhada from './pages/PostagemDetalhada';
+import MinhasPostagens from './pages/MinhasPostagens';
 import PrivateLayout from './components/PrivateLayout';
+import EditarPostagem from './pages/EditarPostagem';
+import CriarPostagem from './pages/CriarPostagem';
+
+import Predict from './pages/Predict';
 
 
 const PrivateRoute = ({ element }) => {
   const token = localStorage.getItem('access_token');
-  return token ? <PrivateLayout>{element}</PrivateLayout> : <Navigate to="/login" />;
+  return token ? <PrivateLayout>{element}</PrivateLayout> : <Navigate to="/" />;
 };
 
 function App() {
@@ -23,6 +30,11 @@ function App() {
       <Route path="/home" element={<PrivateRoute element={<Home />} />} />
       <Route path="/perfil" element={<PrivateRoute element={<Perfil />} />} />
       <Route path="/sobre" element={<PrivateRoute element={<Sobre />} />} />
+      <Route path="/postagens" element={<PrivateRoute element={<PostagensList />} />} />
+      <Route path="/postagens/:id" element={<PrivateRoute element={<PostagemDetalhada />} />} />
+      <Route path="/minhas-postagens" element={<PrivateRoute element={<MinhasPostagens />} />} />
+      <Route path="/criar-postagem" element={<PrivateRoute element={<CriarPostagem />} />} />
+      <Route path="/editar-postagem/:id" element={<PrivateRoute element={<EditarPostagem />} />} />
       <Route path="/predict" element={<PrivateRoute element={<Predict />} />} />
     </Routes>
   );

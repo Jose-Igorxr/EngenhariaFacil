@@ -1,0 +1,154 @@
+/* EditarPostagem.css */
+
+.editar-postagem-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha o card ao topo se a página for maior */
+    min-height: calc(100vh - 80px); /* Ajuste 80px pela altura do seu header/navbar */
+    background-color: #f4f7fa;
+    padding: 40px 20px; /* Mais padding vertical */
+    font-family: 'Segoe UI', sans-serif;
+    box-sizing: border-box;
+  }
+  
+  .form-card {
+    background-color: white;
+    border-radius: 10px; /* Consistente com .post-card */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra um pouco mais pronunciada */
+    width: 100%;
+    max-width: 700px; /* Um pouco menor que o profile-card para formulários */
+    padding: 30px 40px; /* Mais padding horizontal */
+    box-sizing: border-box;
+  }
+  
+  .form-card h2 {
+    font-size: 1.8rem; /* Maior para o título do formulário */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  
+  .profile-form-similar .form-group { /* Reutilizando a ideia de .input-group */
+    margin-bottom: 20px;
+  }
+  
+  .profile-form-similar .form-group label {
+    display: block; /* Faz o label ocupar a linha inteira */
+    font-size: 0.9rem;
+    font-weight: bold; /* Labels mais destacados */
+    color: #444;
+    margin-bottom: 8px;
+  }
+  
+  .profile-form-similar .form-group input[type="text"],
+  .profile-form-similar .form-group textarea,
+  .profile-form-similar .form-group input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .profile-form-similar .form-group input[type="file"] {
+    padding: 8px 12px; /* Ajuste para input file */
+    background-color: white; /* Input file geralmente não tem fundo customizado */
+  }
+  
+  
+  .profile-form-similar .form-group input[type="text"]:focus,
+  .profile-form-similar .form-group textarea:focus {
+    border-color: #D35400; /* Cor de destaque laranja no foco */
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(211, 84, 0, 0.25); /* Sombra de foco laranja */
+  }
+  
+  .profile-form-similar .form-group textarea {
+    resize: vertical; /* Permite redimensionamento vertical */
+    min-height: 120px;
+  }
+  
+  .image-preview-container {
+    margin-top: 15px;
+    text-align: left; /* Alinha o texto à esquerda */
+  }
+  
+  .image-preview-container p {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  .image-preview {
+    max-width: 200px; /* Tamanho máximo para a prévia */
+    max-height: 200px;
+    height: auto;
+    border-radius: 8px; /* Consistente com .post-imagem */
+    border: 1px solid #eee;
+    object-fit: cover;
+  }
+  
+  .form-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end; /* Alinha botões à direita */
+    gap: 15px; /* Espaço entre os botões */
+  }
+  
+  .cta-button { /* Estilo base do seu botão laranja */
+    background-color: #D35400;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+  
+  .cta-button:hover:not(:disabled) {
+    background-color: #b34800;
+    transform: translateY(-1px);
+  }
+  
+  .cta-button:disabled {
+    background-color: #f3a375; /* Laranja mais claro para desabilitado */
+    cursor: not-allowed;
+  }
+  
+  .cta-button.secondary {
+    background-color: #6c757d; /* Cinza para ações secundárias como "Cancelar" */
+    color: white;
+  }
+  
+  .cta-button.secondary:hover:not(:disabled) {
+    background-color: #5a6268;
+  }
+  
+  
+  .loading-container,
+  .error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .error-message { /* Já definido por você, mas pode ajustar se quiser */
+    font-size: 0.9rem;
+    color: #e74c3c; /* Vermelho para erros */
+    background-color: #fdd; /* Fundo levemente avermelhado */
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 15px;
+    text-align: center;
+  }

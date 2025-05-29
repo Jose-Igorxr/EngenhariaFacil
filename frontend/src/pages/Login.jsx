@@ -24,10 +24,11 @@ const Login = () => {
       // Salvando tokens
       localStorage.setItem('access_token', response.access);
       localStorage.setItem('refresh_token', response.refresh);
+      localStorage.setItem('userId', response.user_id);
 
       console.log("💾 Tokens salvos no localStorage");
 
-      navigate('/Home'); // Redireciona para o Home
+      navigate('/Home'); 
     } catch (error) {
       console.error("❌ Erro ao fazer login:", error.message);
       if (error.response) {

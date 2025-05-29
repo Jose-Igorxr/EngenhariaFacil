@@ -7,7 +7,7 @@
 
 /* Ícones */
 svg, .feature-icon {
-  color: #F28C38 !important; /* Laranja vibrante para ícones */
+  color: black !important; /* Laranja vibrante para ícones */
   font-size: 36px;
   min-width: 36px;
   min-height: 36px;
@@ -27,7 +27,7 @@ svg, .feature-icon {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #F28C38; /* Laranja sólido */
+  background: #D35400; /* Laranja sólido */
   padding: 20px 40px;
   color: #FFFFFF;
 }
@@ -72,7 +72,7 @@ svg, .feature-icon {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #F28C38; /* Laranja sólido */
+  background: #D35400; /* Laranja sólido */
   padding: 20px 40px;
   color: #FFFFFF;
 }
@@ -141,7 +141,7 @@ svg, .feature-icon {
   width: 100%;
   overflow: hidden;
   border-radius: 8px;
-  border: 1px solid #F28C38; /* Laranja para borda */
+  border: 1px solid #D35400; /* Laranja para borda */
 }
 
 .carousel-inner {
@@ -168,7 +168,7 @@ svg, .feature-icon {
   left: 20px;
   font-size: 22px;
   color: #FFFFFF;
-  background: rgba(242, 140, 56, 0.7); /* Laranja semi-transparente */
+  background: #D35400; /* Laranja semi-transparente */
   padding: 8px 16px;
   border-radius: 8px;
 }
@@ -177,7 +177,7 @@ svg, .feature-icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: #F28C38;
+  background: #D35400;
   color: #FFFFFF;
   border: none;
   padding: 10px;
@@ -204,7 +204,7 @@ svg, .feature-icon {
 .hero-content h1 {
   font-size: 38px;
   margin-bottom: 20px;
-  color: #2C3E50;
+  
 }
 
 .hero-content p {
@@ -215,7 +215,7 @@ svg, .feature-icon {
 
 .cta-button {
   padding: 15px 30px;
-  background: #F28C38; /* Laranja */
+  background: #D35400; /* Laranja */
   color: #FFFFFF;
   font-size: 18px;
   border-radius: 5px;
@@ -240,7 +240,7 @@ svg, .feature-icon {
   font-size: 32px;
   margin-bottom: 40px;
   color: #2C3E50;
-  border-bottom: 2px solid #F28C38; /* Borda laranja */
+  border-bottom: 2px solid #D35400; /* Borda laranja */
   display: inline-block;
   padding-bottom: 10px;
 }
@@ -256,7 +256,7 @@ svg, .feature-icon {
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #F28C38; /* Laranja */
+  border: 1px solid #D35400; /* Laranja */
 }
 
 .feature-item h3 {
@@ -280,7 +280,7 @@ svg, .feature-icon {
 .pricing h2 {
   font-size: 36px;
   margin-bottom: 20px;
-  border-bottom: 2px solid #F28C38; /* Borda laranja */
+  border-bottom: 2px solid #D35400; /* Borda laranja */
   display: inline-block;
   padding-bottom: 10px;
 }
@@ -307,7 +307,7 @@ svg, .feature-icon {
   position: relative;
   overflow: hidden;
   max-width: 350px;
-  border: 1px solid #F28C38; /* Laranja */
+  border: 1px solid #D35400; /* Laranja */
 }
 
 .pricing-card:hover {
@@ -327,7 +327,7 @@ svg, .feature-icon {
   font-size: 26px;
   margin-bottom: 10px;
   font-weight: bold;
-  color: #F28C38; /* Laranja */
+  color: #D35400; /* Laranja */
 }
 
 .pricing-card .description {
@@ -352,13 +352,13 @@ svg, .feature-icon {
 
 .pricing-card ul li::before {
   content: '✓';
-  color: #F28C38; /* Laranja */
+  color: #D35400; /* Laranja */
   margin-right: 8px;
 }
 
 .pricing-card button {
   padding: 12px 25px;
-  background: #F28C38; /* Laranja */
+  background: #D35400; /* Laranja */
   border: 2px solid #2C3E50;
   border-radius: 6px;
   color: #FFFFFF;
@@ -374,7 +374,7 @@ svg, .feature-icon {
 /* Destaque no plano Empresarial */
 .pricing-card.highlighted {
   background: #FFFFFF; /* Fundo branco */
-  border: 2px solid #F28C38; /* Borda laranja */
+  border: 2px solid #D35400; /* Borda laranja */
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
@@ -388,7 +388,7 @@ svg, .feature-icon {
   position: absolute;
   top: 0;
   right: -10px;
-  background: #F28C38; /* Laranja */
+  background: #D35400; /* Laranja */
   color: #FFFFFF;
   padding: 6px 18px;
   font-size: 14px;
@@ -406,7 +406,7 @@ svg, .feature-icon {
 .testimonials h2 {
   font-size: 32px;
   margin-bottom: 30px;
-  border-bottom: 2px solid #F28C38; /* Borda laranja */
+  border-bottom: 2px solid #D35400; /* Borda laranja */
   display: inline-block;
   padding-bottom: 10px;
 }
@@ -423,7 +423,7 @@ svg, .feature-icon {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #F28C38; /* Laranja */
+  border: 1px solid #D35400; /* Laranja */
 }
 
 .testimonial-item p {
@@ -433,7 +433,7 @@ svg, .feature-icon {
 
 .testimonial-item span {
   font-weight: bold;
-  background: #F28C38; /* Laranja */
+  background: #D35400; /* Laranja */
   color: #FFFFFF;
   padding: 4px 8px;
   border-radius: 4px;
@@ -441,7 +441,7 @@ svg, .feature-icon {
 
 /* Rodapé */
 .landing-footer {
-  background: #F28C38; /* Laranja sólido */
+  background: #D35400; /* Laranja sólido */
   color: #FFFFFF;
   text-align: center;
   padding: 15px 15px;

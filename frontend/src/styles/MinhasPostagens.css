@@ -1,0 +1,158 @@
+.minhas-postagens {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+  }
+  
+  .titulo-pagina {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .erro-mensagem {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .lista-postagens {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .postagem-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    width: 100%; 
+  }
+  
+  .postagem-item h3 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .data-postagem {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .acoes-postagem {
+    margin-top: 10px;
+  }
+  
+  .link-detalhes {
+    color: #0073e6;
+    text-decoration: none;
+  }
+  
+  .btn-editar, .btn-excluir {
+    border: none;
+    padding: 5px 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .btn-editar {
+    background-color: #0073e6; 
+    color: white;
+  }
+  
+  .btn-excluir {
+    background-color: #ff0000; 
+    color: white;
+  }
+  
+  .btn-editar:hover {
+    background-color: #005bb5;
+  }
+  
+  .btn-excluir:hover {
+    background-color: #cc0000;
+  }
+  
+  .paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .btn-paginacao {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .btn-paginacao:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagina-atual {
+    margin: 0 20px;
+  }
+  
+  .nova-postagem {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .btn-criar {
+    background-color: #D35400;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 5px;
+  }
+  
+  .btn-criar:hover {
+    background-color: #b34800;
+  }
+  
+
+  @media (max-width: 768px) {
+    .minhas-postagens {
+      padding: 10px;
+    }
+  
+    .postagem-item {
+      padding: 10px;
+    }
+  
+    .btn-paginacao {
+      padding: 8px 16px;
+    }
+  
+    .btn-criar {
+      font-size: 1rem;
+    }
+  }
+
+  .topo-postagens {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .titulo-pagina {
+    margin: 0;
+  }
+  
+  hr {
+    margin-top: 20px; 
+  }
+  
