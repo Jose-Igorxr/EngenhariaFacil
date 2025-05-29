@@ -1,11 +1,9 @@
-# views.py
-
 from rest_framework.permissions import IsAuthenticated
 from postagens.models import Post
 from .serializers import PostSerializer
 from postagens.models import Comentarios
 from .serializers import ComentariosSerializer
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters # Adicionado filters
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -13,6 +11,10 @@ from rest_framework.response import Response
 class PostListCreateView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['titulo', 'conteudo', 'autor__username']
+    ordering_fields = ['data_publicacao', 'titulo']
+
 
     def get_permissions(self):
         if self.request.method == 'POST':

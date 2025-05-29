@@ -10,7 +10,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -19,10 +19,10 @@ const Navbar = () => {
       <nav className="nav-menu">
         <Link to="/home" className="nav-link"><b>INÍCIO</b></Link>
         <Link to="/perfil" className="nav-link"><b>PERFIL</b></Link>
-        <Link to="/sobre" className="nav-link"><b>SOBRE</b></Link>
         <Link to="/postagens" className="nav-link"><b>POSTAGENS</b></Link>
         <Link to="/minhas-postagens" className="nav-link"><b>POSTAGENS PESSOAIS</b></Link>
-        <Link to="/predict" className="nav-link">CALCULAR MATERIAIS</Link>  
+        <Link to="/predict" className="nav-link"><b>CALCULAR MATERIAIS</b></Link>  
+        <Link to="/sobre" className="nav-link"><b>SOBRE</b></Link>
         <button onClick={handleLogout} className="logout-button" title="Sair">
           <FiLogOut size={20} />      
         </button>

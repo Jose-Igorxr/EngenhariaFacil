@@ -1,0 +1,161 @@
+/* CriarPostagem.css - Estilos similares ao EditarPostagem.css */
+
+.criar-postagem-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px); /* Ajuste pela altura do seu header/navbar */
+    background-color: #f4f7fa; /* Mesma cor de fundo */
+    padding: 40px 20px;
+    font-family: 'Segoe UI', sans-serif;
+    box-sizing: border-box;
+  }
+  
+  /* Reutilizando .form-card do EditarPostagem.css */
+  /* Se você tiver um arquivo CSS global, pode definir .form-card lá */
+  .form-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    padding: 30px 40px;
+    box-sizing: border-box;
+  }
+  
+  .form-card h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  
+  /* Reutilizando .profile-form-similar e .form-group do EditarPostagem.css */
+  .profile-form-similar .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .profile-form-similar .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 8px;
+  }
+  
+  .profile-form-similar .form-group input[type="text"],
+  .profile-form-similar .form-group textarea,
+  .profile-form-similar .form-group input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .profile-form-similar .form-group input[type="file"] {
+    padding: 8px 12px;
+    background-color: white;
+  }
+  
+  .profile-form-similar .form-group input[type="text"]:focus,
+  .profile-form-similar .form-group textarea:focus {
+    border-color: #D35400; /* Cor de destaque laranja */
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(211, 84, 0, 0.25);
+  }
+  
+  .profile-form-similar .form-group textarea {
+    resize: vertical;
+    min-height: 150px; /* Um pouco mais de altura para o conteúdo da postagem */
+  }
+  
+  /* Reutilizando .image-preview-container e .image-preview do EditarPostagem.css */
+  .image-preview-container {
+    margin-top: 15px;
+    text-align: left;
+  }
+  
+  .image-preview-container p {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  .image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    object-fit: cover;
+  }
+  
+  /* Reutilizando .form-actions e .cta-button do EditarPostagem.css */
+  .form-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  
+  .cta-button {
+    background-color: #D35400;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+  
+  .cta-button:hover:not(:disabled) {
+    background-color: #b34800;
+    transform: translateY(-1px);
+  }
+  
+  .cta-button:disabled {
+    background-color: #f3a375; /* Laranja mais claro para desabilitado */
+    cursor: not-allowed;
+  }
+  
+  .cta-button.secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .cta-button.secondary:hover:not(:disabled) {
+    background-color: #5a6268;
+  }
+  
+  /* Reutilizando .error-message e .success-message do EditarPostagem.css */
+  /* (ou do seu CSS global) */
+  .error-message {
+    font-size: 0.9rem;
+    color: #e74c3c;
+    background-color: #fdd;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 15px;
+    margin-bottom: 15px; /* Adicionado para espaçamento se houver botão abaixo */
+    text-align: center;
+  }
+  
+  .success-message {
+    font-size: 0.9rem;
+    color: #28a745; /* Verde para sucesso */
+    background-color: #d4edda; /* Fundo levemente esverdeado */
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+  }

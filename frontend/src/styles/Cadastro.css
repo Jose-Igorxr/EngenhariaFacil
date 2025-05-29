@@ -20,7 +20,7 @@ body, html {
 /* Painel esquerdo com títulos e mensagem */
 .cadastro-left {
   flex: 1;
-  background-color: #2c3e50;
+  background-color: #D35400;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #212121;
+  background-color: #fff;
   padding: 15px; /* Reduzido de 20px */
 }
 
@@ -57,7 +57,7 @@ body, html {
   background-color: #fff;
   padding: 30px; /* Reduzido de 40px */
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px #D35400;
   width: 100%;
   max-width: 360px; /* Reduzido de 400px para compactar */
   text-align: center;

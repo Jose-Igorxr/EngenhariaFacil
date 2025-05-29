@@ -205,12 +205,14 @@ const Perfil = () => {
 <div className="profile-container">
   <section className="profile-card">
     <div className="profile-header">
-      <div className="profile-image-wrapper">
-        {profileImagePreview ? (
-          <img src={profileImagePreview} alt="Perfil" className="profile-image" />
-        ) : (
-          <div className="profile-image-placeholder">+</div>
-        )}
+      <div className="avatar-section">
+        <div className="profile-image-wrapper">
+          {profileImagePreview ? (
+            <img src={profileImagePreview} alt="Perfil" className="profile-image" />
+          ) : (
+            <div className="profile-image-placeholder">+</div>
+          )}
+        </div>
         <input
           type="file"
           accept="image/*"
@@ -264,7 +266,6 @@ const Perfil = () => {
 
       <div className="profile-section">
         <h2>Alterar Senha</h2>
-
         <div className="input-group">
           <label htmlFor="current-password">Senha Atual</label>
           <div className="input-wrapper">

@@ -14,11 +14,11 @@ import EditarPostagem from './pages/EditarPostagem';
 import CriarPostagem from './pages/CriarPostagem';
 
 import Predict from './pages/Predict';
-import './App.css';
+
 
 const PrivateRoute = ({ element }) => {
   const token = localStorage.getItem('access_token');
-  return token ? <PrivateLayout>{element}</PrivateLayout> : <Navigate to="/login" />;
+  return token ? <PrivateLayout>{element}</PrivateLayout> : <Navigate to="/" />;
 };
 
 function App() {

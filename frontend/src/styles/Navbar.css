@@ -38,7 +38,7 @@
 .logout-button {
   background: none;
   border: none;
-  color: white;
+  color: black;
   cursor: pointer;
   padding: 4px;
   transition: color 0.2s ease;
